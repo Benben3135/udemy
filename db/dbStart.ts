@@ -25,6 +25,7 @@ export const courseSchema = new mongoose.Schema({
   courseContent: String,
   requirements: [String],
   fullDescription: String,
+  course_img: String
 });
 
 export const Course = mongoose.model('Course', courseSchema);
@@ -81,6 +82,7 @@ const generateRandomCourses = (count:number) => {
         faker.lorem.sentence()
       ),
       fullDescription: faker.lorem.paragraphs(5),
+      course_img: faker.image.urlPicsumPhotos()
     };
 //@ts-ignore
     courses.push(course);
