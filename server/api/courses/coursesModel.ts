@@ -1,13 +1,2 @@
-import mongoose, { Model , Schema , model } from 'mongoose';
-
-interface Course {
-
-
-
-}
-
-const courseSchema = new Schema<Course>({
-
-})
-
-const userModel:Model<Course> = mongoose.model("users" , courseSchema)
+import mongoose from "mongoose";
+import {Course} from "../../../db/dbStart"
