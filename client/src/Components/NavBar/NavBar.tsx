@@ -68,7 +68,7 @@ const NavBar = () => {
                         onClick={() =>
                           navigate(`/categoryPage?category=${category}`)
                         }
-                        // TODO: category page navigation
+                      // TODO: category page navigation
                       >
                         <div>{category}</div>
                         <div>
@@ -113,7 +113,7 @@ const NavBar = () => {
                 ) : (
                   <a
                     className=" text-Udemygray-500 hover:text-Udemyblue-300  text-[0.9rem] tracking-tight"
-                    href="teach on udemy page"
+                    href="teaching"
                   >
                     Teach on Udemy
                   </a>
@@ -178,7 +178,7 @@ const NavBar = () => {
                         onClick={() =>
                           navigate(`/categoryPage?category=${category}`)
                         }
-                        // TODO: category page navigation
+                      // TODO: category page navigation
                       >
                         <div>{category}</div>
                         <div>
@@ -214,7 +214,7 @@ const NavBar = () => {
             <div className=" h-full w-32 flex flex-col justify-center items-center">
               <a
                 className=" text-Udemygray-500 hover:text-Udemyblue-300  text-[0.9rem] tracking-tight"
-                href="teach on udemy page"
+                href="teaching"
               >
                 Teach on Udemy
               </a>
