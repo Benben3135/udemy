@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { isUserSelector } from "../../features/user/isUserSlice";
 
 //UI
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Divider } from "@mui/material";
-import { categories } from "../../util/categories";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import Badge from "@mui/material/Badge";
+import { categories } from "../../util/categories";
 
 const NavBar = () => {
   //initials
@@ -22,7 +20,7 @@ const NavBar = () => {
   const [search, setSearch] = useState<string>("");
   // TODO: write regex/search function
 
-  const [isUser, setIsUser] = useState<boolean>(true);
+  const [isUser, setIsUser] = useState<boolean>(false);
   const [isInstructor, setIsInstructor] = useState<boolean>(true);
 
   //useEffects
