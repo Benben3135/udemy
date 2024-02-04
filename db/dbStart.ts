@@ -69,7 +69,7 @@ const generateRandomCourses = (count:number) => {
       lastUpdated: faker.date.past(),
       language: 'English',
       subtitlesLanguage: 'English',
-      fullPrice: Math.random() * 100,
+      fullPrice: Math.floor(Math.random() * 100),
       discountPrice: Math.random() * 80,
       secondDescriptions: Array.from({ length: Math.floor(Math.random() * 3) + 7 }, () =>
         faker.lorem.sentence()
