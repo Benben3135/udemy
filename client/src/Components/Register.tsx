@@ -1,142 +1,112 @@
-import React, { useEffect, useState } from 'react'
-import {registerUser} from '../../api/userApi/registerApi'
-import { useNavigate } from 'react-router-dom'
-import {  motion} from 'framer-motion'
-import { Input } from '@mui/material'
-import { CircleUser, User,Lock, CheckCheck } from 'lucide-react'
+import React, { useEffect, useState } from "react";
+import { registerUser } from "../../api/userApi/registerApi";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Divider, Input } from "@mui/material";
+import { CircleUser, User, Lock, CheckCheck } from "lucide-react";
+import Checkbox from "@mui/material/Checkbox";
 
 const Register = () => {
-    const [name,setName ] = useState<string>("")
-    const [email,setEmail ] = useState<string>("")
-    const [password,setPassword ] = useState<string>("")
-    const [confirmPassword,setConfirmPassword ] = useState<string>("")
-    const [match, setMatch] = useState(true)
-    const navigate = useNavigate()
-  const [loading, setLoading] = useState(false)
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
-    debugger;
-    setLoading(true)
-    if (match) {
-      const user = await registerUser( email, password )
+    setLoading(true);
+      const user = await registerUser(email, password);
 
       if (user) {
-        setLoading(false)
-      navigate("/login-page")
-      
-        console.log("Registration successful!")
+        setLoading(false);
+        navigate("/login-page");
+
+        console.log("Registration successful!");
       } else {
-        console.error("Registration failed.")
+        console.error("Registration failed.");
       }
-    }
-  }
+  };
   useEffect(() => {
-    handleSubmit()
-  }, [])
-
-
+    handleSubmit();
+  }, []);
 
   return (
-    <div className=" bg-gradient-to-br from-slate-300 to-slate-900 h-screen w-screen overflow-hidden">
-      <div className=" h-fit mt-16 w-full flex flex-col items-center justify-center">
-        <div className=" w-fit h-fit mt-20 flex flex-col items-center justify-center">
-          <h1 className=" text-6xl antialiased font-bold tracking-tight text-slate-700">
-            Welcome to the best movies reviews site{" "}
-            <span className=" text-red-600">out there</span>.
-          </h1>
-          <h2 className="text-2xl max-w-prose antialiased font-normal tracking-tight text-slate-600">
-            Login is completely free. We suggest you to try our{" "}
-            <span
-              onClick={() => navigate("/")}
-              className=" underline hover:text-blue-800 cursor-pointer transition-all"
-            >
-              PRO plan
-            </span>{" "}
-            for proffesional critics.
-          </h2>
+    <div className=" w-screen h-[35rem] flex flex-col justify-center items-center">
+      <div className=" w-[28rem] mx-20 py-20 px-10 flex flex-col items-start justify-start">
+        <h2 className=" mb-[1.6rem] leading-[1.2rem] tracking-normal font-bold text-Udemygray-500 text-lg font-sans">
+          Sign up and start learning
+        </h2>
+        <div className=" w-full h-16 border border-black mb-2">
+          <input
+            onInput={(ev) => setName((ev.target as HTMLInputElement).value)}
+            type="text"
+            className=" w-3/4 placeholder:text-Udemygray-500 placeholder:font-bold mt-5 ml-5 focus:font-extralight focus:text-xs focus:mt-2 focus:ml-2 transition-all outline-none"
+            placeholder="Full name"
+          />
         </div>
-        <motion.div
-        initial={{opacity:0,y:-50}}
-        animate={{opacity:1,y:0}}
-        className=" mt-14 w-96 bg-gradient-to-b from-slate-300 to-red-300 rounded-lg flex flex-col justify-center items-center shadow-md p-4">
-          <div className="w-[22rem] bg-gradient-to-b from-slate-600 to-slate-900 rounded-lg shadow-lg flex flex-col items-center justify-start p-2 h-fit">
-            <h1 className=" text-3xl font-bold font-sans text-slate-300 antialiased">
-              Register
-            </h1>
-            <div className=" mt-8 w-full">
-              <form className=" flex flex-col items-start justify-center gap-2">
-                <div className=" flex flex-row items-center justify-start w-full gap-2">
-                  <User className=" text-gray-200" />
-                  <Input
-                    onInput={(ev) =>
-                      setName((ev.target as HTMLInputElement).value)
-                    }
-                    className=" flex-grow"
-                    type="text"
-                    placeholder="Full Name"
-                  />
-                </div>
-                <div className=" flex flex-row items-center justify-start w-full gap-2">
-                  <CircleUser className=" text-gray-200" />
-                  <Input
-                    onInput={(ev) =>
-                      setEmail((ev.target as HTMLInputElement).value)
-                    }
-                    className=" flex-grow"
-                    type="email"
-                    placeholder="email"
-                  />
-                </div>
-                <div
-                  onInput={(ev) =>
-                    setPassword((ev.target as HTMLInputElement).value)
-                  }
-                  className=" flex flex-row items-center justify-start w-full gap-2"
-                >
-                  <Lock className=" text-gray-200" />
-                  <Input
-                    className=" flex-grow"
-                    type="text"
-                    placeholder="Create a new password"
-                  />
-                </div>
-                <div
-                  onInput={(ev) =>
-                    setConfirmPassword((ev.target as HTMLInputElement).value)
-                  }
-                  className=" flex flex-row items-center justify-start w-full gap-2"
-                >
-                  <CheckCheck
-                    className={match ? " text-green-600" : "text-red-600"}
-                  />
-                  <Input
-                    className=" flex-grow"
-                    type="text"
-                    placeholder="Confirm password"
-                  />
-                </div>
-                <div className=" w-full h-fit text-center text-red-800 text-lg font-sans antialiased">
-                </div>
-                <div
-                  onClick={() => handleSubmit()}
-                  className=" w-full h-10 flex flex-col items-center justify-center mt-2"
-                >
-                  <div className=" bg-slate-200 rounded-lg h-fit p-2 w-4/5 text-center hover:bg-slate-300 cursor-pointer transition-all">
-                    Submit
-                  </div>
-                </div>
-                <div onClick={() => navigate("/login-page")} className=" w-full flex flex-row justify-center items-center h-fit rounded-xl hover:bg-slate-400 transition-all cursor-pointer">
-                  <p className=" font-bold text-slate-300">
-                    already have an account?
-                  </p>
-                </div>
-              </form>
-            </div>
-          </div>
-        </motion.div>
+        <div className=" w-full h-16 border border-black mb-2">
+          <input
+            onInput={(ev) => setEmail((ev.target as HTMLInputElement).value)}
+            type="text"
+            className=" w-3/4 placeholder:text-Udemygray-500 placeholder:font-bold mt-5 ml-5 focus:font-extralight focus:text-xs focus:mt-2 focus:ml-2 transition-all outline-none"
+            placeholder="Email"
+          />
+        </div>
+        <div className=" w-full h-16 border border-black mb-2">
+          <input
+            onInput={(ev) => setPassword((ev.target as HTMLInputElement).value)}
+            type="password"
+            className=" w-3/4 placeholder:text-Udemygray-500 placeholder:font-bold mt-5 ml-5 focus:font-extralight focus:text-xs focus:mt-2 focus:ml-2 transition-all outline-none"
+            placeholder="Password"
+          />
+        </div>
+        <div className=" flex flex-row h-fit w-fit justify-center items-center gap-[0.18rem] mt-2">
+          <div className=" bg-Udemygray-200 h-[0.26rem] w-[2.7rem] rounded-full"></div>
+          <div className=" bg-Udemygray-200 h-[0.26rem] w-[2.7rem] rounded-full"></div>
+          <div className=" bg-Udemygray-200 h-[0.26rem] w-[2.7rem] rounded-full"></div>
+          <div className=" bg-Udemygray-200 h-[0.26rem] w-[2.7rem] rounded-full"></div>
+        </div>
+        <div className=" w-full h-16 mt-4 flex flex-row items-start justify-start">
+          <Checkbox className=" pt-0" color="default" />
+          <p className=" mt-2 text-sm">
+            Send me special offers, personalized recommendations, and learning
+            tips.
+          </p>
+        </div>
+        <div
+        onClick={() => handleSubmit()}
+        className="flex flex-row justify-center items-center w-full h-12 bg-Udemypurple-300 hover:bg-Udemypurple-600 cursor-pointer">
+          <h1 className=" text-center text-white font-bold text-lg">Sign up</h1>
+        </div>
+        <h1 className=" text-xs mt-5">
+          By signing up, you agree to our{" "}
+          <span
+            style={{ textDecorationColor: "blue" }}
+            className=" underline underline-offset-4 cursor-pointer "
+          >
+            Terms of Use
+          </span>{" "}
+          and{" "}
+          <span
+            style={{ textDecorationColor: "blue" }}
+            className=" underline underline-offset-4 cursor-pointer "
+          >
+            Privacy Policy
+          </span>
+          .
+        </h1>
+        <Divider className="pt-3 w-full text-black" />
+        <div className=" w-full h-8 flex flex-row items-center justify-center">
+          <h1 className="text-sm">
+            Already have an account?{" "}
+            <span className=" text-Udemyblue-300 underline underline-offset-4 font-bold">
+              Log in
+            </span>
+          </h1>
+        </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;

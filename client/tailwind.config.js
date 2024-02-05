@@ -81,6 +81,7 @@ export default {
           200: '#e1b8fc',
           150: '#ebd3fc',
           100: '#f6eefc',
+          600: '#8710d8'
         },
         Udemywhite: '#fff',
       },

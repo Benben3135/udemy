@@ -48,7 +48,7 @@ const NavBar = () => {
     <div>
       {isUser ? (
         <div>
-          <div className=" w-screen h-[72px] flex flex-row justify-between items-center bg-white px-[1.8rem]">
+          <div className=" w-screen h-[72px] flex flex-row justify-between items-center bg-white px-[1.8rem] shadow-2xl shadow-gray-400">
             <div className=" mr-4">
               <img
                 className=" w-[91px] h-[34px]"
@@ -230,7 +230,7 @@ const NavBar = () => {
               </button>
             </div>
             <div className=" h-10 min-w-20 mx-1">
-              <button className=" w-full h-full p-4 border-[1px] border-solid text-Udemywhite bg-Udemygray-600 border-black flex flex-row items-center justify-center font-bold font-sans hover:bg-Udemygray-400">
+              <button onClick={() => navigate("/register-page")} className=" w-full h-full p-4 border-[1px] border-solid text-Udemywhite bg-Udemygray-600 border-black flex flex-row items-center justify-center font-bold font-sans hover:bg-Udemygray-400">
                 Sign up
               </button>
             </div>
