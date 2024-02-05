@@ -1,7 +1,7 @@
 import './App.css'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import MainPage from './view/pages/MainPage';
-import NotFound from './view/pages/NotFound';
+import MainPage from './view/pages/main-page';
+import NotFound from './view/pages/not-found';
 import NavBar from './Components/NavBar/NavBar';
 
 function App() {
