@@ -10,6 +10,8 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Divider } from "@mui/material";
 import Badge from "@mui/material/Badge";
 import { categories } from "../../util/categories";
+import { useSelector } from "react-redux";
+import { isUserSelector } from "../../features/user/isUserSlice";
 
 const NavBar = () => {
   //initials
@@ -22,14 +24,14 @@ const NavBar = () => {
 
   const [isUser, setIsUser] = useState<boolean>(false);
   const [isInstructor, setIsInstructor] = useState<boolean>(true);
+  const isUserRedux = useSelector(isUserSelector);
 
   //useEffects
 
   //by redux, we check if there is a user and save it to state:
-  // useEffect(() => {
-  //   const isUserValue = useSelector(isUserSelector);
-  //   setIsUser(isUserValue);
-  // }, [])
+  useEffect(() => {
+    setIsUser(isUserRedux);
+  }, [isUserRedux])
 
   useEffect(() => {
     if (search?.length > 0) {
