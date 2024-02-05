@@ -10,11 +10,12 @@ const Register = () => {
     const [email,setEmail ] = useState<string>("")
     const [password,setPassword ] = useState<string>("")
     const [confirmPassword,setConfirmPassword ] = useState<string>("")
-    const [match, setMatch] = useState(false)
+    const [match, setMatch] = useState(true)
     const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async () => {
+    debugger;
     setLoading(true)
     if (match) {
       const user = await registerUser( email, password )

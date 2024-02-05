@@ -3,6 +3,7 @@ import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
 export const registerUser = async (email: string, password: string) => {
   try {
+    debugger;
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,

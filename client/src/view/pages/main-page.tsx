@@ -1,9 +1,24 @@
+import { useEffect, useState } from "react";
+import { isUserSelector } from "../../features/user/isUserSlice";
+import { useSelector } from "react-redux";
 
 const MainPage = () => {
-  return (
-    <div>
-    </div>
-  )
-}
+  const isUserRedux = useSelector(isUserSelector);
+  const [isUser, setIsUser] = useState<boolean>();
 
-export default MainPage
+  useEffect(() => {
+    setIsUser(isUserRedux);
+  }, [isUserRedux]);
+
+  return (
+    <>
+      {isUser ? (
+        <div>{/* //homepage of registered user */}</div>
+      ) : (
+        <div>{/* //homepage of NOT registered user */}</div>
+      )}
+    </>
+  );
+};
+
+export default MainPage;
