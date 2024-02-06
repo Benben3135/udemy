@@ -62,6 +62,7 @@ const Login = () => {
     try {
       const result = await loginUserWithPopUp();
       if (result && result.ok) {
+        dispatch(thereUser())
         navigate("/");
       }
     } catch (error) {

@@ -20,8 +20,10 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if(user){
         console.log("there user!", user)
-        if (user.metadata.lastSignInTime && checkSignInTime(user.metadata.lastSignInTime)){
+        if (user.metadata.lastSignInTime && checkSignInTime(user.metadata.lastSignInTime) && user.displayName){
+          if(user.displayName){}
           const initials = getaddNameSRT(user.displayName!)
+          console.log("your initials baby!" , initials)
           dispatch(setAcronyms(initials))
           dispatch(thereUser())
           dispatch(setEmail(user.email));
@@ -46,6 +48,7 @@ function App() {
   },[])
 
   const getaddNameSRT = (name:string) => {
+    debugger
     const words = name.split(' ');
     const initials = words.map(word => word.charAt(0)).join('');
     return initials;
