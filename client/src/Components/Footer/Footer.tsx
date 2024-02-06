@@ -20,8 +20,8 @@ const Footer = () => {
           </h1>
         </div>
         <div className=" flex flex-row items-center justify-between max-w-[560px]">
-          {FooterLogos.map((logo) => (
-            <img className="w-[115px] h-[44px] my-3 mr-6" src={logo} alt="" />
+          {FooterLogos.map((logo,index) => (
+            <img key={index} className="w-[115px] h-[44px] my-3 mr-6" src={logo} alt="" />
           ))}
         </div>
       </div>
