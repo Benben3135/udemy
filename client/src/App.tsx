@@ -9,6 +9,7 @@ import { thereUser } from './features/user/isUserSlice';
 import { auth } from './firebase';
 import {setAcronyms,setEmail,setImg, setName,setUid } from './features/user/userSlice';
 import Register from './Components/Register';
+import Footer from './Components/Footer/Footer';
 
 function App() {
   const dispatch = useDispatch()
@@ -44,8 +45,8 @@ function App() {
           <Route path="/" element={<MainPage />} />
           <Route path='*' element={<NotFound />} />
           <Route path='/register-page' element={<Register />} />
-
         </Routes>
+        <Footer/>
       </BrowserRouter>
     </>
   )

@@ -31,7 +31,7 @@ const NavBar = () => {
   //by redux, we check if there is a user and save it to state:
   useEffect(() => {
     setIsUser(isUserRedux);
-  }, [isUserRedux])
+  }, [isUserRedux]);
 
   useEffect(() => {
     if (search?.length > 0) {
@@ -51,7 +51,8 @@ const NavBar = () => {
           <div className=" w-screen h-[72px] flex flex-row justify-between items-center bg-white px-[1.8rem] shadow-2xl shadow-gray-400">
             <div className=" mr-4">
               <img
-                className=" w-[91px] h-[34px]"
+                onClick={() => navigate("/")}
+                className=" w-[91px] h-[34px] cursor-pointer"
                 src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg"
                 alt=""
               />
@@ -59,7 +60,7 @@ const NavBar = () => {
             <div className="group h-[70px] mt-10">
               <button className="text-[0.9rem] leading-normal font-normal text-gray-700 font-sans hover:text-Udemyblue-300 pr-3 flex-shrink-0 group-hover:text-Udemyblue-300">
                 Categories
-                <div className="absolute z-50 w-72 top-20 h-[38rem] border-Udemygray-200 border-[1.4px] shadow-lg scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all ease-in hover:scale-100">
+                <div className="absolute z-50 w-72 top-20 h-[38rem] bg-white border-Udemygray-200 border-[1.4px] shadow-lg scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all ease-in hover:scale-100">
                   <div className="h-5/6 w-full flex flex-col items-center justify-senter">
                     {categories.map((category) => (
                       <div
@@ -68,7 +69,7 @@ const NavBar = () => {
                         onClick={() =>
                           navigate(`/categoryPage?category=${category}`)
                         }
-                      // TODO: category page navigation
+                        // TODO: category page navigation
                       >
                         <div>{category}</div>
                         <div>
@@ -178,7 +179,7 @@ const NavBar = () => {
                         onClick={() =>
                           navigate(`/categoryPage?category=${category}`)
                         }
-                      // TODO: category page navigation
+                        // TODO: category page navigation
                       >
                         <div>{category}</div>
                         <div>
@@ -230,7 +231,10 @@ const NavBar = () => {
               </button>
             </div>
             <div className=" h-10 min-w-20 mx-1">
-              <button onClick={() => navigate("/register-page")} className=" w-full h-full p-4 border-[1px] border-solid text-Udemywhite bg-Udemygray-600 border-black flex flex-row items-center justify-center font-bold font-sans hover:bg-Udemygray-400">
+              <button
+                onClick={() => navigate("/register-page")}
+                className=" w-full h-full p-4 border-[1px] border-solid text-Udemywhite bg-Udemygray-600 border-black flex flex-row items-center justify-center font-bold font-sans hover:bg-Udemygray-400"
+              >
                 Sign up
               </button>
             </div>
