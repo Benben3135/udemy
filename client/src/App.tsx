@@ -7,8 +7,10 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { thereUser } from './features/user/isUserSlice';
 import { auth } from './firebase';
-import {setAcronyms,setEmail,setImg, setName,setUid } from './features/user/userSlice';
+import {setAcronyms,setEmail,setImg, setLogInFalse, setLogInTrue, setName,setUid } from './features/user/userSlice';
 import Register from './Components/Register';
+import Login from './Components/Login';
+
 import Footer from './Components/Footer/Footer';
 
 function App() {
@@ -16,17 +18,28 @@ function App() {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      if(user) {
-        const initials = getaddNameSRT(user.displayName!)
-        dispatch(setAcronyms(initials))
-        dispatch(thereUser())
-        dispatch(setEmail(user.email));
-        dispatch(setUid(user.uid));
-        dispatch(setName(user.displayName));
-        dispatch(setImg(user.photoURL))
+      if(user) 
+      {
+        if (user.displayName){ const initials = getaddNameSRT(user.displayName!)
+          dispatch(setAcronyms(initials))
+          dispatch(thereUser())
+          dispatch(setEmail(user.email));
+          dispatch(setUid(user.uid));
+          dispatch(setName(user.displayName));
+          dispatch(setImg(user.photoURL))}
+          
+          else{
+
+            dispatch(setEmail(user.email));
+            dispatch(setUid(user.uid));
+            dispatch(setLogInTrue());
+          }
+       
       }
+     
       else{
-        console.log("no user")
+        console.log("no token")
+        dispatch(setLogInFalse());
       }
     })
   },[])
@@ -44,7 +57,10 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path='*' element={<NotFound />} />
-          <Route path='/register-page' element={<Register />} />
+          <Route path='/register-page' element={<Register />}
+           />
+           <Route path='/login-page' element={<Login />}
+           />
         </Routes>
         <Footer/>
       </BrowserRouter>

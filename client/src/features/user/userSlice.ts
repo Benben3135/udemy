@@ -7,6 +7,8 @@ export interface UserState{
     email:string;
     img:string;
     acronyms:string;
+    logIn: boolean;
+
 
 
 
@@ -18,6 +20,8 @@ const initialState:UserState = {
     email:"",
     img:"",
     acronyms:"",
+    logIn: false ,
+    
 };
 
 export const userSlice = createSlice({
@@ -40,10 +44,18 @@ export const userSlice = createSlice({
         setAcronyms: (state, action) => {
             state.acronyms = action.payload
         },
+        setLogInFalse: (state, ) => {
+            state.logIn  = false
+          
+        },
+        setLogInTrue: (state, ) => {
+            state.logIn  = true
+          
+        },
     }
 })
 
-export const { setAcronyms,setEmail, setImg ,setName ,setUid} = userSlice.actions;
+export const { setAcronyms,setEmail, setImg ,setName ,setUid,setLogInFalse , setLogInTrue} = userSlice.actions;
 
 export const userSelector = (state: RootState) => state.user;
 

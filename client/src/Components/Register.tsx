@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { registerUser } from "../../api/userApi/registerApi";
-import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Divider, Input } from "@mui/material";
-import { CircleUser, User, Lock, CheckCheck } from "lucide-react";
+import { Divider } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { registerUser } from "../../api/userApi/registerApi";
 
 const Register = () => {
   const [name, setName] = useState<string>("");

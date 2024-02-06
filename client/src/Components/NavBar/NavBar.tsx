@@ -226,7 +226,7 @@ const NavBar = () => {
               </Badge>
             </div>
             <div className=" h-10 min-w-20 mx-1">
-              <button className=" w-full h-full p-4 border-[1px] border-solid border-black flex flex-row items-center justify-center font-bold font-sans hover:bg-Udemygray-200">
+              <button onClick={() => navigate("/login-page")} className=" w-full h-full p-4 border-[1px] border-solid border-black flex flex-row items-center justify-center font-bold font-sans hover:bg-Udemygray-200">
                 Log in
               </button>
             </div>
