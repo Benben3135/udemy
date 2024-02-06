@@ -150,6 +150,7 @@ const NavBar = () => {
                 <div className=" bg-Udemygray-500 rounded-full w-8 h-8 flex flex-col items-center justify-center ">
                   <h1 className="font-[700] text-Udemywhite font-sans text-sm text-center">
                     BV
+                    {/* TODO: add ayncrons from redux */}
                   </h1>
                 </div>
               </Badge>
