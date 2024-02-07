@@ -13,9 +13,9 @@ const MainPage = () => {
   return (
     <>
       {isUser ? (
-        <div>{/* //homepage of registered user */}</div>
+        <div className=" min-h-screen">{/* //homepage of registered user */}</div>
       ) : (
-        <div>{/* //homepage of NOT registered user */}</div>
+        <div className=" min-h-screen">{/* //homepage of NOT registered user */}</div>
       )}
     </>
   );

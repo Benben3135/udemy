@@ -18,21 +18,27 @@ function App() {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      if(user) 
-      {
-        if (user.displayName){ const initials = getaddNameSRT(user.displayName!)
+      if(user){
+        console.log("there user!", user)
+        if (user.metadata.lastSignInTime && checkSignInTime(user.metadata.lastSignInTime) && user.displayName){
+         
+          const initials = getaddNameSRT(user.displayName!)
+          console.log("your initials baby!" , initials)
           dispatch(setAcronyms(initials))
           dispatch(thereUser())
           dispatch(setEmail(user.email));
           dispatch(setUid(user.uid));
           dispatch(setName(user.displayName));
           dispatch(setImg(user.photoURL))}
+          if(localStorage.getItem("userName")){
+            dispatch(setLogInTrue());
+          }
           
           else{
-
-            dispatch(setEmail(user.email));
-            dispatch(setUid(user.uid));
-            dispatch(setLogInTrue());
+            if(localStorage.getItem("userName")){
+              dispatch(setLogInTrue());
+            }
+            dispatch(setLogInFalse());
           }
        
       }
@@ -45,10 +51,34 @@ function App() {
   },[])
 
   const getaddNameSRT = (name:string) => {
+    debugger
     const words = name.split(' ');
     const initials = words.map(word => word.charAt(0)).join('');
     return initials;
   }
+
+  const checkSignInTime = (time: string) => {
+    // Convert the given date string to a Date object
+    const givenDate = new Date(time);
+
+    // Get the current time
+    const currentTime = new Date();
+
+    // Calculate the difference between the two timestamps in milliseconds
+    const differenceInMilliseconds = currentTime.getTime() - givenDate.getTime();
+
+    // Convert milliseconds to minutes
+    const differenceInMinutes = differenceInMilliseconds / (1000 * 60);
+
+    console.log("Difference in minutes:", differenceInMinutes);
+
+
+    const recentThreshold = 480; 
+
+    // Return true if the sign-in occurred within the threshold, false otherwise
+    console.log("are the difference good?" , differenceInMinutes <= recentThreshold)
+    return differenceInMinutes <= recentThreshold;
+}
 
   return (
     <>

@@ -9,7 +9,7 @@ const Footer = () => {
 
   return (
     <div className=" h-fit bg-Udemygray-500 overflow-hidden shadow-md">
-      <div className=" flex flex-col h-fit min-h-12 justify-start md:flex-row md:justify-between md:items-center px-8 mb-2">
+      <div className=" flex flex-col h-fit min-h-20 justify-start md:flex-row md:justify-between md:items-center px-8 mb-2">
         <div className=" flex-grow h-fit p-2">
           <h1 className="py-3 pr-6 text-white font-bold text-xl">
             Top companies choose{" "}

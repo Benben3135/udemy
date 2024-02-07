@@ -23,7 +23,7 @@ const NavBar = () => {
   // TODO: write regex/search function
 
   const [isUser, setIsUser] = useState<boolean>(false);
-  const [isInstructor, setIsInstructor] = useState<boolean>(true);
+  const [isInstructor, setIsInstructor] = useState<boolean>(false);
   const isUserRedux = useSelector(isUserSelector);
 
   //useEffects
@@ -150,6 +150,7 @@ const NavBar = () => {
                 <div className=" bg-Udemygray-500 rounded-full w-8 h-8 flex flex-col items-center justify-center ">
                   <h1 className="font-[700] text-Udemywhite font-sans text-sm text-center">
                     BV
+                    {/* TODO: add ayncrons from redux */}
                   </h1>
                 </div>
               </Badge>
