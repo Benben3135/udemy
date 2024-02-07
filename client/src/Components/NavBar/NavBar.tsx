@@ -12,6 +12,7 @@ import Badge from "@mui/material/Badge";
 import { categories } from "../../util/categories";
 import { useSelector } from "react-redux";
 import { isUserSelector } from "../../features/user/isUserSlice";
+import NavMenu from "../NavMenu";
 
 const NavBar = () => {
   //initials
@@ -47,6 +48,7 @@ const NavBar = () => {
   return (
     <div>
       {isUser ? (
+         <>
         <div>
           <div className=" w-screen h-[72px] flex flex-row justify-between items-center bg-white px-[1.8rem] shadow-2xl shadow-gray-400">
             <div className=" mr-4">
@@ -76,6 +78,7 @@ const NavBar = () => {
                           <KeyboardArrowRightIcon />
                         </div>
                       </div>
+                      
                     ))}
                   </div>
                 </div>
@@ -158,6 +161,8 @@ const NavBar = () => {
           </div>
           <Divider className=" mt-0 pt-0" />
         </div>
+        <NavMenu/>
+       </>
       ) : (
         <div>
           <div className=" w-screen h-[72px] flex flex-row justify-between items-center bg-white px-[1.8rem]">

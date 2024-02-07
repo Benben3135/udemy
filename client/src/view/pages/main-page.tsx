@@ -1,24 +1,11 @@
-import { useEffect, useState } from "react";
-import { isUserSelector } from "../../features/user/isUserSlice";
-import { useSelector } from "react-redux";
+import Main from "../../Components/Main"
 
 const MainPage = () => {
-  const isUserRedux = useSelector(isUserSelector);
-  const [isUser, setIsUser] = useState<boolean>();
-
-  useEffect(() => {
-    setIsUser(isUserRedux);
-  }, [isUserRedux]);
-
   return (
     <>
-      {isUser ? (
-        <div className=" min-h-screen">{/* //homepage of registered user */}</div>
-      ) : (
-        <div className=" min-h-screen">{/* //homepage of NOT registered user */}</div>
-      )}
+      <Main />
     </>
-  );
-};
+  )
+}
 
-export default MainPage;
+export default MainPage
