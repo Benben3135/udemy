@@ -54,6 +54,8 @@ function App() {
     <>
       <BrowserRouter>
         <NavBar />
+        
+        
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path='*' element={<NotFound />} />
