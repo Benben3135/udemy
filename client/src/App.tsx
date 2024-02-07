@@ -21,7 +21,7 @@ function App() {
       if(user){
         console.log("there user!", user)
         if (user.metadata.lastSignInTime && checkSignInTime(user.metadata.lastSignInTime) && user.displayName){
-          if(user.displayName){}
+         
           const initials = getaddNameSRT(user.displayName!)
           console.log("your initials baby!" , initials)
           dispatch(setAcronyms(initials))
@@ -35,6 +35,9 @@ function App() {
           }
           
           else{
+            if(localStorage.getItem("userName")){
+              dispatch(setLogInTrue());
+            }
             dispatch(setLogInFalse());
           }
        

@@ -10,23 +10,57 @@ const Register = () => {
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [passStrong, setPassStrong] = useState<number>(0);
+  const [passStrongTXT, setPassStrongTXT] = useState<string>("");
+  const [isChecked, setIsChecked] = useState(false);
+
+  useEffect(() => {
+    if (password.length > 3) {
+      setPassStrong(1);
+      setPassStrongTXT("Too weak");
+    }
+    if (password.length > 7) {
+      setPassStrong(2);
+      setPassStrongTXT("Could be stronger");
+    }
+    if (password.length > 9) {
+      setPassStrong(3);
+      setPassStrongTXT("Strong password");
+    }
+    if (password.length > 11) {
+      setPassStrong(4);
+      setPassStrongTXT("Very strong password");
+    }
+  }, [password]);
+
+  useEffect(() => {
+    console.log(isChecked)
+  },[isChecked])
+
+  useEffect(() => {
+    console.log("pass strong", passStrong);
+  }, [passStrong]);
 
   const handleSubmit = async () => {
     setLoading(true);
-      const user = await registerUser(email, password);
+    const user = await registerUser(email, password);
 
-      if (user) {
-        setLoading(false);
-        navigate("/login-page");
+    if (user) {
+      setLoading(false);
+      navigate("/login-page");
 
-        console.log("Registration successful!");
-      } else {
-        console.error("Registration failed.");
-      }
+      console.log("Registration successful!");
+    } else {
+      console.error("Registration failed.");
+    }
   };
   useEffect(() => {
     handleSubmit();
   }, []);
+
+  const handleCheckboxChange = (event: any) => {
+    setIsChecked(event.target.checked);
+  };
 
   return (
     <div className=" w-screen h-[35rem] flex flex-col justify-center items-center">
@@ -50,30 +84,43 @@ const Register = () => {
             placeholder="Email"
           />
         </div>
-        <div className=" w-full h-16 border border-black mb-2">
+        <div className=" w-full h-16 border border-black mb-2 group">
+          <label className=" text-Udemygray-500 font-bold mt-5 ml-5 group-focus:text-sm" htmlFor="password">Password</label>
           <input
             onInput={(ev) => setPassword((ev.target as HTMLInputElement).value)}
             type="password"
-            className=" w-3/4 placeholder:text-Udemygray-500 placeholder:font-bold mt-5 ml-5 focus:font-extralight focus:text-xs focus:mt-2 focus:ml-2 transition-all outline-none"
-            placeholder="Password"
+            className=" w-3/4 placeholder:text-Udemygray-500 placeholder:font-bold h-full transition-all outline-none"
           />
         </div>
         <div className=" flex flex-row h-fit w-fit justify-center items-center gap-[0.18rem] mt-2">
-          <div className=" bg-Udemygray-200 h-[0.26rem] w-[2.7rem] rounded-full"></div>
-          <div className=" bg-Udemygray-200 h-[0.26rem] w-[2.7rem] rounded-full"></div>
-          <div className=" bg-Udemygray-200 h-[0.26rem] w-[2.7rem] rounded-full"></div>
-          <div className=" bg-Udemygray-200 h-[0.26rem] w-[2.7rem] rounded-full"></div>
+          {[...Array(4)].map((_, index) => (
+            <div
+              key={index}
+              className={
+                index + 1 > passStrong
+                  ? " bg-Udemygray-200 h-[0.26rem] w-[2.7rem] rounded-full"
+                  : " bg-Udemygray-500 h-[0.26rem] w-[2.7rem] rounded-full"
+              }
+            ></div>
+          ))}
+          <div className=" h-fit text-sm ml-2">{passStrongTXT}</div>
         </div>
         <div className=" w-full h-16 mt-4 flex flex-row items-start justify-start">
-          <Checkbox className=" pt-0" color="default" />
+          <Checkbox
+            checked={isChecked}
+            onChange={handleCheckboxChange}
+            className=" pt-0"
+            color="default"
+          />
           <p className=" mt-2 text-sm">
             Send me special offers, personalized recommendations, and learning
             tips.
           </p>
         </div>
         <div
-        onClick={() => handleSubmit()}
-        className="flex flex-row justify-center items-center w-full h-12 bg-Udemypurple-300 hover:bg-Udemypurple-600 cursor-pointer">
+          onClick={() => handleSubmit()}
+          className="flex flex-row justify-center items-center w-full h-12 bg-Udemypurple-300 hover:bg-Udemypurple-600 cursor-pointer"
+        >
           <h1 className=" text-center text-white font-bold text-lg">Sign up</h1>
         </div>
         <h1 className=" text-xs mt-5">
