@@ -23,7 +23,7 @@ const NavBar = () => {
   // TODO: write regex/search function
 
   const [isUser, setIsUser] = useState<boolean>(false);
-  const [isInstructor, setIsInstructor] = useState<boolean>(true);
+  const [isInstructor, setIsInstructor] = useState<boolean>(false);
   const isUserRedux = useSelector(isUserSelector);
 
   //useEffects
