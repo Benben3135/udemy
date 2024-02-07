@@ -26,3 +26,30 @@ export const categoriesNavBar = [
     "Health & Fitness",
     "Music",
 ]
+
+export const termsCategories = [
+    {
+        name: "Terms of Use",
+        href: "terms"
+    },
+    {
+        name: "Privacy Policy",
+        href: "privacy"
+    },
+    {
+        name: "Intellectual Property Policy",
+        href: "copyright"
+    },
+    {
+        name: "Instructor Terms",
+        href: "instructor"
+    },
+    {
+        name: "Affiliate Terms & Conditions",
+        href: "affiliate"
+    },
+    {
+        name: "Launch Services",
+        href: "launch-services"
+    }
+]
