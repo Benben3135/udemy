@@ -51,10 +51,10 @@ const Footer = () => {
             </a>
           </div>
           <div className=" h-[10rem] flex flex-col items-start justify-start flex-grow gap-2 p-4">
-          <a className=" hover:underline text-white tracking-tight text-sm font-normal" href="">
+          <a className=" hover:underline text-white tracking-tight text-sm font-normal" href="/terms-Page">
               Terms
             </a>
-            <a className=" hover:underline text-white tracking-tight text-sm font-normal" href="">
+            <a className=" hover:underline text-white tracking-tight text-sm font-normal" href="/terms-Page">
               Privacy Policy
             </a>
             <a className=" hover:underline text-white tracking-tight text-sm font-normal" href="">
