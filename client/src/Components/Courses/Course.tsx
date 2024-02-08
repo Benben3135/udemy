@@ -1,6 +1,9 @@
-import React from 'react'
-
+import React, { useEffect } from 'react'
+import { getCoursesByRecentlySearched } from "../../../api/coursesApi"
 const Course = () => {
+    useEffect(() => {
+        getCoursesByRecentlySearched()
+    }, [])
     return (
         <div>
             <img src="" alt="" />

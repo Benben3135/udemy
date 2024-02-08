@@ -55,7 +55,7 @@ export async function getOneCourseByName(req: Request, res: Response) {
   }
 }
 
-export async function getCoursesByRecentlySearched(
+export async function get5CoursesByRecentlySearched(
   req: Request,
   res: Response
 ) {

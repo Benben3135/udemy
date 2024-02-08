@@ -3,7 +3,7 @@ const router = express.Router();
 import {
   get5CoursesByMostViewing,
   getAllCourses,
-  getCoursesByRecentlySearched,
+  get5CoursesByRecentlySearched,
   getOneCourseById,
   getOneCourseByName,
 } from "./courseCont";
@@ -14,8 +14,8 @@ router
   .get("/getCourseByName/:name", getOneCourseByName)
   .get("/get5CoursesByMostViewing", get5CoursesByMostViewing)
   .get(
-    "/getCoursesByRecentlySearched/:recentlySearched",
-    getCoursesByRecentlySearched
+    "/get5CoursesByRecentlySearched/:recentlySearched",
+    get5CoursesByRecentlySearched
   );
 
 export default router;

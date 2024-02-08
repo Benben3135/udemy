@@ -1,5 +1,5 @@
 import { auth, provider } from "../../src/firebase";
-import { signInWithPopup , signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 
 export const loginUserWithPopUp = async () => {
   try {
@@ -25,7 +25,7 @@ export const loginUserWithEmail = async (email: string, password: string) => {
     }
   } catch (error) {
     // Handle errors here
-    return {ok:false}
+    return { ok: false };
     console.error("Error creating user:", (error as Error).message);
     throw error;
   }
