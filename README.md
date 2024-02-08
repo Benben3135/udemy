@@ -8,13 +8,22 @@ features: student, instructor, buying courses, courses CRUD, studen CRUD, instru
 <h2>Technologies</h2>
 <p>
 -REACT
+  <br>
 -Node.js
+ <br>
 -Express.js
+ <br>
 -MongoDB
+ <br>
 -Firebase Auth
+  <br>
 -Redux
+   <br>
 -MUI
+   <br>
 -Framer-Motion
+   <br>
 -Axios
+   <br>
 -Faker/js
 </p>
