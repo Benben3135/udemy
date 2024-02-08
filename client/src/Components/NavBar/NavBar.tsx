@@ -163,14 +163,14 @@ const NavBar = () => {
                   <NotificationsOutlinedIcon className=" text-Udemygray-500 hover:text-Udemyblue-300 hover:cursor-pointer" />
                 </Badge>
               </div>
-              <div className="w-12 group">
+              <div className="w-12 group  h-[70px] mt-10">
                 <Badge variant="dot" badgeContent="" color="secondary">
                   <div className=" bg-Udemygray-500 rounded-full w-8 h-8 flex flex-col items-center justify-center ">
                     <h1 className="font-[700] text-Udemywhite font-sans text-sm text-center">
                       {user!.acronyms}
                     </h1>
                   </div>
-                  <div className="absolute right-0 z-50 top-12 h-[38rem] w-[14rem] bg-white border-Udemygray-200 border-[1.4px] shadow-lg scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all ease-in hover:scale-100">
+                  <div className="absolute right-0 z-50 top-12 h-fit w-[14rem] bg-white border-Udemygray-200 border-[1.4px] shadow-lg scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all ease-in hover:scale-100">
                     <div className="h-5/6 w-full flex flex-col items-center justify-start">
                       <div className="flex flex-row items-start justify-center h-24 w-full gap-2 p-3 border-b">
                         <div className=" bg-Udemygray-500 rounded-full w-16 h-16 flex flex-col items-center justify-center ">
@@ -189,7 +189,72 @@ const NavBar = () => {
                           </h2>
                         </div>
                       </div>
-                      <div></div>
+                      <div className="flex flex-col items-start justify-center h-fit w-full gap-2 p-2 border-b">
+                        <div className=" h-8 text-sm w-full flex flex-row justify-start items-start group">
+                          <h3 className=" text-slate-900 cursor-pointer w-full hover:text-Udemyblue-300">
+                            My learning
+                          </h3>
+                        </div>
+                        <div className=" h-8 text-sm w-full flex flex-row justify-start items-between group">
+                          <h3 className=" text-slate-900 cursor-pointer w-full hover:text-Udemyblue-300">
+                            My Cart
+                          </h3>
+                          <div className=" w-6 h-6 rounded-full bg-purple-700 text-center text-white">
+                            8
+                          </div>
+                        </div>
+                        <div className=" h-8 text-sm w-full flex flex-row justify-start items-start group">
+                          <h3 className=" text-slate-900 cursor-pointer w-full hover:text-Udemyblue-300">
+                            Wishlist
+                          </h3>
+                        </div>
+                        {/* TODO: instructor dashboard if redux tell that it is an instructor */}
+                        {/* {<div className=" h-8 text-sm w-full flex flex-row justify-start items-start group">
+                          <h3 className=" text-slate-900 cursor-pointer w-full hover:text-Udemyblue-300">Instructor Dashboard</h3>
+                        </div>} */}
+                      </div>
+                      <div className="flex flex-col items-start justify-center h-fit w-full gap-2 p-2 border-b">
+                        <div className=" h-8 text-sm w-full flex flex-row justify-start items-start group">
+                          <h3 className=" text-slate-900 cursor-pointer w-full hover:text-Udemyblue-300">
+                            Account settings
+                          </h3>
+                        </div>
+                        <div className=" h-8 text-sm w-full flex flex-row justify-start items-between group">
+                          <h3 className=" text-slate-900 cursor-pointer w-full hover:text-Udemyblue-300">
+                            Payment methods
+                          </h3>
+                          <div className=" w-6 h-6 rounded-full bg-purple-700 text-center text-white">
+                            8
+                          </div>
+                        </div>
+                        <div className=" h-8 text-sm w-full flex flex-row justify-start items-center group">
+                          <h3 className=" text-slate-900 cursor-pointer w-full hover:text-Udemyblue-300">
+                            Purchase history
+                          </h3>
+                        </div>
+                        <div className="flex flex-col items-start justify-center h-fit w-full border-b"></div>
+                        <div className=" h-8 text-sm w-full flex flex-row justify-start items-center group">
+                          <h3 className=" text-slate-900 cursor-pointer w-full hover:text-Udemyblue-300">
+                            Public profile
+                          </h3>
+                        </div>
+                        <div className=" h-8 text-sm w-full flex flex-row justify-start items-between group">
+                          <h3 className=" text-slate-900 cursor-pointer w-full hover:text-Udemyblue-300">
+                            Edit profile
+                          </h3>
+                        </div>
+                        <div className="flex flex-col items-start justify-center h-fit w-full gap-2 border-b"></div>
+                        <div className=" h-8 text-sm w-full flex flex-row justify-start items-center group">
+                          <h3 className=" text-slate-900 cursor-pointer w-full hover:text-Udemyblue-300">
+                            Help
+                          </h3>
+                        </div>
+                        <div className=" h-8 text-sm w-full flex flex-row justify-start items-start group">
+                          <h3 className=" text-slate-900 cursor-pointer w-full hover:text-Udemyblue-300">
+                            Log out
+                          </h3>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </Badge>
