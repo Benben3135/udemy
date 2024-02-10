@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Button } from "@mui/material";
 
 interface TabsComponentProps {
   categories: string[];
@@ -6,9 +7,18 @@ interface TabsComponentProps {
 
 const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [showLearnMoreButton, setShowLearnMoreButton] =
+    useState<boolean>(false);
+
+  // הגדרה של הקטגוריה שתוצג באופן דיפולטי
+  useEffect(() => {
+    setSelectedCategory("Development");
+    setShowLearnMoreButton(true); // הצגת כפתור "גלו עוד" בתחילה
+  }, []);
 
   const handleTabClick = (category: string) => {
     setSelectedCategory(category);
+    setShowLearnMoreButton(true); // הצגת כפתור "גלו עוד" בעת בחירת קטגוריה חדשה
   };
 
   return (
@@ -28,8 +38,8 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
               key={category}
               className={`cursor-pointer px-4 ${
                 selectedCategory === category
-                  ? "text-Udemyblue-400  font-900"
-                  : "text-slate-800"
+                  ? "text-Udemygray-500  font-bold"
+                  : "text-Udemygray-300 font-bold"
               }`}
               onClick={() => handleTabClick(category)}
             >
@@ -46,7 +56,26 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
             {(() => {
               switch (selectedCategory) {
                 case "Development":
-                  return <div>תוכן עבור Development</div>;
+                  return (
+                    <div className=" border  border-Udemygray-200  pl-10 pr-10 mr-11 mt-2 mb-5">
+                      <h1 className=" font-bold text-2xl   text-Udemygray-500 font-custom mt-6 mb-5">
+                        Expand your career opportunities with Python
+                      </h1>
+                      <p className="mr-72 mb-6">
+                        Take one of Udemy’s range of Python courses and learn
+                        how to code using this incredibly useful language. Its
+                        simple syntax and readability makes Python perfect for
+                        Flask, Django, data science, and machine learning.
+                        You’ll learn how to build everything from games to sites
+                        to apps. Choose from a range of courses that will appeal
+                        to both beginners and advanced developers alike.
+                      </p>
+
+                      <button className="border p-2 border-gray-500 font-bold text-Udemygray-500 text-sm mb-12 ">
+                        Explore {selectedCategory}{" "}
+                      </button>
+                    </div>
+                  );
                 case "Business":
                   return <div>תוכן עבור Business</div>;
                 case "Design":
@@ -60,7 +89,9 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                 case "Music":
                   return <div>תוכן עבור Music</div>;
                 default:
-                  return <div> Development</div>;
+                  return (
+                    <div className="h-25vh ">תוכן עבור {selectedCategory}</div>
+                  );
               }
             })()}
           </div>
