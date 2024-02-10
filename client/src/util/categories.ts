@@ -29,10 +29,11 @@ export const categoriesNavBar = [
 export const categoriesTab = [
     "Development",
     "Business",
+    "Design",
+    "Marketing",
+    "Lifestyle",
     "Finance & Accounting",
-    "IT and Software",
-    "Office productivity",
-    "Personal Development",
+    "Music",
     
 ]
 export const termsCategories = [
