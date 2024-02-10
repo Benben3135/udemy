@@ -26,7 +26,15 @@ export const categoriesNavBar = [
     "Health & Fitness",
     "Music",
 ]
-
+export const categoriesTab = [
+    "Development",
+    "Business",
+    "Finance & Accounting",
+    "IT and Software",
+    "Office productivity",
+    "Personal Development",
+    
+]
 export const termsCategories = [
     {
         name: "Terms of Use",
