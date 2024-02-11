@@ -7,8 +7,10 @@ import TabsComponent from "./TabsComponent";
 import { categoriesTab } from "../util/categories";
 import TestimonialsSlider from "./TestimonialsSlider";
 import CategoryImages from "./CategoriesImges";
+import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
+  const navigate = useNavigate()
   const isUserRedux = useSelector(isUserSelector);
   const userRedux = useSelector(userSelector);
   const [isUser, setIsUser] = useState<boolean>();
@@ -64,20 +66,20 @@ const MainPage = () => {
             <div className="max-w-[82rem] mx-auto h-fit ">
               <div
                 style={{
-                  backgroundImage: `url("../../public/images/87ab2850-d0a8-4ea7-a36c-6f2e4c6a6a2e.jpg")`,
+                  backgroundImage: `url("../../public/images/06bffb17-9483-429e-9145-25f046f65ad1.png")`,
                   backgroundSize: "cover",
                 }}
                 className="w-full h-[23rem] pl-14 pt-16"
               >
-                <div className="h-[13.5rem] w-[26rem] bg-white shadow-md p-6 flex flex-col items-start justify-start gap-3">
-                  <h1 className=" font-bold text-2xl leading-[1.7rem] tracking-normal text-Udemygray-500">
-                    Welcome back, <br />
+                <div className="h-[16.5rem] w-[26rem] bg-white shadow-md p-6 flex flex-col items-start justify-start gap-3">
+                  <h1 className=" font-bold text-3xl leading-[2.4rem] tracking-normal text-Udemygray-500">
+                  Subscribe to the best of <br /> Udemy
                     {userName}{" "}
                   </h1>
                   <p>
-                    Expand your horizons with learning that’s worldwide. Save
-                    now through Feb 8.
+                  With Personal Plan, you get access to 8,000 of our top-rated courses in tech, business, design, and more.
                   </p>
+                  <div onClick={() => navigate("/register-page")} className="hover:bg-gray-700 cursor-pointer w-24 h-12 bg-gray-900 text-white flex flex-row justify-center items-center font-bold">Try it free</div>
                 </div>
               </div>
             </div>
