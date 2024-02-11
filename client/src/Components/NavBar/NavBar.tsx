@@ -23,6 +23,7 @@ const NavBar = () => {
     img: string;
     acronyms: string;
     logIn: boolean;
+    isTeacher: Boolean;
   }
 
   //initials
@@ -123,7 +124,7 @@ const NavBar = () => {
               </div>
               <div className=" h-full w-32 flex flex-col justify-center items-center">
                 {
-                  isInstructor ? (
+                  user?.isTeacher ? (
                     <a
                       className=" text-Udemygray-500 hover:text-Udemyblue-300  text-[0.9rem] tracking-tight ml-12"
                       href="instructor page"

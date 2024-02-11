@@ -1,7 +1,9 @@
 import express from "express";
 const router = express.Router();
-// import {} from "";
+import {register,getUser} from "./usersCont";
 
-router.post("/register").get("/getCourseByName/:name");
+router
+.get("/:uid", getUser)
+.post("" , register)
 
 export default router;
