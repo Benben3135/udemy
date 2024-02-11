@@ -95,3 +95,20 @@ export async function get5CoursesByMostViewing(req: Request, res: Response) {
   }
 }
 //POST REQUESTS
+export async function get5CoursesByMostRated(req: Request, res: Response) {
+  try {
+    const courses = await Course.aggregate([
+      { $sort: { rating: -1 } }, // Sort documents by numberOfStudents in descending order
+      { $limit: 5 }, // Limit the results to 5 documents
+    ]);
+    console.log(courses);
+    res.status(200).send({ ok: true, courses });
+  } catch (error) {
+    res.status(500).send({
+      ok: false,
+      message: "Error in function getCourseByMostViewing in courseCont!",
+    });
+    console.error("Error fetching courses:", error);
+  }
+}
+//POST REQUESTS

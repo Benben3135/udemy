@@ -1,17 +1,31 @@
 import axios from "axios";
-export const getCoursesByMostViewing = async () => {};
+export const getCoursesByMostViewing = async () => {
+  try {
+    const response = await axios.get(`/API/courses/get5CoursesByMostViewing`);
+    console.log(response.data.courses);
+    return response.data.courses;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getCoursesByMostRated = async () => {
+  try {
+    const response = await axios.get(`/API/courses/get5CoursesByMostRated`);
+    console.log(response.data.courses);
+    return response.data.courses;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const getCoursesByRecentlySearched = async () => {
   try {
     const recentlySearched = localStorage.getItem("recentlySearched");
-    if (!recentlySearched)
-      throw new Error("No recently searched in local storeage");
+    if (!recentlySearched) return null;
+    //   throw new Error("No recently searched in local storeage");
     const response = await axios.get(
       `/API/courses/get5CoursesByRecentlySearched/${recentlySearched}`
-      //   {
-      //     params: {
-      //       recentlySearched: recentlySearched,
-      //     },
-      //   }
     );
     console.log(response.data.courses);
     return response.data.courses;

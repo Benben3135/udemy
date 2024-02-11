@@ -6,6 +6,7 @@ import {
   get5CoursesByRecentlySearched,
   getOneCourseById,
   getOneCourseByName,
+  get5CoursesByMostRated,
 } from "./courseCont";
 
 router
@@ -16,6 +17,7 @@ router
   .get(
     "/get5CoursesByRecentlySearched/:recentlySearched",
     get5CoursesByRecentlySearched
-  );
+  )
+  .get("/get5CoursesByMostRated", get5CoursesByMostRated);
 
 export default router;
