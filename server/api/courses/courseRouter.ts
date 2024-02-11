@@ -7,6 +7,8 @@ import {
   getOneCourseById,
   getOneCourseByName,
   get5CoursesByMostRated,
+  get5CoursesByCategory,
+  getAllCoursesByCategory,
 } from "./courseCont";
 
 router
@@ -18,6 +20,8 @@ router
     "/get5CoursesByRecentlySearched/:recentlySearched",
     get5CoursesByRecentlySearched
   )
-  .get("/get5CoursesByMostRated", get5CoursesByMostRated);
+  .get("/get5CoursesByMostRated", get5CoursesByMostRated)
+  .get("/get5CoursesByCategory/:category", get5CoursesByCategory)
+  .get("/getAllCoursesByCategory/:category", getAllCoursesByCategory);
 
 export default router;

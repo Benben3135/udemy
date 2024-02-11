@@ -1,22 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { get5CoursesByCategory } from "../../api/coursesApi";
+import Course, { CourseProps } from "./Courses/Course";
 
 interface TabsComponentProps {
   categories: string[];
 }
 
 const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [coursesByCategory, setCoursesByCategory] = useState<CourseProps[]>();
   const [showLearnMoreButton, setShowLearnMoreButton] =
     useState<boolean>(false);
+
 
   // הגדרה של הקטגוריה שתוצג באופן דיפולטי
   useEffect(() => {
     setSelectedCategory("Development");
+    const initialCoursesByCategories = async () => {
+      setCoursesByCategory(await get5CoursesByCategory("Development"));
+      console.log(coursesByCategory)
+    }
+
+    initialCoursesByCategories();
     setShowLearnMoreButton(true); // הצגת כפתור "גלו עוד" בתחילה
   }, []);
 
-  const handleTabClick = (category: string) => {
+  const handleTabClick = async (category: string) => {
     setSelectedCategory(category);
+    const courses = await get5CoursesByCategory(category);
+    setCoursesByCategory(courses);
     setShowLearnMoreButton(true); // הצגת כפתור "גלו עוד" בעת בחירת קטגוריה חדשה
   };
 
@@ -35,11 +47,10 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
           {categories.map((category) => (
             <div
               key={category}
-              className={`cursor-pointer px-4 ${
-                selectedCategory === category
-                  ? "text-Udemygray-500  font-bold"
-                  : "text-Udemygray-300 font-bold"
-              }`}
+              className={`cursor-pointer px-4 ${selectedCategory === category
+                ? "text-Udemygray-500  font-bold"
+                : "text-Udemygray-300 font-bold"
+                }`}
               onClick={() => handleTabClick(category)}
             >
               {category}
@@ -73,6 +84,25 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                       <button className="border p-2 border-gray-500 font-bold text-Udemygray-500 text-sm mb-12 ">
                         Explore {selectedCategory}{" "}
                       </button>
+                      <div className=" flex flex-row justify-center items-center w-full h-fit mt-6">
+                        <div className=" flex flex-col w-fit h-full justify-start items-start">
+                          <div className=" flex gap-5 p-5 h-[21rem] w-[95rem]">
+                            {coursesByCategory && coursesByCategory.map((course: CourseProps, index: number) => (
+                              <Course
+                                key={index}
+                                img={course.course_img}
+                                title={course.courseName}
+                                teacher={course.teacherName}
+                                rating={course.rating}
+                                price={course.fullPrice}
+                                tag={course.category}
+                                numberOfRatings={course.numberOfRatings}
+                                id={course.courseId}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   );
                 case "Business":
@@ -93,6 +123,25 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                       <button className="border p-2 border-gray-500 font-bold text-Udemygray-500 text-sm mb-12 ">
                         Explore {selectedCategory}{" "}
                       </button>
+                      <div className=" flex flex-row justify-center items-center w-full h-fit mt-6">
+                        <div className=" flex flex-col w-fit h-full justify-start items-start">
+                          <div className=" flex gap-5 p-5 h-[21rem] w-[95rem]">
+                            {coursesByCategory && coursesByCategory.map((course: CourseProps, index: number) => (
+                              <Course
+                                key={index}
+                                img={course.course_img}
+                                title={course.courseName}
+                                teacher={course.teacherName}
+                                rating={course.rating}
+                                price={course.fullPrice}
+                                tag={course.category}
+                                numberOfRatings={course.numberOfRatings}
+                                id={course.courseId}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   );
                 case "Design":
@@ -112,6 +161,25 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                       <button className="border p-2 border-gray-500 font-bold text-Udemygray-500 text-sm mb-12 ">
                         Explore {selectedCategory}{" "}
                       </button>
+                      <div className=" flex flex-row justify-center items-center w-full h-fit mt-6">
+                        <div className=" flex flex-col w-fit h-full justify-start items-start">
+                          <div className=" flex gap-5 p-5 h-[21rem] w-[95rem]">
+                            {coursesByCategory && coursesByCategory.map((course: CourseProps, index: number) => (
+                              <Course
+                                key={index}
+                                img={course.course_img}
+                                title={course.courseName}
+                                teacher={course.teacherName}
+                                rating={course.rating}
+                                price={course.fullPrice}
+                                tag={course.category}
+                                numberOfRatings={course.numberOfRatings}
+                                id={course.courseId}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   );
                 case "Marketing":
@@ -132,6 +200,25 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                       <button className="border p-2 border-gray-500 font-bold text-Udemygray-500 text-sm mb-12 ">
                         Explore {selectedCategory}{" "}
                       </button>
+                      <div className=" flex flex-row justify-center items-center w-full h-fit mt-6">
+                        <div className=" flex flex-col w-fit h-full justify-start items-start">
+                          <div className=" flex gap-5 p-5 h-[21rem] w-[95rem]">
+                            {coursesByCategory && coursesByCategory.map((course: CourseProps, index: number) => (
+                              <Course
+                                key={index}
+                                img={course.course_img}
+                                title={course.courseName}
+                                teacher={course.teacherName}
+                                rating={course.rating}
+                                price={course.fullPrice}
+                                tag={course.category}
+                                numberOfRatings={course.numberOfRatings}
+                                id={course.courseId}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   );
                 case "Lifestyle":
@@ -141,12 +228,31 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                         Lead data-driven decisions with Data Science
                       </h1>
                       <p className="mr-72 mb-6">
-                      Data science application is an in-demand skill in many industries worldwide — including finance, transportation, education, manufacturing, human resources, and banking. Explore data science courses with Python, statistics, machine learning, and more to grow your knowledge. Get data science training if you’re into research, statistics
+                        Data science application is an in-demand skill in many industries worldwide — including finance, transportation, education, manufacturing, human resources, and banking. Explore data science courses with Python, statistics, machine learning, and more to grow your knowledge. Get data science training if you’re into research, statistics
                       </p>
 
                       <button className="border p-2 border-gray-500 font-bold text-Udemygray-500 text-sm mb-12 ">
                         Explore {selectedCategory}{" "}
                       </button>
+                      <div className=" flex flex-row justify-center items-center w-full h-fit mt-6">
+                        <div className=" flex flex-col w-fit h-full justify-start items-start">
+                          <div className=" flex gap-5 p-5 h-[21rem] w-[95rem]">
+                            {coursesByCategory && coursesByCategory.map((course: CourseProps, index: number) => (
+                              <Course
+                                key={index}
+                                img={course.course_img}
+                                title={course.courseName}
+                                teacher={course.teacherName}
+                                rating={course.rating}
+                                price={course.fullPrice}
+                                tag={course.category}
+                                numberOfRatings={course.numberOfRatings}
+                                id={course.courseId}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   );
                 case "Finance & Accounting":
@@ -157,12 +263,31 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                         Certification
                       </h1>
                       <p className="mr-72 mb-6">
-                      Amazon Web Services (AWS) is a cloud computing platform with more than 200 featured services. Whether or not you aim for certification, an AWS course offers the theory and practical skills you need to land a job in cloud development, sales, engineering, networking, and more. The better you become at cloud computing, the more
+                        Amazon Web Services (AWS) is a cloud computing platform with more than 200 featured services. Whether or not you aim for certification, an AWS course offers the theory and practical skills you need to land a job in cloud development, sales, engineering, networking, and more. The better you become at cloud computing, the more
                       </p>
 
                       <button className="border p-2 border-gray-500 font-bold text-Udemygray-500 text-sm mb-12 ">
                         Explore {selectedCategory}{" "}
                       </button>
+                      <div className=" flex flex-row justify-center items-center w-full h-fit mt-6">
+                        <div className=" flex flex-col w-fit h-full justify-start items-start">
+                          <div className=" flex gap-5 p-5 h-[21rem] w-[95rem]">
+                            {coursesByCategory && coursesByCategory.map((course: CourseProps, index: number) => (
+                              <Course
+                                key={index}
+                                img={course.course_img}
+                                title={course.courseName}
+                                teacher={course.teacherName}
+                                rating={course.rating}
+                                price={course.fullPrice}
+                                tag={course.category}
+                                numberOfRatings={course.numberOfRatings}
+                                id={course.courseId}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   );
                 case "Music":
@@ -172,7 +297,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                         Expand your creative skillset with Drawing
                       </h1>
                       <p className="mr-72 mb-6">
-                      Want to start drawing for fun or take your craft to the next level? Explore our online drawing classes and learn pencil drawing, figure drawing, cartoon drawing, character drawing for cartoons and anime, illustration, sketching, shading and more. Take an overview course on the fundamentals of drawing or zero in on an area you’d like to improve with a specialized course. We’ve got tons of options to get — and keep — you going.
+                        Want to start drawing for fun or take your craft to the next level? Explore our online drawing classes and learn pencil drawing, figure drawing, cartoon drawing, character drawing for cartoons and anime, illustration, sketching, shading and more. Take an overview course on the fundamentals of drawing or zero in on an area you’d like to improve with a specialized course. We’ve got tons of options to get — and keep — you going.
 
 
                       </p>
@@ -180,6 +305,25 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                       <button className="border p-2 border-gray-500 font-bold text-Udemygray-500 text-sm mb-12 ">
                         Explore {selectedCategory}{" "}
                       </button>
+                      <div className=" flex flex-row justify-center items-center w-full h-fit mt-6">
+                        <div className=" flex flex-col w-fit h-full justify-start items-start">
+                          <div className=" flex gap-5 p-5 h-[21rem] w-[95rem]">
+                            {coursesByCategory && coursesByCategory.map((course: CourseProps, index: number) => (
+                              <Course
+                                key={index}
+                                img={course.course_img}
+                                title={course.courseName}
+                                teacher={course.teacherName}
+                                rating={course.rating}
+                                price={course.fullPrice}
+                                tag={course.category}
+                                numberOfRatings={course.numberOfRatings}
+                                id={course.courseId}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   );
                 default:
