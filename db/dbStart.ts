@@ -25,7 +25,8 @@ export const courseSchema = new mongoose.Schema({
   courseContent: String,
   requirements: [String],
   fullDescription: String,
-  course_img: String
+  course_img: String,
+  category: String
 });
 
 export const Course = mongoose.model('Course', courseSchema);
