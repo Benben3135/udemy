@@ -6,6 +6,7 @@ import LogosComponent from "../Components/LogosCompany";
 import TabsComponent from "./TabsComponent";
 import { categoriesTab } from "../util/categories";
 import TestimonialsSlider from "./TestimonialsSlider";
+import CategoryImages from "./CategoriesImges";
 
 const MainPage = () => {
   const isUserRedux = useSelector(isUserSelector);
@@ -57,6 +58,8 @@ const MainPage = () => {
           <LogosComponent />
           <TabsComponent categories={categoriesTab} />
           <TestimonialsSlider/>
+          <CategoryImages/>
+
         </>
       ) : (
         <div className=" min-h-screen">
