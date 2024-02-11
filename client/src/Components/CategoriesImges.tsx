@@ -29,9 +29,10 @@ const CategoryImages: React.FC = () => {
                 className="w-full h-[35vh] object-contain  transition-transform duration-300 transform group-hover:scale-110"
               />
               <div className="">
-                <p className="text-black text-lg font-bold ">{category}</p>
+                <p className="text-black text-lg font-bold pl-6 pt-4 ">{category}</p>
               </div>
             </div>
+            
           )
         )}
       </div>
