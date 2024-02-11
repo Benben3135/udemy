@@ -1,11 +1,11 @@
-import Course from "../../Components/Courses/Course"
+import Courses from "../../Components/Courses/Courses"
 import Main from "../../Components/Main"
 
 const MainPage = () => {
   return (
     <>
       <Main />
-      <Course />
+      <Courses />
     </>
   )
 }
