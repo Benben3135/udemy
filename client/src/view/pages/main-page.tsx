@@ -11,9 +11,6 @@ const MainPage = () => {
   return (
     <div className=" h-fit pb-16">
       <Main />
-      <Courses type={coursesByMostViewing} componentsTitle={"Learners are viewing"} />
-      <Courses type={coursesByRecentlySearched} componentsTitle={`Because you searched "${recentlySearched}"`} />
-      <Courses type={coursesByMostRated} componentsTitle={"Most rated"} />
     </div>
   )
 }

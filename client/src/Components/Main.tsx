@@ -8,9 +8,21 @@ import { categoriesTab } from "../util/categories";
 import TestimonialsSlider from "./TestimonialsSlider";
 import CategoryImages from "./CategoriesImges";
 import { useNavigate } from "react-router-dom";
+import {
+  getCoursesByMostRated,
+  getCoursesByMostViewing,
+  getCoursesByRecentlySearched,
+} from "../../api/coursesApi";
+import { CourseProps } from "../Components/Courses/Course";
+import Courses from "../Components/Courses/Courses";
+const coursesByMostViewing: CourseProps[] = await getCoursesByMostViewing();
+const coursesByRecentlySearched: CourseProps[] =
+  await getCoursesByRecentlySearched();
+const coursesByMostRated: CourseProps[] = await getCoursesByMostRated();
+const recentlySearched = localStorage.getItem("recentlySearched");
 
 const MainPage = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const isUserRedux = useSelector(isUserSelector);
   const userRedux = useSelector(userSelector);
   const [isUser, setIsUser] = useState<boolean>();
@@ -57,7 +69,15 @@ const MainPage = () => {
                 </div>
               </div>
             </div>
-
+            <Courses
+              type={coursesByMostViewing}
+              componentsTitle={"Learners are viewing"}
+            />
+            <Courses
+              type={coursesByRecentlySearched}
+              componentsTitle={`Because you searched "${recentlySearched}"`}
+            />
+            <Courses type={coursesByMostRated} componentsTitle={"Most rated"} />
           </>
         </div>
       ) : (
@@ -73,13 +93,19 @@ const MainPage = () => {
               >
                 <div className="h-[16.5rem] w-[26rem] bg-white shadow-md p-6 flex flex-col items-start justify-start gap-3">
                   <h1 className=" font-bold text-3xl leading-[2.4rem] tracking-normal text-Udemygray-500">
-                  Subscribe to the best of <br /> Udemy
+                    Subscribe to the best of <br /> Udemy
                     {userName}{" "}
                   </h1>
                   <p>
-                  With Personal Plan, you get access to 8,000 of our top-rated courses in tech, business, design, and more.
+                    With Personal Plan, you get access to 8,000 of our top-rated
+                    courses in tech, business, design, and more.
                   </p>
-                  <div onClick={() => navigate("/register-page")} className="hover:bg-gray-700 cursor-pointer w-24 h-12 bg-gray-900 text-white flex flex-row justify-center items-center font-bold">Try it free</div>
+                  <div
+                    onClick={() => navigate("/register-page")}
+                    className="hover:bg-gray-700 cursor-pointer w-24 h-12 bg-gray-900 text-white flex flex-row justify-center items-center font-bold"
+                  >
+                    Try it free
+                  </div>
                 </div>
               </div>
             </div>

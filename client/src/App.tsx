@@ -30,6 +30,7 @@ function App() {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
+      debugger
       if (user) {
         console.log("there user!", user);
         if (
@@ -46,18 +47,20 @@ function App() {
           dispatch(setName(user.displayName));
           dispatch(setImg(user.photoURL));
           dispatchUser(user.uid)
+          if (localStorage.getItem("userName")) {
+            dispatch(setLogInTrue());
+          } else {
+            dispatch(setLogInFalse());
+          }
         }
+       
+      } else {
+        console.log("no token");
         if (localStorage.getItem("userName")) {
           dispatch(setLogInTrue());
         } else {
-          if (localStorage.getItem("userName")) {
-            dispatch(setLogInTrue());
-          }
           dispatch(setLogInFalse());
         }
-      } else {
-        console.log("no token");
-        dispatch(setLogInFalse());
       }
     });
   }, []);

@@ -13,6 +13,7 @@ import { categories } from "../../util/categories";
 import { useSelector } from "react-redux";
 import { isUserSelector } from "../../features/user/isUserSlice";
 import { userSelector } from "../../features/user/userSlice";
+import {logOut} from "../../../api/userApi/logInApi"
 import NavMenu from "../NavMenu";
 
 const NavBar = () => {
@@ -62,6 +63,17 @@ const NavBar = () => {
   useEffect(() => {
     setUser(userRedux);
   }, [userRedux]);
+
+  //functions
+
+  const logoutUser = async () => {
+      const response = await logOut();
+      console.log("response in logoutUser" , response)
+      if(response.ok){
+        window.location.reload()
+        navigate("/")
+      }
+  }
 
   return (
     <div>
@@ -251,7 +263,7 @@ const NavBar = () => {
                             Help
                           </h3>
                         </div>
-                        <div className=" h-8 text-sm w-full flex flex-row justify-start items-start group">
+                        <div onClick={() => logoutUser()} className=" h-8 text-sm w-full flex flex-row justify-start items-start group">
                           <h3 className=" text-slate-900 cursor-pointer w-full hover:text-Udemyblue-300">
                             Log out
                           </h3>
