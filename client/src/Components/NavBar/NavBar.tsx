@@ -49,6 +49,7 @@ const NavBar = () => {
   useEffect(() => {
     if (search?.length > 0) {
       setGlassColor(true);
+      localStorage.setItem('recentlySearched', search);
     } else {
       setGlassColor(false);
     }
@@ -87,7 +88,7 @@ const NavBar = () => {
                           onClick={() =>
                             navigate(`/categoryPage?category=${category}`)
                           }
-                          // TODO: category page navigation
+                        // TODO: category page navigation
                         >
                           <div>{category}</div>
                           <div>
@@ -286,7 +287,7 @@ const NavBar = () => {
                         onClick={() =>
                           navigate(`/categoryPage?category=${category}`)
                         }
-                        // TODO: category page navigation
+                      // TODO: category page navigation
                       >
                         <div>{category}</div>
                         <div>

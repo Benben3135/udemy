@@ -17,7 +17,7 @@ app.use(cookieParser());
 //////////////////////
 //API ROUTES
 import CoursesRouter from "./api/courses/courseRouter";
-app.use("/api/courses", CoursesRouter);
+app.use("/API/courses", CoursesRouter);
 
 //////////////////////
 // Connect to MongoDB
