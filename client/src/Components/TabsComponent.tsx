@@ -88,7 +88,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                         <div className=" flex flex-col w-fit h-full justify-start items-start">
                           <div className=" flex gap-5 p-5 h-[21rem] w-[95rem]">
                             {coursesByCategory && coursesByCategory.map((course: CourseProps, index: number) => (
-                              <Course
+                              <Course 
                                 key={index}
                                 img={course.course_img}
                                 title={course.courseName}

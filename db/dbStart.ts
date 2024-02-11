@@ -1,8 +1,24 @@
-import { faker } from '@faker-js/faker';
-import mongoose from "mongoose"
+import { faker } from "@faker-js/faker";
+import mongoose from "mongoose";
 
-
-mongoose.connect('mongodb+srv://bennyvolo28:EjO9PTKNvr8Exr8Z@udemy.shffm2f.mongodb.net/');
+export const categories = [
+  "Development",
+  "Business",
+  "Finance & Accounting",
+  "IT and Software",
+  "Office productivity",
+  "Personal Development",
+  "Design",
+  "Marketing",
+  "Lifestyle",
+  "Photography & Video",
+  "Health & Fitness",
+  "Music",
+  "Teaching & Academics",
+];
+mongoose.connect(
+  "mongodb+srv://bennyvolo28:EjO9PTKNvr8Exr8Z@udemy.shffm2f.mongodb.net/"
+);
 
 export const courseSchema = new mongoose.Schema({
   courseId: Number,
@@ -14,8 +30,8 @@ export const courseSchema = new mongoose.Schema({
   numberOfRatings: Number,
   numberOfStudents: Number,
   lastUpdated: Date,
-  language: { type: String, default: 'English' },
-  subtitlesLanguage: { type: String, default: 'English' },
+  language: { type: String, default: "English" },
+  subtitlesLanguage: { type: String, default: "English" },
   fullPrice: Number,
   discountPrice: Number,
   secondDescriptions: [String],
@@ -26,13 +42,13 @@ export const courseSchema = new mongoose.Schema({
   requirements: [String],
   fullDescription: String,
   course_img: String,
-  category: String
+  category: String,
 });
 
-export const Course = mongoose.model('Course', courseSchema);
+export const Course = mongoose.model("Course", courseSchema);
 
 // Function to generate and save random courses
-const generateAndSaveRandomCourses = async (count:number) => {
+const generateAndSaveRandomCourses = async (count: number) => {
   const courses = generateRandomCourses(count);
 
   try {
@@ -43,21 +59,17 @@ const generateAndSaveRandomCourses = async (count:number) => {
 
     console.log(`${count} courses saved to MongoDB`);
   } catch (error) {
-    console.error('Error saving courses to MongoDB:', error);
+    console.error("Error saving courses to MongoDB:", error);
   } finally {
     // Disconnect from MongoDB
     mongoose.disconnect();
   }
 };
 
-
-
-
-
-const generateRandomCourses = (count:number) => {
+const generateRandomCourses = (count: number) => {
   const courses = [];
 
-  for (let i = 1; i <= count; i++) {
+  for (let i = 21; i <= count; i++) {
     const course = {
       courseId: i,
       teacherId: i,
@@ -68,28 +80,31 @@ const generateRandomCourses = (count:number) => {
       numberOfRatings: Math.floor(Math.random() * 100),
       numberOfStudents: Math.floor(Math.random() * 500),
       lastUpdated: faker.date.past(),
-      language: 'English',
-      subtitlesLanguage: 'English',
+      language: "English",
+      subtitlesLanguage: "English",
       fullPrice: Math.floor(Math.random() * 100),
       discountPrice: Math.random() * 80,
-      secondDescriptions: Array.from({ length: Math.floor(Math.random() * 3) + 7 }, () =>
-        faker.lorem.sentence()
+      secondDescriptions: Array.from(
+        { length: Math.floor(Math.random() * 3) + 7 },
+        () => faker.lorem.sentence()
       ),
       courseDuration: Math.floor(Math.random() * 20) + 1,
       articlesNumber: Math.floor(Math.random() * 10),
       downloadableResourcesNumber: Math.floor(Math.random() * 5),
       courseContent: faker.lorem.paragraphs(3),
-      requirements: Array.from({ length: Math.floor(Math.random() * 3) + 1 }, () =>
-        faker.lorem.sentence()
+      requirements: Array.from(
+        { length: Math.floor(Math.random() * 3) + 1 },
+        () => faker.lorem.sentence()
       ),
       fullDescription: faker.lorem.paragraphs(5),
-      course_img: faker.image.urlPicsumPhotos()
+      course_img: faker.image.urlPicsumPhotos(),
+      category: categories[Math.floor(Math.random() * 8)],
     };
-//@ts-ignore
+    //@ts-ignore
     courses.push(course);
   }
 
   return courses;
 };
 
-// generateAndSaveRandomCourses(20);
+// generateAndSaveRandomCourses(60);
