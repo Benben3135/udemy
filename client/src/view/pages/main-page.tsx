@@ -1,7 +1,6 @@
 import { getCoursesByMostRated, getCoursesByMostViewing, getCoursesByRecentlySearched } from "../../../api/coursesApi";
 import { CourseProps } from "../../Components/Courses/Course";
-import Courses from "../../Components/Courses/Courses"
-import Main from "../../Components/Main"
+import Main from "../../Components/Main";
 const coursesByMostViewing: CourseProps[] = await getCoursesByMostViewing();
 const coursesByRecentlySearched: CourseProps[] = await getCoursesByRecentlySearched();
 const coursesByMostRated: CourseProps[] = await getCoursesByMostRated();
