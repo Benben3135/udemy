@@ -14,7 +14,7 @@ const MainPage = () => {
       <Courses type={coursesByMostViewing} componentsTitle={"Learners are viewing"} />
       <Courses type={coursesByRecentlySearched} componentsTitle={`Because you searched "${recentlySearched}"`} />
       <Courses type={coursesByMostRated} componentsTitle={"Most rated"} />
-    </>
+    </div>
   )
 }
 
