@@ -15,10 +15,13 @@ import {
   setLogInTrue,
   setName,
   setUid,
+  setIsTeacherFalse,
+  setIsTeacherTrue
 } from "./features/user/userSlice";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
 import Terms from "./view/pages/terms-page"
+import {getUser} from "../api/userApi/usersAPI"
 
 import Footer from "./Components/Footer/Footer";
 
@@ -42,6 +45,7 @@ function App() {
           dispatch(setUid(user.uid));
           dispatch(setName(user.displayName));
           dispatch(setImg(user.photoURL));
+          dispatchUser(user.uid)
         }
         if (localStorage.getItem("userName")) {
           dispatch(setLogInTrue());
@@ -58,6 +62,19 @@ function App() {
     });
   }, []);
 
+  const dispatchUser = async (uid:string) => {
+    const result = await getUser(uid);
+    const teacher = result.user.isTeacher
+    console.log("im dispatching:" , teacher)
+    if(teacher){
+      dispatch(setIsTeacherTrue());
+    }
+    else{
+      dispatch(setIsTeacherFalse());
+    }
+  }
+
+
   const getaddNameSRT = (name: string) => {
     const words = name.split(" ");
     const initials = words.map((word) => word.charAt(0)).join("");
@@ -66,23 +83,14 @@ function App() {
   };
 
   const checkSignInTime = (time: string) => {
-    // Convert the given date string to a Date object
     const givenDate = new Date(time);
-
-    // Get the current time
     const currentTime = new Date();
-
     // Calculate the difference between the two timestamps in milliseconds
     const differenceInMilliseconds =
       currentTime.getTime() - givenDate.getTime();
-
-    // Convert milliseconds to minutes
     const differenceInMinutes = differenceInMilliseconds / (1000 * 60);
-
     console.log("Difference in minutes:", differenceInMinutes);
-
     const recentThreshold = 480;
-
     // Return true if the sign-in occurred within the threshold, false otherwise
     console.log(
       "are the difference good?",

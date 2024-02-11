@@ -8,10 +8,7 @@ export interface UserState{
     img:string;
     acronyms:string;
     logIn: boolean;
-
-
-
-
+    isTeacher: Boolean;
 }
 
 const initialState:UserState = {
@@ -21,7 +18,7 @@ const initialState:UserState = {
     img:"",
     acronyms:"",
     logIn: false ,
-    
+    isTeacher: false
 };
 
 export const userSlice = createSlice({
@@ -52,10 +49,18 @@ export const userSlice = createSlice({
             state.logIn  = true
           
         },
+        setIsTeacherFalse: (state, ) => {
+            state.isTeacher  = false
+          
+        },
+        setIsTeacherTrue: (state, ) => {
+            state.isTeacher  = true
+          
+        },
     }
 })
 
-export const { setAcronyms,setEmail, setImg ,setName ,setUid,setLogInFalse , setLogInTrue} = userSlice.actions;
+export const { setAcronyms,setEmail, setImg ,setName ,setUid,setLogInFalse , setLogInTrue, setIsTeacherFalse , setIsTeacherTrue} = userSlice.actions;
 
 export const userSelector = (state: RootState) => state.user;
 

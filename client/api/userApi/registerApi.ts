@@ -1,5 +1,7 @@
 import { auth, provider } from "../../src/firebase";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import axios from "axios";
+
 
 export const registerUser = async (email: string, password: string) => {
   try {
@@ -10,7 +12,7 @@ export const registerUser = async (email: string, password: string) => {
       password
     );
     const user = userCredential.user;
-console.log(user)
+    sendUserDB(user.uid)
     return user;
   
   } catch (error) {
@@ -19,3 +21,9 @@ console.log(user)
     throw error;
   }
 };
+
+export const sendUserDB = async (uid:string) => {
+  const isTeacher = false;
+  const result = await axios.post("/API/users" , {uid,isTeacher})
+  console.log("result from sendUserDB" , result)
+}

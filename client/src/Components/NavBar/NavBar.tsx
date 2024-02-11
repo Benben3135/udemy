@@ -23,6 +23,7 @@ const NavBar = () => {
     img: string;
     acronyms: string;
     logIn: boolean;
+    isTeacher: Boolean;
   }
 
   //initials
@@ -49,6 +50,7 @@ const NavBar = () => {
   useEffect(() => {
     if (search?.length > 0) {
       setGlassColor(true);
+      localStorage.setItem('recentlySearched', search);
     } else {
       setGlassColor(false);
     }
@@ -87,7 +89,7 @@ const NavBar = () => {
                           onClick={() =>
                             navigate(`/categoryPage?category=${category}`)
                           }
-                          // TODO: category page navigation
+                        // TODO: category page navigation
                         >
                           <div>{category}</div>
                           <div>
@@ -122,7 +124,7 @@ const NavBar = () => {
               </div>
               <div className=" h-full w-32 flex flex-col justify-center items-center">
                 {
-                  isInstructor ? (
+                  user?.isTeacher ? (
                     <a
                       className=" text-Udemygray-500 hover:text-Udemyblue-300  text-[0.9rem] tracking-tight ml-12"
                       href="instructor page"
@@ -165,14 +167,14 @@ const NavBar = () => {
               </div>
               <div className="w-12 group  h-[70px] mt-10">
                 <Badge variant="dot" badgeContent="" color="secondary">
-                  <div className=" bg-Udemygray-500 rounded-full w-8 h-8 flex flex-col items-center justify-center ">
+                  <div className=" bg-Udemygray-500 rounded-full w-8 h-8 flex flex-col items-center justify-center cursor-pointer ">
                     <h1 className="font-[700] text-Udemywhite font-sans text-sm text-center">
                       {user!.acronyms}
                     </h1>
                   </div>
                   <div className="absolute right-0 z-50 top-12 h-fit w-[14rem] bg-white border-Udemygray-200 border-[1.4px] shadow-lg scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all ease-in hover:scale-100">
                     <div className="h-5/6 w-full flex flex-col items-center justify-start">
-                      <div className="flex flex-row items-start justify-center h-24 w-full gap-2 p-3 border-b">
+                      <div className="flex flex-row items-start justify-center h-24 w-full gap-2 p-3 border-b cursor-pointer">
                         <div className=" bg-Udemygray-500 rounded-full w-16 h-16 flex flex-col items-center justify-center ">
                           <h1 className="font-[700] text-2xl text-Udemywhite font-sans text-center">
                             {user!.acronyms}
@@ -180,7 +182,7 @@ const NavBar = () => {
                         </div>
                         <div className=" flex flex-col items-strat justify-start">
                           {" "}
-                          <h1 className=" font-bold text-slate-800 leading-[1.3rem]">
+                          <h1 className=" font-bold text-slate-800 leading-[1.3rem] hover:text-Udemyblue-300">
                             {user?.name.split(" ")[0]} <br />{" "}
                             {user?.name.split(" ")[1]}
                           </h1>
@@ -286,7 +288,7 @@ const NavBar = () => {
                         onClick={() =>
                           navigate(`/categoryPage?category=${category}`)
                         }
-                        // TODO: category page navigation
+                      // TODO: category page navigation
                       >
                         <div>{category}</div>
                         <div>
