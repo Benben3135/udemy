@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainPage from "./view/pages/main-page";
 import NotFound from "./view/pages/not-found";
 import NavBar from "./Components/NavBar/NavBar";
+import UserPage from "./view/pages/user-page"
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { thereUser } from "./features/user/isUserSlice";
@@ -32,14 +33,12 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       debugger
       if (user) {
-        console.log("there user!", user);
         if (
           user.metadata.lastSignInTime &&
           checkSignInTime(user.metadata.lastSignInTime) &&
           user.displayName
         ) {
           const initials = getaddNameSRT(user.displayName!);
-          console.log("your initials baby!", initials);
           dispatch(setAcronyms(initials));
           dispatch(thereUser());
           dispatch(setEmail(user.email));
@@ -55,7 +54,6 @@ function App() {
         }
        
       } else {
-        console.log("no token");
         if (localStorage.getItem("userName")) {
           dispatch(setLogInTrue());
         } else {
@@ -68,7 +66,6 @@ function App() {
   const dispatchUser = async (uid:string) => {
     const result = await getUser(uid);
     const teacher = result.user.isTeacher
-    console.log("im dispatching:" , teacher)
     if(teacher){
       dispatch(setIsTeacherTrue());
     }
@@ -113,6 +110,7 @@ function App() {
           <Route path="/register-page" element={<Register />} />
           <Route path="/login-page" element={<Login />} />
           <Route path="/terms-Page" element={<Terms/>}/>
+          <Route path="/user-Page" element={<UserPage/>}/>
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -7,7 +7,6 @@ const Courses = ({
   componentsTitle: string;
 }) => {
   if (type === null || type === undefined) return;
-  console.log(componentsTitle);
 
   return (
     <div className=" flex flex-row justify-center items-center w-full h-fit mt-6">

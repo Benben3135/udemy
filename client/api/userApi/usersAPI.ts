@@ -9,3 +9,7 @@ export const getUser = async (uid:string) => {
     return data;
   }
   
+  export const sendNewImg = async (img:string,uid:string) => {
+    const {data} = await axios.post("/API/users/changeIMG" , {img,uid})
+    return data
+}
