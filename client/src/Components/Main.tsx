@@ -114,6 +114,10 @@ const MainPage = () => {
           <LogosComponent />
           <TabsComponent categories={categoriesTab} />
           <TestimonialsSlider />
+          <Courses
+            type={coursesByMostViewing}
+            componentsTitle={"Learners are viewing"}
+          />
           <CategoryImages />
         </>
       )}

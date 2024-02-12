@@ -3,8 +3,6 @@ import { Course } from "../../../db/dbStart";
 import express from "express";
 import { Request, Response } from "express";
 
-//GET REQUESTS
-
 export async function getAllCourses(req: Request, res: Response) {
   try {
     const courses = await Course.find({});
@@ -39,7 +37,6 @@ export async function getOneCourseByName(req: Request, res: Response) {
   try {
     const new_name = req.params.name;
     console.log(new_name);
-    //case sensitive query
     const course = await Course.findOne({
       courseName: { $regex: new RegExp(new_name, "i") },
     });
@@ -49,7 +46,7 @@ export async function getOneCourseByName(req: Request, res: Response) {
   } catch (error) {
     res.status(500).send({
       ok: false,
-      message: "Error in function getAllCourses in courseCont!",
+      message: "Error in function getOneCourseByName in courseCont!",
     });
     console.error("Error fetching courses:", error);
   }
@@ -73,7 +70,7 @@ export async function get5CoursesByRecentlySearched(
   } catch (error) {
     res.status(500).send({
       ok: false,
-      message: "Error in function getCourseByMostViewing in courseCont!",
+      message: "Error in function get5CoursesByRecentlySearched in courseCont!",
     });
     console.error("Error fetching courses:", error);
   }
@@ -81,15 +78,15 @@ export async function get5CoursesByRecentlySearched(
 export async function get5CoursesByMostViewing(req: Request, res: Response) {
   try {
     const courses = await Course.aggregate([
-      { $sort: { numberOfStudents: -1 } }, // Sort documents by numberOfStudents in descending order
-      { $limit: 5 }, // Limit the results to 5 documents
+      { $sort: { numberOfStudents: -1 } },
+      { $limit: 5 },
     ]);
     console.log(courses);
     res.status(200).send({ ok: true, courses });
   } catch (error) {
     res.status(500).send({
       ok: false,
-      message: "Error in function getCourseByMostViewing in courseCont!",
+      message: "Error in function get5CoursesByMostViewing in courseCont!",
     });
     console.error("Error fetching courses:", error);
   }
@@ -98,17 +95,48 @@ export async function get5CoursesByMostViewing(req: Request, res: Response) {
 export async function get5CoursesByMostRated(req: Request, res: Response) {
   try {
     const courses = await Course.aggregate([
-      { $sort: { rating: -1 } }, // Sort documents by numberOfStudents in descending order
-      { $limit: 5 }, // Limit the results to 5 documents
+      { $sort: { rating: -1 } },
+      { $limit: 5 },
     ]);
     console.log(courses);
     res.status(200).send({ ok: true, courses });
   } catch (error) {
     res.status(500).send({
       ok: false,
-      message: "Error in function getCourseByMostViewing in courseCont!",
+      message: "Error in function get5CoursesByMostRated in courseCont!",
     });
     console.error("Error fetching courses:", error);
   }
 }
-//POST REQUESTS
+export async function get5CoursesByCategory(req: Request, res: Response) {
+  try {
+    const category = req.params.category;
+    const courses = await Course.find({
+      category: { $regex: new RegExp(category, "i") },
+    }).limit(5);
+    console.log(courses);
+    res.status(200).send({ ok: true, courses });
+  } catch (error) {
+    res.status(500).send({
+      ok: false,
+      message: "Error in function get5CoursesByCategory in courseCont!",
+    });
+    console.error("Error fetching courses:", error);
+  }
+}
+export async function getAllCoursesByCategory(req: Request, res: Response) {
+  try {
+    const category = req.params.category;
+    const courses = await Course.find({
+      category: { $regex: new RegExp(category, "i") },
+    });
+    console.log(courses);
+    res.status(200).send({ ok: true, courses });
+  } catch (error) {
+    res.status(500).send({
+      ok: false,
+      message: "Error in function get5CoursesByCategory in courseCont!",
+    });
+    console.error("Error fetching courses:", error);
+  }
+}

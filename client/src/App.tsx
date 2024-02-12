@@ -22,7 +22,7 @@ import {
 import Register from "./Components/Register";
 import Login from "./Components/Login";
 import Terms from "./view/pages/terms-page"
-import {getUser} from "../api/userApi/usersAPI"
+import { getUser } from "../api/userApi/usersAPI"
 
 import Footer from "./Components/Footer/Footer";
 
@@ -31,7 +31,6 @@ function App() {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      debugger
       if (user) {
         if (
           user.metadata.lastSignInTime &&
@@ -52,7 +51,7 @@ function App() {
             dispatch(setLogInFalse());
           }
         }
-       
+
       } else {
         if (localStorage.getItem("userName")) {
           dispatch(setLogInTrue());
@@ -63,13 +62,15 @@ function App() {
     });
   }, []);
 
-  const dispatchUser = async (uid:string) => {
+  const dispatchUser = async (uid: string) => {
     const result = await getUser(uid);
     const teacher = result.user.isTeacher
+
     if(teacher){
+
       dispatch(setIsTeacherTrue());
     }
-    else{
+    else {
       dispatch(setIsTeacherFalse());
     }
   }
@@ -111,6 +112,7 @@ function App() {
           <Route path="/login-page" element={<Login />} />
           <Route path="/terms-Page" element={<Terms/>}/>
           <Route path="/user-Page" element={<UserPage/>}/>
+
         </Routes>
         <Footer />
       </BrowserRouter>

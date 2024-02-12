@@ -23,6 +23,7 @@ export interface CourseProps {
   requirements: [string];
   fullDescription: string;
   course_img: string;
+  category: string;
 }
 const Course = ({
   img,
