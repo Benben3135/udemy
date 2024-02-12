@@ -50,7 +50,6 @@ const Course = ({
   }, []);
   const starColor = () => {
     const roundedRating = Math.round(rating);
-    console.log("your rounded number from" , rating , roundedRating)
     setRatingRounded(roundedRating);
 
   };
