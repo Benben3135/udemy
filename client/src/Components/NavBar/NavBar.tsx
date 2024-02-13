@@ -13,7 +13,7 @@ import { categories } from "../../util/categories";
 import { useSelector } from "react-redux";
 import { isUserSelector } from "../../features/user/isUserSlice";
 import { userSelector } from "../../features/user/userSlice";
-import {logOut} from "../../../api/userApi/logInApi"
+import { logOut } from "../../../api/userApi/logInApi"
 import NavMenu from "../NavMenu";
 
 const NavBar = () => {
@@ -67,12 +67,12 @@ const NavBar = () => {
   //functions
 
   const logoutUser = async () => {
-      const response = await logOut();
-      console.log("response in logoutUser" , response)
-      if(response.ok){
-        window.location.reload()
-        navigate("/")
-      }
+    const response = await logOut();
+    console.log("response in logoutUser", response)
+    if (response.ok) {
+      window.location.reload()
+      navigate("/")
+    }
   }
 
   return (
@@ -186,7 +186,7 @@ const NavBar = () => {
                   </div>
                   <div className="absolute right-0 z-50 top-12 h-fit w-[14rem] bg-white border-Udemygray-200 border-[1.4px] shadow-lg scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all ease-in hover:scale-100">
                     <div className="h-5/6 w-full flex flex-col items-center justify-start">
-                      <div onClick={() => navigate("/user-page")} className="flex flex-row items-start justify-center h-24 w-full gap-2 p-3 border-b cursor-pointer">
+                      <div onClick={() => navigate("/user/edit-profile")} className="flex flex-row items-start justify-center h-24 w-full gap-2 p-3 border-b cursor-pointer">
                         <div className=" bg-Udemygray-500 rounded-full w-16 h-16 flex flex-col items-center justify-center ">
                           <h1 className="font-[700] text-2xl text-Udemywhite font-sans text-center">
                             {user!.acronyms}
