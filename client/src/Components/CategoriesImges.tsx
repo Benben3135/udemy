@@ -1,6 +1,7 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import categoryImagesData from "../util/categories"; // Use the correct path to your file
+import categoryImagesData from "../util/categories";
+import { Link, useNavigate } from "react-router-dom";
+ // Use the correct path to your file
 
 interface CategoryImage {
   category: string;
@@ -13,7 +14,11 @@ interface CategoryProps {
   displayAltOnly?: boolean;
 }
 
-const Category: React.FC<CategoryProps> = ({ category, additionalText, displayAltOnly = false }) => {
+const Category: React.FC<CategoryProps> = ({
+  category,
+  additionalText,
+  displayAltOnly = false,
+}) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -22,24 +27,35 @@ const Category: React.FC<CategoryProps> = ({ category, additionalText, displayAl
 
   if (displayAltOnly) {
     return (
+      <div
+      className="relative cursor-pointer overflow-hidden group"
+      onClick={handleClick}
+    >
       <div className="text-center pt-4">
-        {additionalText && <p className="text-gray-500">{additionalText}</p>}
-        <p className="text-black text-lg font-bold">{category.category}</p>
+        {additionalText && (
+          <p className=" text-Udemygray-550 font-[700] text-[1.25rem] text-left pb-6 pt-5 mx-6">
+            {additionalText}
+          </p>
+        )}
+        <p className="text-Udemyblue-300 text-[1rem] font-bold underline text-left mx-6" >
+          {category.category }
+        </p>
+      </div>
       </div>
     );
+    
   }
 
   return (
-    <div className="relative cursor-pointer overflow-hidden group" onClick={handleClick}>
+    <div
+      className="relative cursor-pointer overflow-hidden group"
+      onClick={handleClick}
+    >
       <img
         src={category.imagePath}
         alt={category.category}
         className="w-full h-[35vh] object-contain transition-transform duration-300 transform group-hover:scale-110"
       />
-      <div className="">
-        {additionalText && <p className="text-gray-500 pl-6">{additionalText}</p>}
-        <p className="text-black text-lg font-bold pl-6 pt-4 ">{category.category}</p>
-      </div>
     </div>
   );
 };
@@ -49,15 +65,15 @@ const FeaturedCategory: React.FC = () => {
 
   // Define additional text for each category
   const additionalTexts = [
-    "Additional Text 1",
-    "Additional Text 2",
-    "Additional Text 3",
-    "Additional Text 4",
+    " Development",
+    "Business",
+    "Design",
+    "IT and Software",
   ];
 
   return (
-    <div className="">
-      <h1 className="mx-auto h-fit text-[1.5rem] pl-28 pt-10 font-[700]">
+    <div className="bg-Udemygray-100  pb-24 mt-12">
+      <h1 className="mx-auto h-fit text-[1.5rem] pl-28 pt-14 font-[700] text-Udemygray-550">
         Featured topics by category
       </h1>
       <div className="grid grid-cols-4 gap-8 mt-8 max-w-[82rem] mx-auto h-fit ">
