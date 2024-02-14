@@ -4,53 +4,37 @@ import { getUser } from '../../api/userApi/usersAPI';
 import { setIsTeacherFalse, setIsTeacherTrue } from '../features/user/userSlice';
 import { auth } from '../firebase';
 import { User } from '../util/interfaces';
+import { getAllCoursesByInstructor } from '../../api/coursesApi';
+import { CourseProps } from '../Components/Courses/Course';
+import Courses from '../Components/Courses/Courses';
 
 const TeacherPage = () => {
     const [user, setUser] = useState<User>();
+    const [courses, setCourses] = useState<CourseProps[]>();
     const dispatch = useDispatch();
     useEffect(() => {
         const user = auth.onAuthStateChanged((user) => {
-
             if (user) {
-
-                // if (
-                //     user.metadata.lastSignInTime &&
-                //     checkSignInTime(user.metadata.lastSignInTime) &&
-                //     user.displayName
-                // ) {
-                // const initials = getaddNameSRT(user.displayName!);
-                // dispatch(setAcronyms(initials));
-                // dispatch(thereUser());
-                // debugger
-                // dispatch(setEmail(user.email));
-                // debugger
-                // dispatch(setUid(user.uid));
-                // debugger
-                // dispatch(setName(user.displayName));
-
-                // dispatch(setImg(user.photoURL));
                 dispatchUser(user.uid)
-                //         if (localStorage.getItem("userName")) {
-                //             dispatch(setLogInTrue());
-                //         } else {
-                //             dispatch(setLogInFalse());
-                //         }
-                //     }
-
-                // } else {
-                //     if (localStorage.getItem("userName")) {
-                //         dispatch(setLogInTrue());
-                //     } else {
-                //         dispatch(setLogInFalse());
-                //     }
-                // }
             }
         });
+
     }, []);
+    useEffect(() => {
+        const fetchCourses = dispathCourses();
+        // setCourses(fetchCourses);
+        console.log(courses)
+
+    }, [user]);
+    const dispathCourses = async () => {
+        const result = await getAllCoursesByInstructor(user!.displayName)
+        setCourses(result);
+    }
 
     const dispatchUser = async (uid: string) => {
         const result = await getUser(uid);
         setUser(result.user);
+
         const teacher = result.user.isTeacher
 
         if (teacher) {
@@ -86,11 +70,11 @@ const TeacherPage = () => {
     //         return differenceInMinutes <= recentThreshold;
     //     };
     return (
-        <div style={{ display: "flex", gap: "25px" }}>
+        <div style={{ display: "flex", gap: "25px", maxWidth: "91.2rem", margin: "0 auto", width: "912px", marginTop: "4.8rem" }}>
             <div className='instructor-data' style={{ maxWidth: "70%" }} >
                 <title>INSTRUCTOR</title>
-                <h2>{user?.name}</h2>
-                <p>Web Developer, Designer, and Teacher</p>
+                <h2>{user?.displayName}</h2>
+                <p>{user?.headline}</p>
                 <div>
                     <div>
                         <p>Total students</p>
@@ -101,17 +85,18 @@ const TeacherPage = () => {
                         <p>number of Reviews</p>
                     </div>
                 </div>
-                <h3>{user?.headline}</h3>
+                <h2>About me</h2>
                 <p>{user?.bio}</p>
                 <div>
-                    <h3>My courses (NUMBER OF COURSES)</h3>
-                    <p>courses!</p>
+                    {/* <h3>My courses (NUMBER OF COURSES)</h3>
+                    <p>courses!</p> */}
+                    {courses && courses.length > 0 ? <Courses type={courses} componentsTitle='My courses (7)'></Courses> : ""}
                 </div>
             </div>
-            <div >
-                <img src={user?.img} alt="" />
-                <div className='instructor-profile--social-links' style={{ display: "flex", gap: "25px", alignItems: "center", justifyContent: "center" }} >
-                    <a href={user?.facebook} style={{ display: "flex", alignItems: "center" }}>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", gap: "20px" }} >
+                <img src={user?.photoURL} alt="" style={{ borderRadius: "100%", width: "200px", height: "200px" }} />
+                <div className='instructor-profile--social-links' style={{ display: "flex", gap: "0.8rem", alignItems: "center", justifyContent: "center", padding: "15px", flexDirection: "column" }} >
+                    <a href={user?.facebook} style={{ minWidth: "200px", height: "48px", display: "flex", gap: "5px", justifyContent: "center", alignItems: "center", border: "1px solid black", padding: "0 1.2rem" }}>
 
                         <svg fill="#000000" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
                             viewBox="0 0 310 310" xmlSpace="preserve">
@@ -124,7 +109,7 @@ const TeacherPage = () => {
                             </g>
                         </svg>
                         facebook</a>
-                    <a href={user?.linkedin} style={{ display: "flex", alignItems: "center" }}>
+                    <a href={user?.linkedin} style={{ minWidth: "200px", height: "48px", display: "flex", gap: "5px", justifyContent: "center", alignItems: "center", border: "1px solid black", padding: "0 1.2rem" }}>
 
                         <svg fill="#000000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="20px"
                             height="20px" viewBox="0 0 512 512" xmlSpace="preserve">
@@ -139,7 +124,7 @@ const TeacherPage = () => {
                             </g>
                         </svg>
                         linkedin</a>
-                    <a href={user?.twitter} style={{ display: "flex", alignItems: "center" }}>
+                    <a href={user?.twitter} style={{ minWidth: "200px", height: "48px", display: "flex", gap: "5px", justifyContent: "center", alignItems: "center", border: "1px solid black", padding: "0 1.2rem" }}>
                         <svg width="20px" height="20px" viewBox="0 -2 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                             <title>twitter [#154]</title>
                             <desc>Created with Sketch.</desc>
@@ -159,8 +144,7 @@ const TeacherPage = () => {
                 </div>
             </div>
 
-
-        </div>
+        </div >
     )
 }
 

@@ -5,9 +5,14 @@ import { Request, Response } from "express";
 
 export async function register(req: Request, res: Response) {
   try {
-    const { uid, isTeacher } = req.body;
-    const newUser = await userModel.create({ uid, isTeacher });
-
+    const { uid, isTeacher, displayName, email } = req.body;
+    const newUser = await userModel.create({
+      uid,
+      isTeacher,
+      displayName,
+      email,
+    });
+    console.log(newUser);
     res.status(201).json(newUser);
   } catch (error) {
     console.error("Error occurred during registration:", error); // Log the error for debugging
@@ -30,10 +35,10 @@ export async function getUser(req: Request, res: Response) {
 export async function setNewImg(req: Request, res: Response) {
   try {
     const uid = req.body.uid;
-    const img = req.body.img;
+    const photoURL = req.body.img;
     const result = await userModel.updateOne(
       { uid: uid },
-      { $set: { img: img } }
+      { $set: { photoURL: photoURL } }
     );
     res.status(200).send({ ok: true });
   } catch (error) {
@@ -43,11 +48,19 @@ export async function setNewImg(req: Request, res: Response) {
 }
 export async function addNewInfo(req: Request, res: Response) {
   try {
-    const user = req.body.user;
-    console.log(user);
+    const {
+      uid,
+      headline,
+      bio,
+      website,
+      twitter,
+      facebook,
+      linkedin,
+      youtube,
+    } = req.body;
     const result = await userModel.updateOne(
-      { uid: user.uid },
-      { $set: { user } }
+      { uid: uid },
+      { $set: { headline, bio, website, twitter, facebook, linkedin, youtube } }
     );
     console.log(result);
     res.status(200).send({ ok: true, message: result });

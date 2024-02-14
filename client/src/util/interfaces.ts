@@ -11,10 +11,11 @@ interface User {
   uid: string;
   name: string;
   email: string;
+  displayName: string;
+  photoURL: string;
   isTeacher: boolean;
   acronyms: string;
   logIn: boolean;
-  img?: string;
   headline?: string;
   bio?: string;
   website?: string;

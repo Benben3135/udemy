@@ -35,7 +35,7 @@ const Register = () => {
 
   useEffect(() => {
     console.log(isChecked)
-  },[isChecked])
+  }, [isChecked])
 
   useEffect(() => {
     console.log("pass strong", passStrong);
@@ -43,7 +43,7 @@ const Register = () => {
 
   const handleSubmit = async () => {
     setLoading(true);
-    const user = await registerUser(email, password);
+    const user = await registerUser(email, password, name);
 
     if (user) {
       setLoading(false);

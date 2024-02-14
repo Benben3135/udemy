@@ -5,7 +5,7 @@ import NotFound from "./view/pages/not-found";
 import NavBar from "./Components/NavBar/NavBar";
 import UserPage from "./view/pages/user-page"
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { thereUser } from "./features/user/isUserSlice";
 import { auth } from "./firebase";
 import {
@@ -17,7 +17,8 @@ import {
   setName,
   setUid,
   setIsTeacherFalse,
-  setIsTeacherTrue
+  setIsTeacherTrue,
+  userSelector
 } from "./features/user/userSlice";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
@@ -29,6 +30,7 @@ import TeacherPage from "./view/teacher-page";
 
 function App() {
   const dispatch = useDispatch();
+  const userRedux = useSelector(userSelector);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -113,7 +115,7 @@ function App() {
           <Route path="/login-page" element={<Login />} />
           <Route path="/terms-Page" element={<Terms />} />
           <Route path="/user/edit-profile" element={<UserPage />} />
-          <Route path="/user/:userName" element={<TeacherPage />} />
+          <Route path={`/user/${userRedux.name}`} element={<TeacherPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>

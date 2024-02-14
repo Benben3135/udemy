@@ -13,8 +13,27 @@ export const sendNewImg = async (img: string, uid: string) => {
   const { data } = await axios.post("/API/users/changeIMG", { img, uid });
   return data;
 };
-export const addUserInfo = async (user: User) => {
-  const { data } = await axios.post("/API/users/add-info", { user });
+export const addUserInfo = async (
+  uid: string,
+  headline?: string,
+  bio?: string,
+  website?: string,
+  twitter?: string,
+  facebook?: string,
+  linkedin?: string,
+  youtube?: string
+) => {
   debugger;
+
+  const { data } = await axios.post("/API/users/add-info", {
+    uid,
+    headline,
+    bio,
+    website,
+    twitter,
+    facebook,
+    linkedin,
+    youtube,
+  });
   return data;
 };
