@@ -13,7 +13,7 @@ import { categories } from "../../util/categories";
 import { useSelector } from "react-redux";
 import { isUserSelector } from "../../features/user/isUserSlice";
 import { userSelector } from "../../features/user/userSlice";
-import { logOut } from "../../../api/userApi/logInApi"
+import { logOut } from "../../../api/userApi/logInApi";
 import NavMenu from "../NavMenu";
 
 const NavBar = () => {
@@ -51,7 +51,7 @@ const NavBar = () => {
   useEffect(() => {
     if (search?.length > 0) {
       setGlassColor(true);
-      localStorage.setItem('recentlySearched', search);
+      localStorage.setItem("recentlySearched", search);
     } else {
       setGlassColor(false);
     }
@@ -68,12 +68,13 @@ const NavBar = () => {
 
   const logoutUser = async () => {
     const response = await logOut();
-    console.log("response in logoutUser", response)
+
+    console.log("response in logoutUser", response);
     if (response.ok) {
-      window.location.reload()
-      navigate("/")
+      window.location.reload();
+      navigate("/");
     }
-  }
+  };
 
   return (
     <div>
@@ -84,13 +85,13 @@ const NavBar = () => {
               <div className=" mr-4">
                 <img
                   onClick={() => navigate("/")}
-                  className=" w-[91px] h-[34px] cursor-pointer"
+                  className=" bg-white w-[91px] h-[34px] cursor-pointer"
                   src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg"
                   alt=""
                 />
               </div>
               <div className="group h-[70px] mt-10">
-                <button className="text-[0.9rem] h-[74px] pb-10 leading-normal font-normal text-gray-700 font-sans hover:text-Udemyblue-300 pr-3 flex-shrink-0 group-hover:text-Udemyblue-300">
+                <button className="text-[0.9rem] h-[74px] pb-10  bg-white leading-normal font-normal text-gray-700 font-sans hover:text-Udemyblue-300 pr-3 flex-shrink-0 group-hover:text-Udemyblue-300">
                   Categories
                   <div className="absolute z-50 w-72 top-20 h-[38rem] bg-white border-Udemygray-200 border-[1.4px] shadow-lg scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all ease-in hover:scale-100">
                     <div className="h-5/6 w-full flex flex-col items-center justify-senter">
@@ -101,7 +102,7 @@ const NavBar = () => {
                           onClick={() =>
                             navigate(`/categoryPage?category=${category}`)
                           }
-                        // TODO: category page navigation
+                          // TODO: category page navigation
                         >
                           <div>{category}</div>
                           <div>
@@ -263,7 +264,10 @@ const NavBar = () => {
                             Help
                           </h3>
                         </div>
-                        <div onClick={() => logoutUser()} className=" h-8 text-sm w-full flex flex-row justify-start items-start group">
+                        <div
+                          onClick={() => logoutUser()}
+                          className=" h-8 text-sm w-full flex flex-row justify-start items-start group"
+                        >
                           <h3 className=" text-slate-900 cursor-pointer w-full hover:text-Udemyblue-300">
                             Log out
                           </h3>
@@ -289,9 +293,9 @@ const NavBar = () => {
               />
             </div>
             <div className="group h-[70px] mt-10">
-              <button className="text-[0.9rem] h-[74px] pb-10  leading-normal font-normal text-gray-700 font-sans hover:text-Udemyblue-300 pr-3 flex-shrink-0 group-hover:text-Udemyblue-300">
+              <button className="text-[0.9rem] h-[74px] pb-10  leading-normal font-normal text-gray-700 font-sans hover:text-Udemyblue-300 pr-3 flex-shrink-0 group-hover:text-Udemyblue-300 ">
                 Categories
-                <div className="absolute z-50 w-72 top-20 h-[38rem] border-Udemygray-200 border-[1.4px] shadow-lg scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all ease-in hover:scale-100">
+                <div className=" bg-white absolute z-50 w-72 top-20 h-[38rem]  border-Udemygray-200 border-[1.4px] shadow-lg scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all ease-in hover:scale-100">
                   <div className="h-5/6 w-full flex flex-col items-center justify-senter">
                     {categories.map((category) => (
                       <div
@@ -300,7 +304,7 @@ const NavBar = () => {
                         onClick={() =>
                           navigate(`/categoryPage?category=${category}`)
                         }
-                      // TODO: category page navigation
+                        // TODO: category page navigation
                       >
                         <div>{category}</div>
                         <div>
