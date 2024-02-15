@@ -1,10 +1,10 @@
-import { getCoursesByMostRated, getCoursesByMostViewing, getCoursesByRecentlySearched } from "../../../api/coursesApi";
-import { CourseProps } from "../../Components/Courses/Course";
+// import { getCoursesByMostRated, getCoursesByMostViewing, getCoursesByRecentlySearched } from "../../../api/coursesApi";
+// import { CourseProps } from "../../Components/Courses/Course";
 import Main from "../../Components/Main";
-const coursesByMostViewing: CourseProps[] = await getCoursesByMostViewing();
-const coursesByRecentlySearched: CourseProps[] = await getCoursesByRecentlySearched();
-const coursesByMostRated: CourseProps[] = await getCoursesByMostRated();
-const recentlySearched = localStorage.getItem("recentlySearched");
+// const coursesByMostViewing: CourseProps[] = await getCoursesByMostViewing();
+// const coursesByRecentlySearched: CourseProps[] = await getCoursesByRecentlySearched();
+// const coursesByMostRated: CourseProps[] = await getCoursesByMostRated();
+// const recentlySearched = localStorage.getItem("recentlySearched");
 
 const MainPage = () => {
   return (

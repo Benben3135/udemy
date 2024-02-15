@@ -140,3 +140,22 @@ export async function getAllCoursesByCategory(req: Request, res: Response) {
     console.error("Error fetching courses:", error);
   }
 }
+export async function getAllCoursesByInstructorName(
+  req: Request,
+  res: Response
+) {
+  try {
+    const instructorName = req.params.instructorName;
+    const courses = await Course.find({
+      teacherName: { $regex: new RegExp(instructorName, "i") },
+    });
+    console.log(courses);
+    res.status(200).send({ ok: true, courses });
+  } catch (error) {
+    res.status(500).send({
+      ok: false,
+      message: "Error in function get5CoursesByCategory in courseCont!",
+    });
+    console.error("Error fetching courses:", error);
+  }
+}

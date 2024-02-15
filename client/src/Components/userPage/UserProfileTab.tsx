@@ -10,6 +10,7 @@ import "react-quill/dist/quill.snow.css";
 import QuillDeltaToHtmlConverter from "quill-delta-to-html";
 import Quill from "quill";
 import { Divider } from "@mui/material";
+import { addUserInfo } from "../../../api/userApi/usersAPI";
 
 const UserProfileTab = () => {
   const navigate = useNavigate();
@@ -19,6 +20,12 @@ const UserProfileTab = () => {
   const [headlineLen, setHeadlineLen] = useState<number>(0);
   const [bio, setBio] = useState<any>("");
   const [bioCon, setBioCon] = useState<any>();
+  const [website, setWebsite] = useState<string>("");
+  const [twitter, setTwitter] = useState<string>("");
+  const [facebook, setFacebook] = useState<string>("");
+  const [linkedin, setLinkedin] = useState<string>("");
+  const [youtube, setYoutube] = useState<string>("");
+
 
   useEffect(() => {
     setUser(userRedux);
@@ -94,7 +101,7 @@ const UserProfileTab = () => {
           <div className=" w-full h-12 border border-black pl-4 pt-2 flex flex-row items-start justify-start">
             <input
               onInput={(ev) =>
-                setHeadline((ev.target as HTMLInputElement).value)
+                setWebsite((ev.target as HTMLInputElement).value)
               }
               type="text"
               placeholder="Website (http(s)://..)"
@@ -107,7 +114,7 @@ const UserProfileTab = () => {
             </div>
             <input
               onInput={(ev) =>
-                setHeadline((ev.target as HTMLInputElement).value)
+                setTwitter((ev.target as HTMLInputElement).value)
               }
               type="text"
               placeholder="Twitter Profile"
@@ -123,7 +130,7 @@ const UserProfileTab = () => {
             </div>
             <input
               onInput={(ev) =>
-                setHeadline((ev.target as HTMLInputElement).value)
+                setFacebook((ev.target as HTMLInputElement).value)
               }
               type="text"
               placeholder="Facebook Profile"
@@ -139,7 +146,7 @@ const UserProfileTab = () => {
             </div>
             <input
               onInput={(ev) =>
-                setHeadline((ev.target as HTMLInputElement).value)
+                setLinkedin((ev.target as HTMLInputElement).value)
               }
               type="text"
               placeholder="Linkedin Profile"
@@ -155,7 +162,7 @@ const UserProfileTab = () => {
             </div>
             <input
               onInput={(ev) =>
-                setHeadline((ev.target as HTMLInputElement).value)
+                setYoutube((ev.target as HTMLInputElement).value)
               }
               type="text"
               placeholder="Youtube Profile"
@@ -165,7 +172,7 @@ const UserProfileTab = () => {
           <p className=" text-xs text-slate-700">
             Input your Youtube username (e.g. johnsmith).
           </p>
-          <div className=" bg-Udemygray-500 w-[5.4rem] h-12 flex flex-row justify-center items-center font-bold text-white">Save</div>
+          <div onClick={() => addUserInfo(user!.uid, headline, bio.ops[0].insert, website, twitter, facebook, linkedin, youtube)} className=" bg-Udemygray-500 w-[5.4rem] h-12 flex flex-row justify-center items-center font-bold text-white mt-8 cursor-pointer">Save</div>
         </div>
       </div>
     </div>
