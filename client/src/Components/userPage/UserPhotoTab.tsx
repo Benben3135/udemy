@@ -47,6 +47,7 @@ const UserPhotoTab = () => {
   const imgChanged = () => {
     setWarning(false);
     setSucsess(true);
+    window.location.reload();
   };
 
   const imgChangedError = () => {

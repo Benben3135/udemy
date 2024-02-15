@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import UserNavBar from "../../Components/userPage/UserNavBar";
 import UserProfileTab from "../../Components/userPage/UserProfileTab"
 import UserPhotoTab from "../../Components/userPage/UserPhotoTab"
+import UserAccountSecurityTab from "../../Components/userPage/UserAccountSecurityTab"
+import UserCloseTab from "../../Components/userPage/UserClose"
 import { useNavigate } from "react-router-dom";
 
 
@@ -27,6 +29,8 @@ const UserPage = () => {
       <UserNavBar activeIndex={activeIndex} setActiveIndex={handleSetActiveIndex} />
       {activeIndex === 1 && <UserProfileTab/>}
       {activeIndex ===2 && <UserPhotoTab/>}
+      {activeIndex===3 && <UserAccountSecurityTab/>}
+      {activeIndex===5 && <UserCloseTab/>}
     </div>
   );
 };

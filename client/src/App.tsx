@@ -23,6 +23,7 @@ import Register from "./Components/Register";
 import Login from "./Components/Login";
 import Terms from "./view/pages/terms-page"
 import { getUser } from "../api/userApi/usersAPI"
+import {checkImgDB} from "../api/userApi/usersAPI"
 
 import Footer from "./Components/Footer/Footer";
 
@@ -43,7 +44,7 @@ function App() {
           dispatch(setEmail(user.email));
           dispatch(setUid(user.uid));
           dispatch(setName(user.displayName));
-          dispatch(setImg(user.photoURL));
+          checkImg(user.uid)
           dispatchUser(user.uid)
           if (localStorage.getItem("userName")) {
             dispatch(setLogInTrue());
@@ -75,6 +76,18 @@ function App() {
     }
   }
 
+
+  const checkImg = async (uid:string) => {
+    const result = await checkImgDB(uid);
+    if(result){
+      console.log("now testing true" , result)
+      const newImage = result.image;
+      dispatch(setImg(newImage))
+    }
+    else{
+      console.log("now testing false", result)
+    }
+  }
 
   const getaddNameSRT = (name: string) => {
     const words = name.split(" ");

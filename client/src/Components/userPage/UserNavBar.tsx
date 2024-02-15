@@ -30,9 +30,14 @@ const UserNavBar = ({ activeIndex, setActiveIndex }: Props) => {
       {user && (
         <div className='h-full w-[13.6rem] flex flex-col items-start justify-start border'>
           <div className='w-full h-fit flex flex-col items-center justify-center mt-4'>
+            {user.img? (
+              <div className='rounded-full w-32 h-32 flex flex-col items-center justify-center'>
+                <img className='rounded-full w-32 h-32' src={user.img} alt="" />
+              </div>
+            ):(
             <div className='bg-Udemygray-500 rounded-full w-32 h-32 flex flex-col items-center justify-center '>
               <h1 className='font-[700] text-4xl text-Udemywhite font-sans text-center'>{user.acronyms}</h1>
-            </div>
+            </div>)}
             <div className='h-fit w-fit mt-3'>
               <h1 className='font-bold'>{user.name}</h1>
             </div>
