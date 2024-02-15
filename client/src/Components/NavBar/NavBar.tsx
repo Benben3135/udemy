@@ -68,6 +68,7 @@ const NavBar = () => {
 
   const logoutUser = async () => {
     const response = await logOut();
+
     console.log("response in logoutUser", response);
     if (response.ok) {
       window.location.reload();
