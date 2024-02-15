@@ -17,7 +17,7 @@ const UserPage = () => {
 
   useEffect(() => {
     if(activeIndex === 0){
-        navigate("/")
+        navigate("/user/public-profile/")
     }
     if(activeIndex === 4){
         navigate("/")

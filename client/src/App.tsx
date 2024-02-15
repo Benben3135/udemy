@@ -4,6 +4,7 @@ import MainPage from "./view/pages/main-page";
 import NotFound from "./view/pages/not-found";
 import NavBar from "./Components/NavBar/NavBar";
 import UserPage from "./view/pages/user-page"
+import PublicProfilePage from "./view/pages/public-profile-page"
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thereUser } from "./features/user/isUserSlice";
@@ -129,6 +130,7 @@ function App() {
           <Route path="/terms-Page" element={<Terms />} />
           <Route path="/user/edit-profile" element={<UserPage />} />
           <Route path={`/user/${userRedux.name}`} element={<TeacherPage />} />
+          <Route path="/user/public-profile" element={<PublicProfilePage />} />
         </Routes>
         <Footer />
       </BrowserRouter>
