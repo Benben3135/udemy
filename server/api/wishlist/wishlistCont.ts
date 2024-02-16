@@ -1,4 +1,5 @@
 import wishlistModel from "./wishlistModel"
+import { Course } from "../../../db/dbStart";
 import mongoose from "mongoose";
 import express from "express";
 import { Request, Response } from "express";
@@ -61,6 +62,25 @@ export async function getUserWishlist(req: Request, res: Response) {
         if(userWishlist){
             const wishlist = userWishlist!.coursesId
             res.send({ok:true , wishlist})
+        }
+        else{
+            res.send({ok:false})
+        }
+       
+    } catch (error) {
+        console.error("Error occurred while getting wishlist:", error);
+        return res.status(500).json({ error: "An error occurred while getting wishlist" });
+    }
+}
+
+export async function getUserWishlistCourses(req: Request, res: Response) {
+    try {
+        const uid = req.params.uid;
+        const userWishlist = await wishlistModel.findOne({uid})
+        if(userWishlist){
+            const wishlist = userWishlist!.coursesId
+            const wishlistCourses = await Course.find({ courseId: { $in: wishlist } }); // Using $in operator to find courses
+            res.send({wishlistCourses})
         }
         else{
             res.send({ok:false})

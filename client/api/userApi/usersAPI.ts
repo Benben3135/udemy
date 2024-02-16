@@ -55,3 +55,8 @@ export const getUserWishlist = async (uid:string) => {
   const {data} = await axios.get(`/API/wishlist/${uid}`);
   return data;
 }
+
+export const getUserWishlistCourses = async (uid:string) => {
+  const {data} = await axios.get(`/API/wishlist/getCourses/${uid}`);
+  return data;
+}
