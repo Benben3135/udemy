@@ -19,6 +19,7 @@ const Courses = ({
           {type.map((course: CourseProps, index: number) => (
             <div className=" h-full flex-1 flex-grow" key={index}>
               <Course
+                key={index}
                 img={course.course_img}
                 title={course.courseName}
                 teacher={course.teacherName}
@@ -27,6 +28,10 @@ const Courses = ({
                 tag={course.language}
                 numberOfRatings={course.numberOfRatings}
                 id={course.courseId}
+                courseDuration={course.courseDuration}
+                lastUpdated={course.lastUpdated}
+                mainDescription={course.mainDescription}
+                secondDescriptions={course.secondDescriptions}
               />
             </div>
           ))}

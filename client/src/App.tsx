@@ -19,13 +19,15 @@ import {
   setUid,
   setIsTeacherFalse,
   setIsTeacherTrue,
-  userSelector
+  userSelector,
+  setWishlist
 } from "./features/user/userSlice";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
 import Terms from "./view/pages/terms-page"
 import { getUser } from "../api/userApi/usersAPI"
 import {checkImgDB} from "../api/userApi/usersAPI"
+import {getUserWishlist} from "../api/userApi/usersAPI"
 
 import Footer from "./Components/Footer/Footer";
 import TeacherPage from "./view/teacher-page";
@@ -50,6 +52,7 @@ function App() {
           dispatch(setName(user.displayName));
           checkImg(user.uid)
           dispatchUser(user.uid)
+          setWishlistFromDB(user.uid)
           if (localStorage.getItem("userName")) {
             dispatch(setLogInTrue());
           } else {
@@ -90,6 +93,16 @@ function App() {
     }
     else{
       console.log("now testing false", result)
+    }
+  }
+
+  const setWishlistFromDB = async (uid:string) => {
+    const wishlist = await getUserWishlist(uid);
+    if(wishlist.ok){
+      dispatch(setWishlist(wishlist.wishlist))
+    }
+    else{
+      dispatch(setWishlist([]))
     }
   }
 

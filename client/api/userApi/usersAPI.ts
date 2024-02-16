@@ -50,3 +50,8 @@ export const addUserInfo = async (
   });
   return data;
 };
+
+export const getUserWishlist = async (uid:string) => {
+  const {data} = await axios.get(`/API/wishlist/${uid}`);
+  return data;
+}

@@ -23,4 +23,5 @@ interface User {
   facebook?: string;
   linkedin?: string;
   youtube?: string;
+  wishlist: [];
 }

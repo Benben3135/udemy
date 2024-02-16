@@ -10,6 +10,7 @@ import {
   get5CoursesByCategory,
   getAllCoursesByCategory,
   getAllCoursesByInstructorName,
+  getBestSellerCourses
 } from "./courseCont";
 
 router
@@ -27,6 +28,7 @@ router
   .get(
     "/getAllCoursesByInstructor/:instructorName",
     getAllCoursesByInstructorName
-  );
+  )
+  .get("/getBestSellerCourses", getBestSellerCourses)
 
 export default router;
