@@ -22,6 +22,8 @@ app.use("/API/courses", CoursesRouter);
 import UsersRouter from "./api/users/usersRoutes";
 app.use("/API/users" , UsersRouter);
 
+import WishlistRouter from "./api/wishlist/wishlistRoutes"
+app.use("/API/wishlist", WishlistRouter)
 
 //////////////////////
 // Connect to MongoDB

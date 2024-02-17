@@ -4,8 +4,10 @@ import MainPage from "./view/pages/main-page";
 import NotFound from "./view/pages/not-found";
 import NavBar from "./Components/NavBar/NavBar";
 import UserPage from "./view/pages/user-page"
+import PublicProfilePage from "./view/pages/public-profile-page"
+import MyCoursesPage from "./view/pages/my-courses-page"
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { thereUser } from "./features/user/isUserSlice";
 import { auth } from "./firebase";
 import {
@@ -17,17 +19,23 @@ import {
   setName,
   setUid,
   setIsTeacherFalse,
-  setIsTeacherTrue
+  setIsTeacherTrue,
+  userSelector,
+  setWishlist
 } from "./features/user/userSlice";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
 import Terms from "./view/pages/terms-page"
 import { getUser } from "../api/userApi/usersAPI"
+import {checkImgDB} from "../api/userApi/usersAPI"
+import {getUserWishlist} from "../api/userApi/usersAPI"
 
 import Footer from "./Components/Footer/Footer";
+import TeacherPage from "./view/teacher-page";
 
 function App() {
   const dispatch = useDispatch();
+  const userRedux = useSelector(userSelector);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -43,8 +51,9 @@ function App() {
           dispatch(setEmail(user.email));
           dispatch(setUid(user.uid));
           dispatch(setName(user.displayName));
-          dispatch(setImg(user.photoURL));
+          checkImg(user.uid)
           dispatchUser(user.uid)
+          setWishlistFromDB(user.uid)
           if (localStorage.getItem("userName")) {
             dispatch(setLogInTrue());
           } else {
@@ -66,7 +75,7 @@ function App() {
     const result = await getUser(uid);
     const teacher = result.user.isTeacher
 
-    if(teacher){
+    if (teacher) {
 
       dispatch(setIsTeacherTrue());
     }
@@ -75,6 +84,28 @@ function App() {
     }
   }
 
+
+  const checkImg = async (uid:string) => {
+    const result = await checkImgDB(uid);
+    if(result){
+      console.log("now testing true" , result)
+      const newImage = result.image;
+      dispatch(setImg(newImage))
+    }
+    else{
+      console.log("now testing false", result)
+    }
+  }
+
+  const setWishlistFromDB = async (uid:string) => {
+    const wishlist = await getUserWishlist(uid);
+    if(wishlist.ok){
+      dispatch(setWishlist(wishlist.wishlist))
+    }
+    else{
+      dispatch(setWishlist([]))
+    }
+  }
 
   const getaddNameSRT = (name: string) => {
     const words = name.split(" ");
@@ -110,9 +141,11 @@ function App() {
           <Route path="*" element={<NotFound />} />
           <Route path="/register-page" element={<Register />} />
           <Route path="/login-page" element={<Login />} />
-          <Route path="/terms-Page" element={<Terms/>}/>
-          <Route path="/user-Page" element={<UserPage/>}/>
-
+          <Route path="/terms-Page" element={<Terms />} />
+          <Route path="/user/edit-profile" element={<UserPage />} />
+          <Route path={`/user/${userRedux.name}`} element={<TeacherPage />} />
+          <Route path="/user/public-profile" element={<PublicProfilePage />} />
+          <Route path="/my-courses/:page" element={<MyCoursesPage/>} />
         </Routes>
         <Footer />
       </BrowserRouter>

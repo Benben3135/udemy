@@ -7,7 +7,6 @@ const Courses = ({
   componentsTitle: string;
 }) => {
   if (type === null || type === undefined) return;
-
   return (
     <div className=" flex flex-row justify-center items-center w-full h-fit mt-6 ">
       <div className=" flex flex-col w-fit h-full justify-start items-start">
@@ -20,6 +19,7 @@ const Courses = ({
           {type.map((course: CourseProps, index: number) => (
             <div className=" h-full flex-1 flex-grow" key={index}>
               <Course
+                key={index}
                 img={course.course_img}
                 title={course.courseName}
                 teacher={course.teacherName}
@@ -28,6 +28,10 @@ const Courses = ({
                 tag={course.language}
                 numberOfRatings={course.numberOfRatings}
                 id={course.courseId}
+                courseDuration={course.courseDuration}
+                lastUpdated={course.lastUpdated}
+                mainDescription={course.mainDescription}
+                secondDescriptions={course.secondDescriptions}
               />
             </div>
           ))}

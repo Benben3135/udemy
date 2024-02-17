@@ -55,3 +55,30 @@ export const getAllCoursesByCategory = async (selectedCategory: string) => {
     console.error(error);
   }
 };
+export const getAllCoursesByInstructor = async (instructorName: string) => {
+  try {
+    const response = await axios.get(
+      `/API/courses/getAllCoursesByInstructor/${instructorName}`
+    );
+    // console.log(response.data.courses);
+    return response.data.courses;
+  } catch (error) {
+    console.error(error);
+  }
+};
+export const getBestSellerCourses = async () => {
+  try {
+    const {data} = await axios.get(
+      `/API/courses/getBestSellerCourses`
+    );
+      return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const addCourseWishlist = async (courseID:number, uid:string) => {
+    const {data} = await axios.post("/API/wishlist", {courseID,uid});
+    return(data)
+}
+
