@@ -15,6 +15,7 @@ import {
 } from "../../api/coursesApi";
 import { CourseProps } from "../Components/Courses/Course";
 import Courses from "../Components/Courses/Courses";
+import BannerUdemy from "./BannerUdemy";
 const coursesByMostViewing: CourseProps[] = await getCoursesByMostViewing();
 const coursesByRecentlySearched: CourseProps[] =
   await getCoursesByRecentlySearched();
@@ -119,6 +120,7 @@ const MainPage = () => {
             componentsTitle={"Learners are viewing"}
           />
           <CategoryImages />
+          <BannerUdemy/>
         </>
       )}
     </>

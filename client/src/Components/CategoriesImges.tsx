@@ -27,6 +27,7 @@ const Category: React.FC<CategoryProps> = ({
 
   if (displayAltOnly) {
     return (
+      <>
       <div
       className="relative cursor-pointer overflow-hidden group"
       onClick={handleClick}
@@ -40,8 +41,16 @@ const Category: React.FC<CategoryProps> = ({
         <p className="text-Udemyblue-300 text-[1rem] font-bold underline text-left mx-6" >
           {category.category }
         </p>
+        <p className="text-Udemygray-300 text-[0.8rem] text-left mx-6">36,354,994 learners
+ </p>
       </div>
+      
+     <div/>
       </div>
+      
+      </>
+
+
     );
     
   }
