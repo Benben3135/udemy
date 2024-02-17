@@ -125,7 +125,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                       </button>
                       <div className=" flex flex-row justify-center items-center w-full h-fit mt-6">
                         <div className=" flex flex-col w-fit h-full justify-start items-start">
-                          <div className=" flex gap-5 p-5 h-[21rem] w-[95rem]">
+                          <div className=" flex gap-5 p-5 h-[21rem] ">
                             {coursesByCategory && coursesByCategory.map((course: CourseProps, index: number) => (
                               <Course
                                 key={index}
@@ -163,7 +163,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                       </button>
                       <div className=" flex flex-row justify-center items-center w-full h-fit mt-6">
                         <div className=" flex flex-col w-fit h-full justify-start items-start">
-                          <div className=" flex gap-5 p-5 h-[21rem] w-[95rem]">
+                          <div className=" flex gap-5 p-5 h-[21rem] ">
                             {coursesByCategory && coursesByCategory.map((course: CourseProps, index: number) => (
                               <Course
                                 key={index}
@@ -202,7 +202,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                       </button>
                       <div className=" flex flex-row justify-center items-center w-full h-fit mt-6">
                         <div className=" flex flex-col w-fit h-full justify-start items-start">
-                          <div className=" flex gap-5 p-5 h-[21rem] w-[95rem]">
+                          <div className=" flex gap-5 p-5 h-[21rem] ">
                             {coursesByCategory && coursesByCategory.map((course: CourseProps, index: number) => (
                               <Course
                                 key={index}
@@ -236,7 +236,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                       </button>
                       <div className=" flex flex-row justify-center items-center w-full h-fit mt-6">
                         <div className=" flex flex-col w-fit h-full justify-start items-start">
-                          <div className=" flex gap-5 p-5 h-[21rem] w-[95rem]">
+                          <div className=" flex gap-5 p-5 h-[21rem] ">
                             {coursesByCategory && coursesByCategory.map((course: CourseProps, index: number) => (
                               <Course
                                 key={index}
