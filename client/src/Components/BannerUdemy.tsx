@@ -1,8 +1,13 @@
 // src/components/TwoColumnComponent.js
 import React from "react";
 import TestimonialsSlider from "./TestimonialsSlider";
+import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+
 
 const BannerUdemy = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="flex max-w-[62rem] mx-auto h-fit py-12">
@@ -69,7 +74,7 @@ const BannerUdemy = () => {
             Udemy. We provide the tools and skills to teach what you love.
           </p>
           <div className="flex space-x-4 ml-5">
-            <button className="border p-2 border-gray-500 font-[800] text-white text-sm mb-12 back bg-Udemygray-500 px-6 py-3">
+            <button onClick={() => navigate("/register-page")} className="border p-2 border-gray-500 font-[800] text-white text-sm mb-12 back bg-Udemygray-500 px-6 py-3">
               Start Teaching Now
             </button>
           </div>
