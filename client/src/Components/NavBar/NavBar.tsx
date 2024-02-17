@@ -300,7 +300,7 @@ const NavBar = () => {
                         </div>
                       </div>
                       <div className="flex flex-col items-start justify-center h-fit w-full gap-2 p-2 border-b">
-                        <div className=" h-8 text-sm w-full flex flex-row justify-start items-start group">
+                        <div onClick={() => navigate("/my-courses/learning")} className=" h-8 text-sm w-full flex flex-row justify-start items-start group cursor-pointer">
                           <h3 className=" text-slate-900 cursor-pointer w-full hover:text-Udemyblue-300">
                             My learning
                           </h3>
@@ -313,7 +313,7 @@ const NavBar = () => {
                             8
                           </div>
                         </div>
-                        <div className=" h-8 text-sm w-full flex flex-row justify-start items-start group">
+                        <div onClick={() => navigate("/my-courses/wishlist")} className=" h-8 text-sm w-full flex flex-row justify-start items-start group">
                           <h3 className=" text-slate-900 cursor-pointer w-full hover:text-Udemyblue-300">
                             Wishlist
                           </h3>

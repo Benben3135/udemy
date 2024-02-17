@@ -5,7 +5,7 @@ import { User } from "../../util/interfaces";
 import { CourseProps } from "../Courses/Course";
 import { getUserWishlistCourses } from "../../../api/userApi/usersAPI";
 import { useNavigate } from "react-router-dom";
-import { Dot, Search, Star } from "lucide-react";
+import { Dot, Heart, Search, Star } from "lucide-react";
 import { getBestSellerCourses } from "../../../api/coursesApi";
 import { addCourseWishlist } from "../../../api/coursesApi";
 
@@ -45,9 +45,8 @@ const Wishlist = () => {
   useEffect(() => {
     if (search.length > 1) {
       searchResults();
-    }
-    else{
-      setResultCourses([])
+    } else {
+      setResultCourses([]);
     }
   }, [search]);
 
@@ -84,6 +83,26 @@ const Wishlist = () => {
     setResultCourses(searchResultCourses);
   };
 
+  const addToWishlist = async (id: number, uid: string) => {
+    const result = await addCourseWishlist(id, uid);
+    if (result.ok) {
+      if (wishlist.includes(id)) {
+        debugger
+        setWishlist((prevWishlist) =>
+          prevWishlist.filter((item) => item !== id)
+        );
+        window.location.reload();
+      } else {
+        debugger
+        setWishlist((prevWishlist) => [...prevWishlist, id]);
+        window.location.reload();
+      }
+    }
+    else{
+      window.location.reload();
+    }
+  };
+
   return (
     <>
       {wishlist && wishlist.length > 0 && (
@@ -109,7 +128,10 @@ const Wishlist = () => {
                 <div className="w-[16rem] h-fit bg-white border border-slate-200 shadow-lg p-2">
                   {resultCourses.map((course, index) => (
                     // TODO: onclick go to course page!
-                    <div className=" h-fit p-1 hover:text-Udemyindigo-300 cursor-pointer" key={index}>
+                    <div
+                      className=" h-fit p-1 hover:text-Udemyindigo-300 cursor-pointer"
+                      key={index}
+                    >
                       {course.courseName
                         .split(new RegExp(`(${search})`, "gi"))
                         .map((part, i) => (
@@ -138,11 +160,19 @@ const Wishlist = () => {
                 key={index}
                 className=" h-[17rem] flex flex-col justify-start items-start gap-1 group cursor-pointer mb-12"
               >
-                <img
-                  className=" w-full h-[8.5rem] group-hover:grayscale-[40%] group-hover:opacity-70 transition-all ease-in-out"
-                  src={course.course_img}
-                  alt=""
-                />
+                <div
+                  className=" w-full flex flex-col items-end justify-start p-2 h-[8.5rem] group-hover:grayscale-[40%] group-hover:opacity-70 transition-all ease-in-out"
+                  style={{
+                    backgroundImage: `url(${course.course_img})`,
+                    backgroundSize: "cover",
+                  }}
+                >
+                  <Heart
+                    onClick={() => addToWishlist(course.courseId, user!.uid)}
+                    className="fill-white stroke-none"
+                  />
+                </div>
+
                 <h1 className=" font-bold text-[1.1rem]">
                   {course.courseName}
                 </h1>

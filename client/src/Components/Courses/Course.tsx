@@ -184,25 +184,31 @@ const Course = ({
             {mainDescription}
           </div>
           <div className=" flex flex-col justify-start items-start h-fit w-full mt-3 gap-2">
-            <div className=" flex flex-row justify-start items-start w-full text-sm font-normal text-slate-700 gap-4">
-              <Check className=" min-w-4" size="16px" color="gray" />
-              <h3 className="text-sm font-normal text-slate-700">
-                {secondDescriptions[0]}
-              </h3>
-            </div>
-            <div className=" flex flex-row justify-start items-start w-full text-sm font-normal text-slate-700 gap-4">
-              <Check className=" min-w-4" size="16px" color="gray" />
-              <h3 className="text-sm font-normal text-slate-700">
-                {secondDescriptions[1]}
-              </h3>
-            </div>
-            <div className=" flex flex-row justify-start items-start w-full text-sm font-normal text-slate-700 gap-4">
-              <Check className=" min-w-4" size="16px" color="gray" />
-              <h3 className="text-sm font-normal text-slate-700">
-                {secondDescriptions[2]}
-              </h3>
-            </div>
-          </div>
+  <div className=" flex flex-row justify-start items-start w-full text-sm font-normal text-slate-700 gap-4">
+    <Check className=" min-w-4" size="16px" color="gray" />
+    {secondDescriptions && secondDescriptions.length > 0 && (
+      <h3 className="text-sm font-normal text-slate-700">
+        {secondDescriptions[0]}
+      </h3>
+    )}
+  </div>
+  <div className=" flex flex-row justify-start items-start w-full text-sm font-normal text-slate-700 gap-4">
+    <Check className=" min-w-4" size="16px" color="gray" />
+    {secondDescriptions && secondDescriptions.length > 1 && (
+      <h3 className="text-sm font-normal text-slate-700">
+        {secondDescriptions[1]}
+      </h3>
+    )}
+  </div>
+  <div className=" flex flex-row justify-start items-start w-full text-sm font-normal text-slate-700 gap-4">
+    <Check className=" min-w-4" size="16px" color="gray" />
+    {secondDescriptions && secondDescriptions.length > 2 && (
+      <h3 className="text-sm font-normal text-slate-700">
+        {secondDescriptions[2]}
+      </h3>
+    )}
+  </div>
+</div>
           <div className=" flex flex-row w-full h-fit mt-4 gap-2">
             <div
               // onClick={() => addToCart()}
@@ -212,16 +218,18 @@ const Course = ({
                 Add to cart
               </h2>
             </div>
-            {wishlist && <div
-              onClick={() => addToWishlist()}
-              className=" w-12 rounded-full h-12 border border-black flex flex-row items-center justify-center hover:bg-slate-300 cursor-pointer"
-            >
-              {wishlist.includes(id) ? (
-                <Heart fill="black" size="22px" />
-              ) : (
-                <Heart size="22px" />
-              )}
-            </div>}
+            {wishlist && (
+              <div
+                onClick={() => addToWishlist()}
+                className=" w-12 rounded-full h-12 border border-black flex flex-row items-center justify-center hover:bg-slate-300 cursor-pointer"
+              >
+                {wishlist.includes(id) ? (
+                  <Heart fill="black" size="22px" />
+                ) : (
+                  <Heart size="22px" />
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
