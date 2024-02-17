@@ -32,7 +32,7 @@ const NavBar = () => {
   const [isUser, setIsUser] = useState<boolean>(false);
   const [isInstructor, setIsInstructor] = useState<boolean>(false);
   const [wishlist, setWishlist] = useState<number[]>([]);
-  const [wishlistCourses, setWishlistCourses] = useState<[CourseProps]>([]);
+  const [wishlistCourses, setWishlistCourses] = useState<CourseProps[]>([]);
   const isUserRedux = useSelector(isUserSelector);
   const userRedux = useSelector(userSelector);
 
@@ -207,7 +207,7 @@ const NavBar = () => {
                       {wishlistCourses && wishlistCourses.map((course, index) => (
                         <div
                           key={index}
-                          className=" h-32 bg-white border-b border-slate-300 w-full gap-3 p-2 flex flex-col justify-start items-start"
+                          className=" h-36 bg-white border-b border-slate-300 w-full gap-3 p-2 flex flex-col justify-start items-start"
                         >
                           <div className=" flex flex-row gap-2 items-start justify-start">
                             <img
@@ -221,14 +221,16 @@ const NavBar = () => {
                               <h2 className=" font-bold text-[0.85rem]">${(course.discountPrice).toFixed(2)}</h2>
                             </div>
                           </div>
-                          <div className=" bg-white border border-slate-500 w-full h-12 text-sm font-semibold text-center">
+                          <div className=" bg-white border border-slate-500 w-full h-10 text-sm font-bold text-center pt-2 hover:bg-Udemygray-200 cursor-pointer">
                             Add to cart
                           </div>
                         </div>
                       ))}
                     </div>
                     <div className=" w-full h-[4.5rem] border-t shadow-lg p-3">
-                      <div className=" w-full h-full text-center text-white cursor-pointer pt-2 font-semibold bg-Udemygray-500 hover:bg-Udemygray-400">
+                      <div
+                      onClick={() => navigate("/my-courses/wishlist")}
+                      className=" w-full h-full text-center text-white cursor-pointer pt-2 font-semibold bg-Udemygray-500 hover:bg-Udemygray-400">
                         Go to wishlist
                       </div>
                     </div>
