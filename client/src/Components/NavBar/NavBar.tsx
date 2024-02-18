@@ -103,7 +103,7 @@ const NavBar = () => {
                 />
               </div>
               <div className="group h-[70px] mt-10">
-                <button className="text-[0.9rem] h-[74px] pb-10  bg-white leading-normal font-normal text-gray-700 font-sans hover:text-Udemyblue-300 pr-3 flex-shrink-0 group-hover:text-Udemyblue-300">
+                <button className="text-[0.9rem] h-[54px] pb-10  leading-normal font-normal text-gray-700 font-sans hover:text-Udemyblue-300 pr-3 flex-shrink-0 group-hover:text-Udemyblue-300">
                   Categories
                   <div className="absolute z-50 w-72 top-20 h-[38rem] bg-white border-Udemygray-200 border-[1.4px] shadow-lg scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all ease-in hover:scale-100">
                     <div className="h-5/6 w-full flex flex-col items-center justify-senter">
