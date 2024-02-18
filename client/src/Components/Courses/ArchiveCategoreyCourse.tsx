@@ -4,7 +4,7 @@ import Course, { CourseProps } from "../Courses/Course";
 import { getAllCoursesByCategory } from '../../../api/coursesApi';  // המימוש של פונקציה זו תצטרך למצוא או לכתוב
 export interface Course {
     courseId: number;
-   
+
 }
 
 const ArchiveCategoreyCourse = () => {
@@ -15,8 +15,10 @@ const ArchiveCategoreyCourse = () => {
     useEffect(() => {
         const fetchCourses = async () => {
             try {
-                if (selectedCategory) {  
+                debugger
+                if (selectedCategory) {
                     const coursesData = await getAllCoursesByCategory(selectedCategory);
+                    debugger
                     setCourses(coursesData);
                 }
             } catch (error) {
@@ -28,7 +30,7 @@ const ArchiveCategoreyCourse = () => {
     }, [selectedCategory]);
 
     if (!selectedCategory) {
-        return <div>Loading...</div>;  
+        return <div>Loading...</div>;
     }
 
     return (
