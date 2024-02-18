@@ -32,7 +32,7 @@ export interface CourseProps {
   course_img: string;
   category: string;
 }
-const Course = ({
+export const Course = ({
   img,
   title,
   teacher,
@@ -54,10 +54,10 @@ const Course = ({
   tag: string;
   numberOfRatings: number;
   id: number;
-  lastUpdated: Date;
+  lastUpdated?: Date;
   courseDuration: number;
   mainDescription: string;
-  secondDescriptions: [string];
+  secondDescriptions: string[] | [];  // השורה השתנתה כאן
 }) => {
   const [ratingRounded, setRatingRounded] = useState<number>(0);
   const [bestIds, setBestIds] = useState<number[]>([]);
