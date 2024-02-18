@@ -8,16 +8,16 @@ const NavMenu = () => {
   return (
     <div className="h-[3.3rem] w-full bg-white px-12 flex flex-row justify-center items-center shadow-lg z-20">
         <div className='h-full w-fit flex flex-row justify-center items-center '>
-        {categoriesNavBar.map((categorie) => (
+        {categoriesNavBar.map((selectedCategory) => (
       <div
-        key={categorie}
+        key={selectedCategory}
         className="px-4 "
         onClick={() =>
-          navigate(`/categoryPage?category=${categorie}`)
+          navigate(`/category-page/${selectedCategory}`)
         }
         
       >
-        <div className='cursor-pointer text-sm text-slate-800 font-[400] hover:text-Udemyblue-400'>{categorie}</div>
+        <div className='cursor-pointer text-sm text-slate-800 font-[400] hover:text-Udemyblue-400'>{selectedCategory}</div>
         
       </div>
     ))}        </div>

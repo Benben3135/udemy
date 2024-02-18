@@ -415,16 +415,16 @@ const NavBar = () => {
                 Categories
                 <div className=" bg-white absolute z-50 w-72 top-20 h-[38rem]  border-Udemygray-200 border-[1.4px] shadow-lg scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all ease-in hover:scale-100">
                   <div className="h-5/6 w-full flex flex-col items-center justify-senter">
-                    {categories.map((category) => (
+                    {categories.map((selectedCategory) => (
                       <div
-                        key={category}
+                        key={selectedCategory}
                         className="flex flex-row items-center justify-between w-full p-2 text-gray-700 hover:text-Udemyblue-300"
                         onClick={() =>
-                          navigate(`/categoryPage?category=${category}`)
+                          navigate(`/category-page/${selectedCategory}`)
                         }
                         // TODO: category page navigation
                       >
-                        <div>{category}</div>
+                        <div>{selectedCategory}</div>
                         <div>
                           <KeyboardArrowRightIcon />
                         </div>
