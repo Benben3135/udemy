@@ -27,11 +27,12 @@ import Register from "./Components/Register";
 import Login from "./Components/Login";
 import Terms from "./view/pages/terms-page"
 import { getUser } from "../api/userApi/usersAPI"
-import {checkImgDB} from "../api/userApi/usersAPI"
-import {getUserWishlist} from "../api/userApi/usersAPI"
+import { checkImgDB } from "../api/userApi/usersAPI"
+import { getUserWishlist } from "../api/userApi/usersAPI"
 
 import Footer from "./Components/Footer/Footer";
 import TeacherPage from "./view/teacher-page";
+import { Archive } from "lucide-react";
 
 function App() {
   const dispatch = useDispatch();
@@ -85,24 +86,24 @@ function App() {
   }
 
 
-  const checkImg = async (uid:string) => {
+  const checkImg = async (uid: string) => {
     const result = await checkImgDB(uid);
-    if(result){
-      console.log("now testing true" , result)
+    if (result) {
+      console.log("now testing true", result)
       const newImage = result.image;
       dispatch(setImg(newImage))
     }
-    else{
+    else {
       console.log("now testing false", result)
     }
   }
 
-  const setWishlistFromDB = async (uid:string) => {
+  const setWishlistFromDB = async (uid: string) => {
     const wishlist = await getUserWishlist(uid);
-    if(wishlist.ok){
+    if (wishlist.ok) {
       dispatch(setWishlist(wishlist.wishlist))
     }
-    else{
+    else {
       dispatch(setWishlist([]))
     }
   }
@@ -145,7 +146,8 @@ function App() {
           <Route path="/user/edit-profile" element={<UserPage />} />
           <Route path={`/user/${userRedux.name}`} element={<TeacherPage />} />
           <Route path="/user/public-profile" element={<PublicProfilePage />} />
-          <Route path="/my-courses/:page" element={<MyCoursesPage/>} />
+          <Route path="/my-courses/:page" element={<MyCoursesPage />} />
+          <Route path="categoryPage/:selectedCategory" element={<Archive />} />
         </Routes>
         <Footer />
       </BrowserRouter>
