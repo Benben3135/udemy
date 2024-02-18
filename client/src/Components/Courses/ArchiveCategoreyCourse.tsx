@@ -38,7 +38,19 @@ const ArchiveCategoreyCourse = () => {
             <h1>{selectedCategory} Courses Archive</h1>
             <div className="flex flex-wrap">
                 {courses.map((course) => (
-                    <Course img={''} title={''} teacher={''} price={0} tag={''} id={1} key={course.courseId} {...course} />
+                    <Course  key={course}
+                    img={course.course_img}
+                    title={course.courseName}
+                    teacher={course.teacherName}
+                    rating={course.rating}
+                    price={course.fullPrice}
+                    tag={course.language}
+                    numberOfRatings={course.numberOfRatings}
+                    id={course.courseId}
+                    courseDuration={course.courseDuration}
+                    lastUpdated={course.lastUpdated}
+                    mainDescription={course.mainDescription}
+                    secondDescriptions={course.secondDescriptions} />
                 ))}
             </div>
         </div>
