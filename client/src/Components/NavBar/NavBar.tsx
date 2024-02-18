@@ -107,16 +107,16 @@ const NavBar = () => {
                   Categories
                   <div className="absolute z-50 w-72 top-20 h-[38rem] bg-white border-Udemygray-200 border-[1.4px] shadow-lg scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all ease-in hover:scale-100">
                     <div className="h-5/6 w-full flex flex-col items-center justify-senter">
-                      {categories.map((category) => (
+                      {categories.map((selectedCategory) => (
                         <div
-                          key={category}
+                          key={selectedCategory}
                           className="flex flex-row items-center justify-between w-full p-2 text-gray-700 hover:text-Udemyblue-300"
                           onClick={() =>
-                            navigate(`/categoryPage?category=${category}`)
+                            navigate(`/category-page/${selectedCategory}`)
                           }
                           // TODO: category page navigation
                         >
-                          <div>{category}</div>
+                          <div>{selectedCategory}</div>
                           <div>
                             <KeyboardArrowRightIcon />
                           </div>
@@ -204,33 +204,41 @@ const NavBar = () => {
                           : "h-fit w-full min-h-20 max-h-[26rem]"
                       }
                     >
-                      {wishlistCourses && wishlistCourses.map((course, index) => (
-                        <div
-                          key={index}
-                          className=" h-36 bg-white border-b border-slate-300 w-full gap-3 p-2 flex flex-col justify-start items-start"
-                        >
-                          <div className=" flex flex-row gap-2 items-start justify-start">
-                            <img
-                              className="w-[60px] h-[60px]"
-                              src={course.course_img}
-                              alt=""
-                            />
-                            <div className=" flex flex-col gap-1">
-                              <h1 className=" text-[0.95rem] leading-4 font-[600] whitespace-nowrap">{course.courseName}</h1>
-                              <h2 className=" text-[0.7rem] text-slate-500">{course.teacherName}</h2>
-                              <h2 className=" font-bold text-[0.85rem]">${(course.discountPrice).toFixed(2)}</h2>
+                      {wishlistCourses &&
+                        wishlistCourses.map((course, index) => (
+                          <div
+                            key={index}
+                            className=" h-36 bg-white border-b border-slate-300 w-full gap-3 p-2 flex flex-col justify-start items-start"
+                          >
+                            <div className=" flex flex-row gap-2 items-start justify-start">
+                              <img
+                                className="w-[60px] h-[60px]"
+                                src={course.course_img}
+                                alt=""
+                              />
+                              <div className=" flex flex-col gap-1">
+                                <h1 className=" text-[0.95rem] leading-4 font-[600] whitespace-nowrap">
+                                  {course.courseName}
+                                </h1>
+                                <h2 className=" text-[0.7rem] text-slate-500">
+                                  {course.teacherName}
+                                </h2>
+                                <h2 className=" font-bold text-[0.85rem]">
+                                  ${course.discountPrice.toFixed(2)}
+                                </h2>
+                              </div>
+                            </div>
+                            <div className=" bg-white border border-slate-500 w-full h-10 text-sm font-bold text-center pt-2 hover:bg-Udemygray-200 cursor-pointer">
+                              Add to cart
                             </div>
                           </div>
-                          <div className=" bg-white border border-slate-500 w-full h-10 text-sm font-bold text-center pt-2 hover:bg-Udemygray-200 cursor-pointer">
-                            Add to cart
-                          </div>
-                        </div>
-                      ))}
+                        ))}
                     </div>
                     <div className=" w-full h-[4.5rem] border-t shadow-lg p-3">
                       <div
-                      onClick={() => navigate("/my-courses/wishlist")}
-                      className=" w-full h-full text-center text-white cursor-pointer pt-2 font-semibold bg-Udemygray-500 hover:bg-Udemygray-400">
+                        onClick={() => navigate("/my-courses/wishlist")}
+                        className=" w-full h-full text-center text-white cursor-pointer pt-2 font-semibold bg-Udemygray-500 hover:bg-Udemygray-400"
+                      >
                         Go to wishlist
                       </div>
                     </div>
@@ -300,7 +308,10 @@ const NavBar = () => {
                         </div>
                       </div>
                       <div className="flex flex-col items-start justify-center h-fit w-full gap-2 p-2 border-b">
-                        <div onClick={() => navigate("/my-courses/learning")} className=" h-8 text-sm w-full flex flex-row justify-start items-start group cursor-pointer">
+                        <div
+                          onClick={() => navigate("/my-courses/learning")}
+                          className=" h-8 text-sm w-full flex flex-row justify-start items-start group cursor-pointer"
+                        >
                           <h3 className=" text-slate-900 cursor-pointer w-full hover:text-Udemyblue-300">
                             My learning
                           </h3>
@@ -313,7 +324,10 @@ const NavBar = () => {
                             8
                           </div>
                         </div>
-                        <div onClick={() => navigate("/my-courses/wishlist")} className=" h-8 text-sm w-full flex flex-row justify-start items-start group">
+                        <div
+                          onClick={() => navigate("/my-courses/wishlist")}
+                          className=" h-8 text-sm w-full flex flex-row justify-start items-start group"
+                        >
                           <h3 className=" text-slate-900 cursor-pointer w-full hover:text-Udemyblue-300">
                             Wishlist
                           </h3>

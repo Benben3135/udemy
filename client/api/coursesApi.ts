@@ -47,7 +47,8 @@ export const get5CoursesByCategory = async (selectedCategory: string) => {
 export const getAllCoursesByCategory = async (selectedCategory: string) => {
   try {
     const response = await axios.get(
-      `/API/courses/getAllCoursesByCategory${selectedCategory}`
+      `/API/courses/getAllCoursesByCategory/${selectedCategory}`
+      //                                       ^ Add a forward slash here
     );
     console.log(response.data.courses);
     return response.data.courses;
@@ -55,6 +56,7 @@ export const getAllCoursesByCategory = async (selectedCategory: string) => {
     console.error(error);
   }
 };
+
 export const getAllCoursesByInstructor = async (instructorName: string) => {
   try {
     const response = await axios.get(

@@ -33,6 +33,7 @@ import { getUserWishlist } from "../api/userApi/usersAPI"
 import Footer from "./Components/Footer/Footer";
 import TeacherPage from "./view/teacher-page";
 import { Archive } from "lucide-react";
+import ArchiveCategoreyCourse from "./Components/Courses/ArchiveCategoreyCourse";
 
 function App() {
   const dispatch = useDispatch();
@@ -147,7 +148,8 @@ function App() {
           <Route path={`/user/${userRedux.name}`} element={<TeacherPage />} />
           <Route path="/user/public-profile" element={<PublicProfilePage />} />
           <Route path="/my-courses/:page" element={<MyCoursesPage />} />
-          <Route path="categoryPage/:selectedCategory" element={<Archive />} />
+          <Route path="category-page/:selectedCategory" element={<ArchiveCategoreyCourse />} />
+
         </Routes>
         <Footer />
       </BrowserRouter>

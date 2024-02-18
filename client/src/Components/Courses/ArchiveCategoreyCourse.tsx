@@ -8,7 +8,7 @@ export interface Course {
 }
 
 const ArchiveCategoreyCourse = () => {
-    const { selectedCategory } = useParams();
+     const { selectedCategory } = useParams();
     const [courses, setCourses] = useState<CourseProps[]>([]);
 
 
@@ -18,7 +18,7 @@ const ArchiveCategoreyCourse = () => {
                 debugger
                 if (selectedCategory) {
                     const coursesData = await getAllCoursesByCategory(selectedCategory);
-                    debugger
+                    console.log('coursesData:', coursesData);  // Add this line
                     setCourses(coursesData);
                 }
             } catch (error) {
