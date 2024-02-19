@@ -52,8 +52,10 @@ const Wishlist = () => {
 
   const getWishlistCourses = async () => {
     const courses = await getUserWishlistCourses(user!.uid);
-    const wishlistCourses: [CourseProps] = courses.wishlistCourses;
-    setWishlistCourses(wishlistCourses);
+    if (courses && courses.wishlistCourses) {
+      const wishlistCourses: CourseProps[] = courses.wishlistCourses;
+      setWishlistCourses(wishlistCourses);
+    }
   };
 
   const setRatings = () => {
@@ -87,25 +89,24 @@ const Wishlist = () => {
     const result = await addCourseWishlist(id, uid);
     if (result.ok) {
       if (wishlist.includes(id)) {
-        debugger
+        debugger;
         setWishlist((prevWishlist) =>
           prevWishlist.filter((item) => item !== id)
         );
         window.location.reload();
       } else {
-        debugger
+        debugger;
         setWishlist((prevWishlist) => [...prevWishlist, id]);
         window.location.reload();
       }
-    }
-    else{
+    } else {
       window.location.reload();
     }
   };
 
   return (
     <>
-      {wishlist && wishlist.length > 0 && (
+      {wishlistCourses && wishlistCourses.length > 0 && (
         <div className=" w-full h-fit mt-8 min-h-[30rem] flex flex-col justify-start items-start">
           <div className=" h-fit flex flex-col w-[50%] items-end justify-end mx-auto">
             <div className=" w-full mx-auto h-12 flex flex-row items-center justify-end p-1 min-w-[50rem]">

@@ -2,8 +2,12 @@ import React, { useEffect, useState } from "react";
 import { MyCoursesCategories } from "../My-Courses/MyCoursesCategories";
 import { useNavigate } from "react-router-dom";
 
-const MyCoursesNavBar = () => {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+interface MyCoursesNavBarProps{
+  index: number
+}
+
+const MyCoursesNavBar = ({index}:MyCoursesNavBarProps) => {
+  const [activeIndex, setActiveIndex] = useState<number>(index);
   const navigate = useNavigate(); // Get the history object
   useEffect(() => {
     if (activeIndex === 0) {
@@ -19,6 +23,10 @@ const MyCoursesNavBar = () => {
       navigate("/my-courses/tools");
     }
   }, [activeIndex]);
+
+  useEffect(() => {
+    console.log("index is:" , index)
+  },[])
 
   return (
     <div className=" w-full h-[10.5rem] bg-Udemygray-500 flex flex-row items-end justify-center">

@@ -60,18 +60,39 @@ const NavBar = () => {
   }, [userRedux]);
 
   useEffect(() => {
+    
     if (user && user.wishlist) {
       setWishlist(user.wishlist);
-      getWishlistCourses();
+      setTimeout(() => {
+        getWishlistCourses();
+      }, 2000);
     }
   }, [user?.wishlist]);
+
+  useEffect(() => {
+    
+    setTimeout(() => {
+      getWishlistCourses();
+    }, 2000);
+  }, [wishlist]);
+
+  useEffect(() => {
+    
+    setTimeout(() => {
+      getWishlistCourses();
+    }, 2000);
+  }, [wishlistCourses]);
+
+
+  useEffect(() => {
+    console.log("wishlist courses are:", wishlistCourses);
+  }, [wishlistCourses]);
 
   //functions
 
   const logoutUser = async () => {
     const response = await logOut();
 
-    console.log("response in logoutUser", response);
     if (response.ok) {
       window.location.reload();
       navigate("/");
@@ -84,8 +105,8 @@ const NavBar = () => {
 
   const getWishlistCourses = async () => {
     const courses = await getUserWishlistCourses(user!.uid);
-    const wishlistCourses: [CourseProps] = courses.wishlistCourses;
-    setWishlistCourses(wishlistCourses);
+    const newWishlistCourses = [...courses.wishlistCourses]; // Create a new array
+    setWishlistCourses(newWishlistCourses);
   };
 
   return (
