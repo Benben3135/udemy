@@ -1,6 +1,12 @@
 import express from "express";
 const router = express.Router();
-import { register, getUser, setNewImg, addNewInfo } from "./usersCont";
+import {
+  register,
+  getUser,
+  setNewImg,
+  addNewInfo,
+  getTeachersNames,
+} from "./usersCont";
 
 router
   .get("/:uid", getUser)

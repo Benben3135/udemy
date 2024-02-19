@@ -20,10 +20,12 @@ import CoursesRouter from "./api/courses/courseRouter";
 app.use("/API/courses", CoursesRouter);
 
 import UsersRouter from "./api/users/usersRoutes";
-app.use("/API/users" , UsersRouter);
+app.use("/API/users", UsersRouter);
 
-import WishlistRouter from "./api/wishlist/wishlistRoutes"
-app.use("/API/wishlist", WishlistRouter)
+import WishlistRouter from "./api/wishlist/wishlistRoutes";
+app.use("/API/wishlist", WishlistRouter);
+import TeachersRouter from "./api/teachers/teachersRouter";
+app.use("/API/teachers", TeachersRouter);
 
 //////////////////////
 // Connect to MongoDB
