@@ -45,8 +45,11 @@ const ArchiveCategoreyCourse = () => {
     }
 
     return (
-        <div>
-            <h1>{selectedCategory} Courses Archive</h1>
+        <div className="font-custom max-w-[82rem] mx-auto h-fit  ">
+            <h1 className='text-Udemygray-500 text-3xl font-bold my-12'>{selectedCategory} Courses Archive</h1>
+            <h2 className='text-Udemygray-500 text-2xl font-bold my-12'> Courses to get you started
+</h2>
+
 
             {/* Display Most Viewed Courses */}
             <div>
