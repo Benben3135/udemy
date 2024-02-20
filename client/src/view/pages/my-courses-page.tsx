@@ -10,27 +10,63 @@ interface CoursesPageProps {
 
 const MyCoursesPage = () => {
   const [page, setPage] = useState<string>();
+  const [index, setIndex] = useState<number>(0);
 
   const { page: currentPage } = useParams(); // Renamed currentPage to page to match state variable
 
+
+
   useEffect(() => {
     if (currentPage) {
+      debugger;
       setPage(currentPage);
+      if (currentPage === "learning") {
+        setIndex(0);
+      }
+      if (currentPage === "myLists") {
+        setIndex(1);
+      }
+      if (currentPage === "wishlist") {
+        setIndex(2);
+      }
+      if (currentPage === "tools") {
+        setIndex(3);
+      }
       console.log("Your current page:", currentPage);
     }
   }, [currentPage]);
 
+  useEffect(() => {
+    if (currentPage) {
+      debugger;
+      setPage(currentPage);
+      if (currentPage === "learning") {
+        setIndex(0);
+      }
+      if (currentPage === "myLists") {
+        setIndex(1);
+      }
+      if (currentPage === "wishlist") {
+        setIndex(2);
+      }
+      if (currentPage === "tools") {
+        setIndex(3);
+      }
+      console.log("Your current page:", currentPage);
+    }
+  }, []);
+
   return (
     <>
-      {page &&
+      {page && (
         <div className=" h-fit bg-white flex flex-col justify-start items-center">
-          <MyCoursesNavBar />
+          <MyCoursesNavBar index={index} />
           {page === "learning" && <Learning />}
           {page === "myLists" && <Learning />}
           {page === "wishlist" && <Wishlist />}
           {page === "tools" && <Learning />}
         </div>
-      }
+      )}
     </>
   );
 };
