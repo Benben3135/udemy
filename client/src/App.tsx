@@ -6,7 +6,7 @@ import NavBar from "./Components/NavBar/NavBar";
 import UserPage from "./view/pages/user-page"
 import PublicProfilePage from "./view/pages/public-profile-page"
 import MyCoursesPage from "./view/pages/my-courses-page"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thereUser } from "./features/user/isUserSlice";
 import { auth } from "./firebase";
@@ -34,11 +34,29 @@ import Footer from "./Components/Footer/Footer";
 import TeacherPage from "./view/teacher-page";
 import { Archive } from "lucide-react";
 import ArchiveCategoreyCourse from "./Components/Courses/ArchiveCategoreyCourse";
+import { User } from "./util/interfaces";
 
 function App() {
   const dispatch = useDispatch();
   const userRedux = useSelector(userSelector);
+  const [teachers, setTeachers] = useState<User[]>()
+  const [dataFetched, setDataFetched] = useState(false);
+  // useEffect(() => {
+  //   const fetchTeachers = async () => {
+  //     try {
+  //       const result = await getTeachers();
+  //       setTeachers(result);
+  //       setDataFetched(true);
+  //     } catch (error) {
+  //       console.error('Error fetching teachers:', error);
+  //     }
+  //   };
 
+  //   fetchTeachers();
+  // }, []);
+  // useEffect(() => {
+  //   dispathTeachers();
+  // }, [])
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -73,6 +91,12 @@ function App() {
     });
   }, []);
 
+  // const dispathTeachers = async () => {
+  //   const result = await getTeachers()
+  //   console.log(result);
+  //   setTeachers(result);
+  //   console.log(teachers)
+  // }
   const dispatchUser = async (uid: string) => {
     const result = await getUser(uid);
     const teacher = result.user.isTeacher
@@ -137,7 +161,6 @@ function App() {
     <>
       <BrowserRouter>
         <NavBar />
-
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="*" element={<NotFound />} />
@@ -145,11 +168,11 @@ function App() {
           <Route path="/login-page" element={<Login />} />
           <Route path="/terms-Page" element={<Terms />} />
           <Route path="/user/edit-profile" element={<UserPage />} />
-          <Route path={`/user/${userRedux.name}`} element={<TeacherPage />} />
           <Route path="/user/public-profile" element={<PublicProfilePage />} />
           <Route path="/my-courses/:page" element={<MyCoursesPage />} />
           <Route path="category-page/:selectedCategory" element={<ArchiveCategoreyCourse />} />
-
+          {/* {teachers && teachers.length > 0 && dataFetched ? teachers.map((teacher, index) => { return <Route path={`/user/${teacher.displayName}`} element={<TeacherPage key={teacher.uid} teacher={teacher} />} /> }) : ""} */}
+          <Route path="/user/:teachersName" element={<TeacherPage />} />;
         </Routes>
         <Footer />
       </BrowserRouter>
