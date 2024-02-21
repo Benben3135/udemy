@@ -1,6 +1,6 @@
-import { auth, provider } from "../../src/firebase";
-import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import axios from "axios";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../src/firebase";
 
 export const registerUser = async (
   email: string,
