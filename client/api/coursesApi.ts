@@ -70,17 +70,27 @@ export const getAllCoursesByInstructor = async (instructorName: string) => {
 };
 export const getBestSellerCourses = async () => {
   try {
-    const {data} = await axios.get(
+    const { data } = await axios.get(
       `/API/courses/getBestSellerCourses`
     );
-      return data;
+    return data;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const addCourseWishlist = async (courseID:number, uid:string) => {
-    const {data} = await axios.post("/API/wishlist", {courseID,uid});
-    return(data)
+export const addCourseWishlist = async (courseID: number, uid: string) => {
+  const { data } = await axios.post("/API/wishlist", { courseID, uid });
+  return (data)
 }
 
+export const getMostPopularCourse = async () => {
+    try {
+      const { data } = await axios.get(
+        `/API/courses/getMostPopularCourse`
+      );
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  };

@@ -159,3 +159,19 @@ export async function getBestSellerCourses(req: Request, res: Response) {
   const coursesID = courses.map((course) => (course.courseId))
   res.send(coursesID)
 }
+
+export async function getMostPopularCourse(req: Request, res: Response) {
+  try {
+    const courses = await Course.aggregate([
+      { $sort: { numberOfStudents: -1 } },
+      { $limit: 1 },
+    ]);
+    res.status(200).send({ ok: true, courses });
+  } catch (error) {
+    res.status(500).send({
+      ok: false,
+      message: "Error in function get5CoursesByMostViewing in courseCont!",
+    });
+    console.error("Error fetching courses:", error);
+  }
+}

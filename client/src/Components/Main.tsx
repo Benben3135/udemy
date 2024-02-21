@@ -8,6 +8,7 @@ import { categoriesTab } from "../util/categories";
 import TestimonialsSlider from "./TestimonialsSlider";
 import CategoryImages from "./CategoriesImges";
 import { useNavigate } from "react-router-dom";
+import FeaturedCourse from "../Components/featuredCourse"
 import {
   getCoursesByMostRated,
   getCoursesByMostViewing,
@@ -70,6 +71,13 @@ const MainPage = () => {
                 </div>
               </div>
             </div>
+            <div className=" w-full h-fit flex-col justify-start items-start mx-auto max-w-[82rem] my-8">
+              <h1 className=" text-4xl font-bold text-slate-800">What to learn next</h1>
+              <h2 className=" text-2xl font-bold text-slate-800 mt-6">Our top pick for you</h2>
+              <div className=" w-full h-[20rem] border border-slate-300 mt-4 flex flex-row items-center justify-start p-6">
+                  <FeaturedCourse/>
+              </div>
+            </div>
             <Courses
               type={coursesByMostViewing}
               componentsTitle={"Learners are viewing"}
@@ -120,7 +128,7 @@ const MainPage = () => {
             componentsTitle={"Learners are viewing"}
           />
           <CategoryImages />
-          <BannerUdemy/>
+          <BannerUdemy />
         </>
       )}
     </>
