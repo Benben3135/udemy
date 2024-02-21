@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import { getAllCoursesByInstructor } from '../../api/coursesApi';
 import { getNumberOfCourses, getNumberOfReviews, getNumberOfStudents, getTeacher } from '../../api/teachersAPI';
 import { CourseProps } from '../Components/Courses/Course';
 import Courses from '../Components/Courses/Courses';
 import { User } from '../util/interfaces';
+import NotFound from './pages/not-found';
 
 const TeacherPage = () => {
+    const navigate = useNavigate();
+
     const [teacher, setTeacher] = useState<User | null>(null);
     const { teachersName } = useParams();
     const [NumberOfStudents, setNumberOfStudents] = useState(null)
@@ -55,6 +58,7 @@ const TeacherPage = () => {
     };
 
     if (!teacher) {
+        navigate("/404")
         return <div>Loading...</div>;
     }
 
