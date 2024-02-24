@@ -35,6 +35,7 @@ import TeacherPage from "./view/teacher-page";
 import { Archive } from "lucide-react";
 import ArchiveCategoreyCourse from "./Components/Courses/ArchiveCategoreyCourse";
 import { User } from "./util/interfaces";
+import SingleCoursePage from "./Components/Courses/SingleCoursePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -171,6 +172,7 @@ function App() {
           <Route path="/user/public-profile" element={<PublicProfilePage />} />
           <Route path="/my-courses/:page" element={<MyCoursesPage />} />
           <Route path="category-page/:selectedCategory" element={<ArchiveCategoreyCourse />} />
+          <Route path="course-page/:courseId" element={<SingleCoursePage />} />
           {/* {teachers && teachers.length > 0 && dataFetched ? teachers.map((teacher, index) => { return <Route path={`/user/${teacher.displayName}`} element={<TeacherPage key={teacher.uid} teacher={teacher} />} /> }) : ""} */}
           <Route path="/user/:teachersName" element={<TeacherPage />} />;
         </Routes>

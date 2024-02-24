@@ -25,6 +25,7 @@ const ArchiveCategoreyCourse = () => {
                 console.error('Error fetching courses by category:', error);
             }
         };
+    
 
         const fetchMostViewedCoursesData = async () => {
             try {

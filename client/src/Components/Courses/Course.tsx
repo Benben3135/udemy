@@ -4,9 +4,9 @@ import { getBestSellerCourses } from "../../../api/coursesApi";
 import { addCourseWishlist } from "../../../api/coursesApi";
 
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { userSelector } from "../../features/user/userSlice";
 import { User } from "../../util/interfaces";
+import { useNavigate } from "react-router-dom";
 
 export interface CourseProps {
   courseId: number;
@@ -53,11 +53,11 @@ export const Course = ({
   price: number;
   tag: string;
   numberOfRatings: number;
-  id: number;
+ id: number;
   lastUpdated?: Date;
   courseDuration: number;
   mainDescription: string;
-  secondDescriptions: string[] | [];  // השורה השתנתה כאן
+  secondDescriptions: string[] | []; // השורה השתנתה כאן
 }) => {
   const [ratingRounded, setRatingRounded] = useState<number>(0);
   const [bestIds, setBestIds] = useState<number[]>([]);
@@ -65,12 +65,14 @@ export const Course = ({
   const userRedux = useSelector(userSelector);
   const [user, setUser] = useState<User>();
   const [wishlist, setWishlist] = useState<number[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setUser(userRedux);
   }, [userRedux]);
 
   useEffect(() => {
+    console.log(id, title);
     starColor();
   }, []);
   const starColor = () => {
@@ -97,7 +99,7 @@ export const Course = ({
     setLastUpdatedString(formattedDate);
   };
 
-  const addToCart = async (id: number) => {};
+  const addToCart = async (courseId: number) => {};
 
   const addToWishlist = async () => {
     const result = await addCourseWishlist(id, user!.uid);
@@ -119,43 +121,45 @@ export const Course = ({
 
   return (
     <div className="group flex flex-row">
-      <div className=" h-full w-full">
-        <a href={`/course/${id}`}>
-          <img className=" h-[9.6rem] w-full" src={img} alt="" />
-          <h2 className=" font-bold text-[1.1rem] text-slate-800">{title}</h2>
-          <p className=" text-xs font-light text-slate-800">{teacher}</p>
-          <div className=" flex flex-row justify-start items-center mt-1">
-            <div className=" text-sm font-bold">{rating.toFixed(2)}</div>
-            <div className=" flex flex-row justify-start items-start h-fit w-fit ml-1 gap-[0.1rem]">
-              {[...Array(5)].map((_, index) => (
-                <Star
-                  strokeWidth={"0.8px"}
-                  key={index}
-                  size="15px"
-                  className={
-                    index + 1 <= ratingRounded
-                      ? " border-slate-500 p-0 m-0 fill-Udemyorange-400 text-Udemyorange-400"
-                      : "text-Udemyorange-400 border-slate-500 p-0 m-0"
-                  }
-                />
-              ))}
-            </div>
-            <div className=" text-xs text-slate-500 ml-1 pb-1">
-              ({numberOfRatings})
-            </div>
+      <div
+        onClick={() => navigate(`/course-page/${id}`)}
+        key={id}
+        className=" h-full w-full"
+      >
+        <img className=" h-[9.6rem] w-full" src={img} alt="" />
+        <h2 className=" font-bold text-[1.1rem] text-slate-800">{title}</h2>
+        <p className=" text-xs font-light text-slate-800">{teacher}</p>
+        <div className=" flex flex-row justify-start items-center mt-1">
+          <div className=" text-sm font-bold">{rating.toFixed(2)}</div>
+          <div className=" flex flex-row justify-start items-start h-fit w-fit ml-1 gap-[0.1rem]">
+            {[...Array(5)].map((_, index) => (
+              <Star
+                strokeWidth={"0.8px"}
+                key={index}
+                size="15px"
+                className={
+                  index + 1 <= ratingRounded
+                    ? " border-slate-500 p-0 m-0 fill-Udemyorange-400 text-Udemyorange-400"
+                    : "text-Udemyorange-400 border-slate-500 p-0 m-0"
+                }
+              />
+            ))}
           </div>
+          <div className=" text-xs text-slate-500 ml-1 pb-1">
+            ({numberOfRatings})
+          </div>
+        </div>
 
-          <p className=" font-bold tracking-tight text-[1.2rem] mt-1">
-            ${Math.round(Number(price))}
-          </p>
-          <div className=" w-full h-fit flex flex-row items-center justify-start mt-2">
-            {bestIds.includes(id) && (
-              <div className=" text-center w-fit px-2 py-1 text-xs font-bold text-slate-700 bg-Udemyyellow-200">
-                Bestseller
-              </div>
-            )}
-          </div>
-        </a>
+        <p className=" font-bold tracking-tight text-[1.2rem] mt-1">
+          ${Math.round(Number(price))}
+        </p>
+        <div className=" w-full h-fit flex flex-row items-center justify-start mt-2">
+          {bestIds.includes(id) && (
+            <div className=" text-center w-fit px-2 py-1 text-xs font-bold text-slate-700 bg-Udemyyellow-200">
+              Bestseller
+            </div>
+          )}
+        </div>
       </div>
       <div className="absolute w-[19rem] h-fit p-6 ml-64 border border-slate-300 shadow-md bg-white scale-0 group-hover:scale-100 transition-all ease-in">
         <div className=" h-fit flex flex-col justify-start items-start">
@@ -184,31 +188,31 @@ export const Course = ({
             {mainDescription}
           </div>
           <div className=" flex flex-col justify-start items-start h-fit w-full mt-3 gap-2">
-  <div className=" flex flex-row justify-start items-start w-full text-sm font-normal text-slate-700 gap-4">
-    <Check className=" min-w-4" size="16px" color="gray" />
-    {secondDescriptions && secondDescriptions.length > 0 && (
-      <h3 className="text-sm font-normal text-slate-700">
-        {secondDescriptions[0]}
-      </h3>
-    )}
-  </div>
-  <div className=" flex flex-row justify-start items-start w-full text-sm font-normal text-slate-700 gap-4">
-    <Check className=" min-w-4" size="16px" color="gray" />
-    {secondDescriptions && secondDescriptions.length > 1 && (
-      <h3 className="text-sm font-normal text-slate-700">
-        {secondDescriptions[1]}
-      </h3>
-    )}
-  </div>
-  <div className=" flex flex-row justify-start items-start w-full text-sm font-normal text-slate-700 gap-4">
-    <Check className=" min-w-4" size="16px" color="gray" />
-    {secondDescriptions && secondDescriptions.length > 2 && (
-      <h3 className="text-sm font-normal text-slate-700">
-        {secondDescriptions[2]}
-      </h3>
-    )}
-  </div>
-</div>
+            <div className=" flex flex-row justify-start items-start w-full text-sm font-normal text-slate-700 gap-4">
+              <Check className=" min-w-4" size="16px" color="gray" />
+              {secondDescriptions && secondDescriptions.length > 0 && (
+                <h3 className="text-sm font-normal text-slate-700">
+                  {secondDescriptions[0]}
+                </h3>
+              )}
+            </div>
+            <div className=" flex flex-row justify-start items-start w-full text-sm font-normal text-slate-700 gap-4">
+              <Check className=" min-w-4" size="16px" color="gray" />
+              {secondDescriptions && secondDescriptions.length > 1 && (
+                <h3 className="text-sm font-normal text-slate-700">
+                  {secondDescriptions[1]}
+                </h3>
+              )}
+            </div>
+            <div className=" flex flex-row justify-start items-start w-full text-sm font-normal text-slate-700 gap-4">
+              <Check className=" min-w-4" size="16px" color="gray" />
+              {secondDescriptions && secondDescriptions.length > 2 && (
+                <h3 className="text-sm font-normal text-slate-700">
+                  {secondDescriptions[2]}
+                </h3>
+              )}
+            </div>
+          </div>
           <div className=" flex flex-row w-full h-fit mt-4 gap-2">
             <div
               // onClick={() => addToCart()}

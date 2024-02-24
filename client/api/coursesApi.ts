@@ -94,3 +94,19 @@ export const getMostPopularCourse = async () => {
       console.error(error);
     }
   };
+  export async function getCourseById(courseId: number) {
+    try {
+      const response = await fetch(`/API/courses/getCourseById/${courseId}`); 
+      const data = await response.json();
+  
+      if (response.ok) {
+        return data.course;
+      } else {
+        throw new Error(data.message || 'Failed to fetch course details');
+      }
+    } catch (error) {
+      console.error('Error fetching course details:', error);
+      throw error;
+    }
+  }
+  
