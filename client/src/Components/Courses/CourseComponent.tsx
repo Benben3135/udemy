@@ -1,14 +1,41 @@
-// // CourseComponent.js
-// import React from 'react';
+// CourseComponent.js
+import React from 'react';
 
-// const CourseComponent = ({ course }) => {
-//   // הוספת עיצוב ולוגיקה שמתאימים לקומפוננטה החדשה
-//   return (
-//     <div className="course-component">
-//       <h2>{course.courseName} Component</h2>
-//       {/* הוספת פרטים ועיצוב נוסף כרצונך */}
-//     </div>
-//   );
-// };
+interface CourseComponentProps {
+  course: {
+    courseId: number;
+    teacherId: number;
+    courseName: string;
+    teacherName: string;
+    mainDescription: string;
+    rating: number;
+    numberOfRatings: number;
+    numberOfStudents: number;
+    lastUpdated: Date;
+    language: string;
+    subtitlesLanguage: { type: string; default: "English" };
+    fullPrice: number;
+    discountPrice: number;
+    secondDescriptions: [string];
+    courseDuration: number;
+    articlesNumber: number;
+    downloadableResourcesNumber: number;
+    courseContent: string;
+    requirements: [string];
+    fullDescription: string;
+    course_img: string;
+    category: string;
+  };
+}
 
-// export default CourseComponent;
+const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
+  // הוספת עיצוב ולוגיקה שמתאימים לקומפוננטה החדשה
+  return (
+    <div className="course-component">
+      <h2>{course.courseName} Component</h2>
+      {/* הוספת פרטים ועיצוב נוסף כרצונך */}
+    </div>
+  );
+};
+
+export default CourseComponent;
