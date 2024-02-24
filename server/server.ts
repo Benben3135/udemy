@@ -2,6 +2,7 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import "dotenv/config";
 import mongoose from "mongoose";
+import {generateAndCreateTeachers} from "../db/dbStart"
 
 const app = express();
 const PORT = process.env.PORT || 4000;
