@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker";
 import mongoose from "mongoose";
+import userModel, { User } from "../server/api/users/usersModel"
 
 export const categories = [
   "Development",
@@ -16,13 +17,27 @@ export const categories = [
   "Music",
   "Teaching & Academics",
 ];
+
+const pricesRange = [
+  119.90,
+  269.90,
+  469.90
+]
+
+const discountRange = [
+  49.90,
+  69.90,
+  99.90
+]
+
+
 mongoose.connect(
   "mongodb+srv://bennyvolo28:EjO9PTKNvr8Exr8Z@udemy.shffm2f.mongodb.net/"
 );
 
 export const courseSchema = new mongoose.Schema({
   courseId: Number,
-  teacherId: Number,
+  teacherId: String,
   courseName: String,
   teacherName: String,
   mainDescription: String,
@@ -47,34 +62,21 @@ export const courseSchema = new mongoose.Schema({
 
 export const Course = mongoose.model("Course", courseSchema);
 
-// Function to generate and save random courses
-const generateAndSaveRandomCourses = async (count: number) => {
-  const courses = generateRandomCourses(count);
-
-  try {
-    // Save each course to MongoDB
-    for (const course of courses) {
-      await Course.create(course);
-    }
-
-    console.log(`${count} courses saved to MongoDB`);
-  } catch (error) {
-    console.error("Error saving courses to MongoDB:", error);
-  } finally {
-    // Disconnect from MongoDB
-    mongoose.disconnect();
-  }
+const generatePersonImageURL = () => {
+  const randomNumber = Math.floor(Math.random() * 1000); // Picsum Photos has images up to 1000
+  return `https://picsum.photos/200/300?random=${randomNumber}`;
 };
 
-const generateRandomCourses = (count: number) => {
+const generateRandomCourses = async (count: number, teacherId: string, teacherName: string, category: string,teacherNumber:number) => {
   const courses = [];
 
-  for (let i = 21; i <= count; i++) {
+  for (let i = 1; i <= count; i++) {
+    const index = Math.round(Math.random() * 2);
     const course = {
-      courseId: i,
-      teacherId: i,
+      courseId: teacherNumber*10 + i,
+      teacherId: teacherId,
       courseName: faker.lorem.words(3),
-      teacherName: faker.person.fullName(),
+      teacherName: teacherName,
       mainDescription: faker.lorem.paragraph(),
       rating: Math.random() * 5,
       numberOfRatings: Math.floor(Math.random() * 100),
@@ -82,8 +84,8 @@ const generateRandomCourses = (count: number) => {
       lastUpdated: faker.date.past(),
       language: "English",
       subtitlesLanguage: "English",
-      fullPrice: Math.floor(Math.random() * 100),
-      discountPrice: Math.random() * 80,
+      fullPrice: pricesRange[index],
+      discountPrice: discountRange[index],
       secondDescriptions: Array.from(
         { length: Math.floor(Math.random() * 3) + 7 },
         () => faker.lorem.sentence()
@@ -98,13 +100,61 @@ const generateRandomCourses = (count: number) => {
       ),
       fullDescription: faker.lorem.paragraphs(5),
       course_img: faker.image.urlPicsumPhotos(),
-      category: categories[Math.floor(Math.random() * 8)],
+      category: category,
     };
     //@ts-ignore
     courses.push(course);
   }
 
-  return courses;
+  try {
+    // Save each course to MongoDB
+    for (const course of courses) {
+      await Course.create(course);
+    }
+
+    console.log(`${count} courses saved to MongoDB`);
+  } catch (error) {
+    console.error("Error saving courses to MongoDB:", error);
+  }
 };
 
-// generateAndSaveRandomCourses(60);
+export const generateAndCreateTeachers = async (count: number) => {
+  try {
+    for (let i = 1; i <= count; i++) {
+      const name = faker.person.fullName();
+      const displayNameWithoutSpaces = name.replace(/\s/g, '');
+      const category = categories[Math.floor(Math.random() * 8)];
+      const numberOfCourses = Math.floor(Math.random() * 8) + 1;
+
+      const teacher: User = {
+        uid: "teacher" + i,
+        displayName: name,
+        email: displayNameWithoutSpaces + "@gmail.com",
+        isTeacher: true,
+        photoURL: generatePersonImageURL(),
+        headline: faker.person.jobTitle() + "instructor",
+        bio: faker.lorem.paragraph(),
+        website: faker.internet.url(),
+        twitter: "https://twitter.com/" + displayNameWithoutSpaces,
+        facebook: "https://www.facebook.com/" + displayNameWithoutSpaces,
+        linkedin: "https://www.linkedin.com/in/" + displayNameWithoutSpaces,
+        youtube: "https://www.youtube.com/user/" + displayNameWithoutSpaces
+      };
+
+      const newTeacher = await userModel.create(teacher)
+      if (newTeacher) {
+        const teacherNumber = i;
+        const courses = await generateRandomCourses(numberOfCourses, teacher.uid, name, category,teacherNumber);
+      }
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// const db = mongoose.connection;
+// db.on("error", console.error.bind(console, "MongoDB connection error:"));
+// db.once("open", async () => {
+//   console.log("Connected to MongoDB 📝");
+//   await generateAndCreateTeachers(50);
+// });
