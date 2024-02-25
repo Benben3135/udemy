@@ -11,6 +11,9 @@ import { CourseProps } from "../Components/Courses/Course";
 import Courses from "../Components/Courses/Courses";
 import { User } from "../util/interfaces";
 import NotFound from "./pages/not-found";
+import { Dot, Heart, Star } from "lucide-react";
+import { getBestSellerCourses } from "../../api/coursesApi";
+
 
 const TeacherPage = () => {
   const navigate = useNavigate();
@@ -21,6 +24,37 @@ const TeacherPage = () => {
   const [NumberOfCourses, setNumberOfCourses] = useState(null);
   const [NumberOfReviews, setNumberOfReviews] = useState(null);
   const [courses, setCourses] = useState<CourseProps[]>();
+  const [bestIds, setBestIds] = useState<number[]>([]);
+  const [coursesRatings, setCoursesRatings] = useState<[]>([]);
+  const [ratingRounded, setRatingRounded] = useState<number[]>();
+
+
+  useEffect(() => {
+    if (courses) {
+      setRatings();
+    }
+  }, [courses]);
+
+  const setRatings = () => {
+    debugger;
+    const ratings: number[] = [];
+    courses!.forEach((course) => {
+      const rating = course.rating;
+      const roundedRating = Math.round(rating);
+      ratings.push(roundedRating);
+    });
+    setRatingRounded(ratings);
+  };
+
+  useEffect(() => {
+    getBestSeller();
+  }, []);
+
+  const getBestSeller = async () => {
+    const bestID: [] = await getBestSellerCourses();
+    setBestIds(bestID);
+  };
+
   useEffect(() => {
     const fetchTeacherData = async () => {
       if (!teachersName) throw new Error(`Teacher's name is unrecognized`);
@@ -59,48 +93,125 @@ const TeacherPage = () => {
     setCourses(result);
   };
 
-//   if (!teacher) {
-//     navigate("/404");
-//     return <div>Loading...</div>;
-//   }
+  //   if (!teacher) {
+  //     navigate("/404");
+  //     return <div>Loading...</div>;
+  //   }
 
   return (
     <>
-      {teacher &&
+      {teacher &&  (
         <div
           style={{
             display: "flex",
-            gap: "25px",
+            gap: "6rem",
             maxWidth: "91.2rem",
             margin: "0 auto",
             width: "912px",
-            marginTop: "4.8rem",
+            marginTop: "2.8rem",
+            marginBottom: "4rem"
           }}
         >
-          <div className="instructor-data" style={{ maxWidth: "70%" }}>
+          <div className=" flex flex-col " style={{ maxWidth: "70%" }}>
             <h2>
-              <strong>INSTRUCTOR</strong>
+              <strong className=" text-gray-500 text-[0.85rem]">
+                INSTRUCTOR
+              </strong>
             </h2>
-            <h3>{teacher.displayName}</h3>
-            <p>{teacher.headline}</p>
-            <div>
+            <h1 className=" text-[2.5rem] font-bold leading-9 mb-3">
+              {teacher.displayName}
+            </h1>
+            <p className=" font-bold text-[1rem]">{teacher.headline}</p>
+            <div className=" flex flex-row mt-6 gap-4">
               <div>
-                <p>Total students</p>
-                <p>{NumberOfStudents}</p>
+                <p className=" text-gray-500 font-bold text-[0.9rem]">
+                  Total students
+                </p>
+                <p className=" text-[1.3rem] font-bold mt-[0.4rem]">
+                  {NumberOfStudents}
+                </p>
               </div>
               <div>
-                <p>Reviews</p>
-                <p>{NumberOfReviews}</p>
+                <p className=" text-gray-500 font-bold text-[0.9rem]">
+                  Reviews
+                </p>
+                <p className=" text-[1.3rem] font-bold mt-[0.4rem]">
+                  {NumberOfReviews}
+                </p>
               </div>
             </div>
-            <h2>About me</h2>
+            <h2 className=" mt-8 font-bold mb-4 text-[1.2rem]">About me</h2>
             <p>{teacher.bio}</p>
+
+            <h2 className=" text-[1.3rem] font-bold my-6">My courses ({courses?.length})</h2>
+
             <div style={{ maxWidth: "100%" }}>
-              {courses && courses.length > 0 ? (
-                <Courses
-                  type={courses}
-                  componentsTitle={`My courses (${NumberOfCourses})`}
-                />
+              {courses ? (
+                <div className=" grid grid-cols-2 gap-4">
+                  {courses.map((course,index) => (
+                   <div
+                   key={index}
+                   onClick={() => navigate(`/course-page/${course.courseId}`)}
+                   className=" h-fit w-[18rem] flex flex-col justify-start items-start gap-1 group cursor-pointer"
+                 >
+                   <div
+                     className=" w-full flex flex-col items-end justify-start p-2 h-[9.5rem] group-hover:grayscale-[40%] group-hover:opacity-70 transition-all ease-in-out"
+                     style={{
+                       backgroundImage: `url(${course.course_img})`,
+                       backgroundSize: "cover",
+                     }}
+                   >
+                   </div>
+   
+                   <h1 className=" font-bold text-[1.1rem]">
+                     {course.courseName}
+                   </h1>
+                   <h2 className=" text-[0.7rem] text-slate-600">
+                     {course.teacherName}
+                   </h2>
+                   <div className=" w-full flex flex-row h-fit justify-start items-center">
+                     <div className=" text-[0.9rem] font-bold">
+                       {course.rating.toFixed(1)}
+                     </div>
+                     <div className=" flex flex-row justify-center items-start h-fit w-fit ml-1 gap-[0.1rem]">
+                       {ratingRounded &&
+                         [...Array(5)].map((_, starIndex) => (
+                           <Star
+                             strokeWidth={"0.8px"}
+                             key={starIndex}
+                             size="15px"
+                             className={
+                               starIndex + 1 <= ratingRounded[index]
+                                 ? " border-slate-500 p-0 m-0 fill-Udemyorange-400 text-Udemyorange-400"
+                                 : "text-Udemyorange-400 border-slate-500 p-0 m-0"
+                             }
+                           />
+                         ))}
+                     </div>
+                     <div className=" text-[0.8rem] text-slate-500 ml-1">
+                       ({course.numberOfRatings})
+                     </div>
+                   </div>
+                   <div className=" flex flex-row h-fit w-full justify-start items-center">
+                     <h2 className="text-[0.75rem] text-slate-600">
+                       {course.courseDuration} total hours
+                     </h2>
+                     <Dot size="14px" color="gray" />
+                     <h2 className="text-[0.75rem] text-slate-600">
+                       {course.articlesNumber * 12} lectures
+                     </h2>
+                   </div>
+                   <div className=" text-[1.06rem] font-bold">
+                     ${course.discountPrice.toFixed(2)}
+                   </div>
+                   {bestIds.includes(course.courseId) && (
+                     <div className=" text-center w-fit px-2 py-1 text-xs font-bold text-slate-700 bg-Udemyyellow-200">
+                       Bestseller
+                     </div>
+                   )}
+                 </div>
+                  ))}
+                </div>
               ) : (
                 ""
               )}
@@ -263,7 +374,7 @@ const TeacherPage = () => {
             </div>
           </div>
         </div>
-      }
+      )}
     </>
   );
 };

@@ -133,7 +133,7 @@ export const generateAndCreateTeachers = async (count: number) => {
         isTeacher: true,
         photoURL: generatePersonImageURL(),
         headline: faker.person.jobTitle() + "instructor",
-        bio: faker.lorem.paragraph(),
+        bio: faker.lorem.paragraphs(5),
         website: faker.internet.url(),
         twitter: "https://twitter.com/" + displayNameWithoutSpaces,
         facebook: "https://www.facebook.com/" + displayNameWithoutSpaces,

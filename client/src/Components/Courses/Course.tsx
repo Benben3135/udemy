@@ -124,7 +124,7 @@ export const Course = ({
       <div
         onClick={() => navigate(`/course-page/${id}`)}
         key={id}
-        className=" h-full w-full"
+        className=" h-full w-full cursor-pointer"
       >
         <img className=" h-[9.6rem] w-full" src={img} alt="" />
         <h2 className=" font-bold text-[1.1rem] text-slate-800">{title}</h2>
