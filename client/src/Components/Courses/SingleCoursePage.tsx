@@ -31,11 +31,9 @@ const SingleCoursePage = () => {
   }
 
   return (
-    <div className="font-custom max-w-[82rem] mx-auto h-fit">
+    <div className="font-custom max-w-[100vw] mx-auto h-fit bg-Udemygray-500">
 
-    <h1 className="text-Udemygray-500 text-3xl font-bold my-12">
-      {course.courseName} Details
-    </h1>
+   
 
     <CourseComponent course={course} />
   </div>

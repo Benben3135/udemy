@@ -1,7 +1,7 @@
 // Breadcrumbs.tsx
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface BreadcrumbsProps {
   category: string;
@@ -15,13 +15,16 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ category }) => {
   };
 
   return (
-    <div className="breadcrumbs bg-gray-200 p-4">
-      <Link to="/" className="breadcrumb text-blue-500 hover:underline">
+    <div className="breadcrumbs  bg-Udemygray-500 p-4">
+      <Link
+        to="/"
+        className="breadcrumb text-Udemyblue-200 hover:underline font-bold"
+      >
         Home
       </Link>
-      <span className="mx-2 text-gray-500">/</span>
+      <span className="mx-2 text-Udemyblue-200">/</span>
       <span
-        className="breadcrumb cursor-pointer text-blue-500 hover:underline"
+        className="breadcrumb cursor-pointer text-Udemyblue-200 hover:underline font-bold"
         onClick={handleCategoryClick}
       >
         {category}

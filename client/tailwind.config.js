@@ -39,7 +39,7 @@ export default {
           200: '#c0c4fc',
           150: '#d8e0fb',
           100: '#eeeffc',
-          600: '#cec0fc'
+          600: '#cec0fc',
         },
         // Add more color groups as needed
         Udemyindigo: {
