@@ -15,7 +15,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ category }) => {
   };
 
   return (
-    <div className="breadcrumbs  bg-Udemygray-500 p-4">
+    <div className="breadcrumbs  bg-Udemygray-500 pt-8">
       <Link
         to="/"
         className="breadcrumb text-Udemyblue-200 hover:underline font-bold"
