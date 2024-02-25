@@ -1,7 +1,7 @@
 // CourseComponent.js
-import React from 'react';
-import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
-import { Star } from 'lucide-react';
+import React from "react";
+import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
+import { Star } from "lucide-react";
 
 interface CourseComponentProps {
   course: {
@@ -32,18 +32,23 @@ interface CourseComponentProps {
 
 const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
   const limitWords = (content: string, limit: number) => {
-    const words = content.split(' ');
-    return words.slice(0, limit).join(' ');
+    const words = content.split(" ");
+    return words.slice(0, limit).join(" ");
   };
+  const [activeTab, setActiveTab] = useState("Personal");
 
   return (
     <div className="course-component flex">
       <div className="course-details pl-[15vw] flex-grow">
         <Breadcrumbs category={course.category} />
-        <h2 className="text-white text-3xl font-bold pt-3">{course.courseName}</h2>
-        <h3 className="text-white text-[1.2rem] font-[500] pt-1">{limitWords(course.courseContent, 15)}</h3>
+        <h2 className="text-white text-3xl font-bold pt-6">
+          {course.courseName}
+        </h2>
+        <h3 className="text-white text-[1.2rem] font-[400] pt-3 pb-3 pr-8">
+          {limitWords(course.courseContent, 15)}
+        </h3>
         <div className="flex items-center">
-          <div className="text-xs font-bold text-Udemyorange-400">
+          <div className="text-s font-bold text-Udemyorange-300">
             {course.rating.toFixed(2)}
           </div>
           <div className="flex ml-1 gap-[0.1rem]">
@@ -54,19 +59,23 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
                 size="15px"
                 className={
                   index + 1 <= Math.round(course.rating)
-                    ? "border-slate-500 p-0 m-0 fill-Udemyorange-400 text-Udemyorange-400"
+                    ? "border-slate-500 p-0 m-0 fill-Udemyorange-300 text-Udemyorange-300"
                     : "text-Udemyorange-400 border-slate-500 p-0 m-0"
                 }
               />
             ))}
           </div>
-          <div className="text-xs text-slate-500 ml-1 pb-1">
+          <div className="text-s text-Udemyblue-200 ml-1 pb-1">
             ({course.numberOfRatings})
           </div>
         </div>
       </div>
       <div className="course-image sticky top-0 flex-shrink-0">
-        <img src={course.course_img} alt={course.courseName} className="w-[528px] h-[236px] pr-[15vw]" />
+        <img
+          src={course.course_img}
+          alt={course.courseName}
+          className="w-[528px] h-[236px] pr-[15vw] pt-9"
+        />
       </div>
     </div>
   );
