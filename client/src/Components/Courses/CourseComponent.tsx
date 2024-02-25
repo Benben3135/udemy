@@ -1,7 +1,11 @@
 // CourseComponent.js
-import React from "react";
+import React, { useState } from "react";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import { Star } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import CourseTabContent from "./PersonalTabContent";
+import PersonalTabContent from "./PersonalTabContent";
+import TeamsTabContent from "./TeamsTabContent";
 
 interface CourseComponentProps {
   course: {
@@ -36,7 +40,16 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
     return words.slice(0, limit).join(" ");
   };
   const [activeTab, setActiveTab] = useState("Personal");
+  const handleTabClick = (tab: string) => {
+    setActiveTab(tab);
+    // Add logic to handle tab change if needed
+  };
 
+  const navigate = useNavigate();
+
+  const handleLearnMoreClick = () => {
+    navigate(`/category-page/${course.category}`);
+  };
   return (
     <div className="course-component flex">
       <div className="course-details pl-[15vw] flex-grow">
@@ -63,6 +76,7 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
                     : "text-Udemyorange-400 border-slate-500 p-0 m-0"
                 }
               />
+              
             ))}
           </div>
           <div className="text-s text-Udemyblue-200 ml-1 pb-1">
@@ -74,8 +88,29 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
         <img
           src={course.course_img}
           alt={course.courseName}
-          className="w-[528px] h-[236px] pr-[15vw] pt-9"
+          className="w-[40vw] bg-Udemygray-500 h-[236px] pr-[15vw] pt-9 shadow-inner "
         />
+        <div className="tabs-container bg-white items-center w-[25vw]  pt-5 flex justify-center ">
+          <button
+            className={`tab-btn bg-white mr-[8vw] ${
+              activeTab === "Personal " ? "active" : ""
+            }`}
+            onClick={() => handleTabClick("Personal")}
+          >
+            Personal
+          </button>
+          <button
+            className={`tab-btn  ${activeTab === "Teams" ? "active" : ""}`}
+            onClick={() => handleTabClick("Teams")}
+          >
+            Teams
+          </button>
+        </div>
+        {activeTab === "Personal" ? (
+          <PersonalTabContent handleLearnMoreClick={handleLearnMoreClick} />
+        ) : (
+          <TeamsTabContent handleLearnMoreClick={handleLearnMoreClick} />
+        )}
       </div>
     </div>
   );

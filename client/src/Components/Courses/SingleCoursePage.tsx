@@ -31,7 +31,7 @@ const SingleCoursePage = () => {
   }
 
   return (
-    <div className="font-custom max-w-[100vw] mx-auto h-fit bg-Udemygray-500">
+    <div className="font-custom max-w-[100vw] mx-auto h-fit bg-Udemygray-500 ">
 
    
 
