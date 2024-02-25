@@ -1,5 +1,6 @@
 // CourseComponent.js
 import React from 'react';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 interface CourseComponentProps {
   course: {
@@ -32,6 +33,7 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
   // הוספת עיצוב ולוגיקה שמתאימים לקומפוננטה החדשה
   return (
     <div className="course-component">
+      <Breadcrumbs category={course.category} /> {/* Pass category prop here */}
       <h2>{course.courseName} Component</h2>
       {/* הוספת פרטים ועיצוב נוסף כרצונך */}
     </div>
