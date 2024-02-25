@@ -36,7 +36,6 @@ const SingleCoursePage = () => {
       {course.courseName} Details
     </h1>
 
-    {/* שימוש בקומפוננטה החדשה כאן */}
     <CourseComponent course={course} />
   </div>
   );
