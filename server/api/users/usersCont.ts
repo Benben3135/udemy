@@ -80,3 +80,18 @@ export async function addNewInfo(req: Request, res: Response) {
     res.status(500).json({ error: "An error occurred during registration" }); // Respond with an error status
   }
 }
+
+
+export async function addNewTeacher(req: Request, res: Response) {
+  try {
+    const uid = req.params.uid;
+    const updatedTeacher = await userModel.findOneAndUpdate({ uid }, { isTeacher: true }, { new: true });
+    res.status(200).send({ ok:true });
+  } catch (error) {
+    console.error("Error occurred during addNewTeacher:", error); // Log the error for debugging
+    res
+      .status(500)
+      .json({ error: "An error occurred during addNewTeacher" }); // Respond with an error status
+  }
+}
+

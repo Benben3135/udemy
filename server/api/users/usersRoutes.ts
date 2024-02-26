@@ -6,12 +6,14 @@ import {
   setNewImg,
   addNewInfo,
   getTeachersNames,
+  addNewTeacher
 } from "./usersCont";
 
 router
   .get("/:uid", getUser)
   .post("", register)
   .post("/changeIMG", setNewImg)
-  .post("/add-info", addNewInfo);
+  .post("/add-info", addNewInfo)
+  .post("/newTeacher/:uid", addNewTeacher)
 
 export default router;

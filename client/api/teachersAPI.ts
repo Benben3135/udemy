@@ -31,3 +31,11 @@ export const getNumberOfCourses = async (teachersName: string) => {
   console.log(data);
   return data;
 };
+
+export const addNewTeacher = async (uid: string) => {
+  const {data} = await axios.post(`/API/users/newTeacher/${uid}`)
+  console.log(data)
+  if(data){
+    return true
+  }
+}
