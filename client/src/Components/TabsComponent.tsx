@@ -97,8 +97,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                                 price={course.fullPrice}
                                 tag={course.category}
                                 numberOfRatings={course.numberOfRatings}
-                                id={course.courseId}
-                              />
+                                id={course.courseId} courseDuration={course.courseDuration} mainDescription={course.mainDescription} secondDescriptions= {course.secondDescriptions}                                />
                             ))}
                           </div>
                         </div>
@@ -136,8 +135,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                                 price={course.fullPrice}
                                 tag={course.category}
                                 numberOfRatings={course.numberOfRatings}
-                                id={course.courseId}
-                              />
+                                id={course.courseId} courseDuration={course.duration} mainDescription={course.mainDescription} secondDescriptions= {course.secondDescriptions}                              />
                             ))}
                           </div>
                         </div>
@@ -174,8 +172,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                                 price={course.fullPrice}
                                 tag={course.category}
                                 numberOfRatings={course.numberOfRatings}
-                                id={course.courseId}
-                              />
+                                id={course.courseId} ccourseDuration={course.courseDuration} mainDescription={course.mainDescription} secondDescriptions= {course.secondDescriptions}                              />
                             ))}
                           </div>
                         </div>
@@ -212,9 +209,9 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                                 rating={course.rating}
                                 price={course.fullPrice}
                                 tag={course.category}
+                                lastUpdated={course.lastUpdated}
                                 numberOfRatings={course.numberOfRatings}
-                                id={course.courseId}
-                              />
+                                id={course.courseId} courseDuration={course.courseDuration} mainDescription={course.mainDescription} secondDescriptions= {course.secondDescriptions}                              />
                             ))}
                           </div>
                         </div>
@@ -247,8 +244,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                                 price={course.fullPrice}
                                 tag={course.category}
                                 numberOfRatings={course.numberOfRatings}
-                                id={course.courseId}
-                              />
+                                id={course.courseId} courseDuration={course.courseDuration} mainDescription={course.mainDescription} secondDescriptions= {course.secondDescriptions}                               />
                             ))}
                           </div>
                         </div>
@@ -282,8 +278,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                                 price={course.fullPrice}
                                 tag={course.category}
                                 numberOfRatings={course.numberOfRatings}
-                                id={course.courseId}
-                              />
+                                id={course.courseId} courseDuration={course.courseDuration} mainDescription={course.mainDescription} secondDescriptions= {course.secondDescriptions}                               />
                             ))}
                           </div>
                         </div>
@@ -318,8 +313,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                                 price={course.fullPrice}
                                 tag={course.category}
                                 numberOfRatings={course.numberOfRatings}
-                                id={course.courseId}
-                              />
+                                id={course.courseId} courseDuration={course.courseDuration} mainDescription={course.mainDescription} secondDescriptions= {course.secondDescriptions}                                />
                             ))}
                           </div>
                         </div>

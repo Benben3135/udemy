@@ -9,6 +9,7 @@ import { User } from "../../util/interfaces";
 import { useNavigate } from "react-router-dom";
 
 export interface CourseProps {
+  duration: number;
   courseId: number;
   teacherId: number;
   courseName: string;
