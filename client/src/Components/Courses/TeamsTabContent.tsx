@@ -9,7 +9,7 @@ const TeamsTabContent: React.FC<TeamsTabContentProps> = ({
   handleLearnMoreClick,
 }) => {
   return (
-    <div className="bg-white p-10  w-[24vw]">
+    <div className="bg-white p-10  w-[23vw]">
       <img
         src="https://www.udemy.com/staticx/udemy/images/v7/logo-ub.svg"
         alt="logo-ub"

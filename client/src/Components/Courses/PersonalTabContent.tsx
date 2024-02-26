@@ -15,11 +15,11 @@ const PersonalTabContent: React.FC<PersonalTabContentProps> = ({
   course,
 }) => {
   return (
-    <div className="bg-white p-2   w-[24vw] text-center pl-5">
+    <div className="bg-white p-2   w-[23vw] text-center pl-5">
       <h3 className="text-[1.3rem] font-bold text-Udemygray-500 mt-4 text-left pl-6 pb-1">
         Subscribe to Udemy’s top <br></br>courses
       </h3>
-      <p className="text-Udemygray-600 text-[0.9rem] text-left px-6">
+      <p className="text-Udemygray-600 text-[0.9rem] text-left pl-6">
         Get this course, plus 11,000+ of our top-rated courses, with Personal
         Plan.
         <span
@@ -38,13 +38,14 @@ const PersonalTabContent: React.FC<PersonalTabContentProps> = ({
       <p className="text-slate-600 text-[0.8rem]  text-center">
         Starting at ₪66.67 per month after trial.<br></br> Cancel anytime.
       </p>
-      <span className="flex justify-center text-[0.8rem] text-Udemygray-300 my-3"></span>
-      ————————or————————{" "}
-      <h4 className="text-left text-[1.5rem] font-bold text-Udemygray-600 pl-6 py-4 ">
+      <h5 className="flex justify-center text-[0.8rem] text-Udemygray-300 my-2">
+        ————————or————————
+      </h5>
+      <h4 className="text-left text-[1.5rem] font-bold text-Udemygray-600 pl-6 py-1 ">
         {course.fullPrice}$
       </h4>
       <button
-        className="  w-[85%] h-12 bg-white hover:bg-Udemygray-150 font-bold my-3  cursor-pointer text-Udemygray-600 mr-5 border-[1px] border-Udemygray-550 "
+        className="  w-[85%] h-12 bg-white hover:bg-Udemygray-150 font-bold my-2 cursor-pointer text-Udemygray-600 mr-5 border-[1px] border-Udemygray-550 "
         onClick={handleLearnMoreClick}
       >
         Buy this course

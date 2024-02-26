@@ -56,7 +56,7 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
         <h2 className="text-white text-[2rem] font-bold pt-6">
           {course.courseName}
         </h2>
-        <h3 className="text-white text-[1.3rem] font-[400] pt-3 pb-3 pr-8">
+        <h3 className="text-white text-[1.3rem] font-[400] pt-2 pb-2 pr-8">
           {limitWords(course.courseContent, 15)}
         </h3>
         <div className="flex items-center">
@@ -86,9 +86,9 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
         <img
           src={course.course_img}
           alt={course.courseName}
-          className="w-[39vw] bg-Udemygray-500 h-[236px] pr-[15vw] pt-9 shadow-inner "
+          className="w-[38vw] bg-Udemygray-500 h-[216px] pr-[15vw] pt-6 shadow-inner "
         />
-        <div className="tabs-container bg-white items-center w-[24vw]  pt-5 flex justify-center ">
+        <div className="tabs-container bg-white items-center w-[23vw]  pt-5 flex justify-center ">
           <button
             className={`tab-btn bg-white mr-[8vw] ${
               activeTab === "Personal " ? "active" : ""
@@ -105,7 +105,10 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
           </button>
         </div>
         {activeTab === "Personal" ? (
-          <PersonalTabContent course={course} handleLearnMoreClick={handleLearnMoreClick} />
+          <PersonalTabContent
+            course={course}
+            handleLearnMoreClick={handleLearnMoreClick}
+          />
         ) : (
           <TeamsTabContent handleLearnMoreClick={handleLearnMoreClick} />
         )}
