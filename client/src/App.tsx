@@ -7,11 +7,13 @@ import UserPage from "./view/pages/user-page";
 import PublicProfilePage from "./view/pages/public-profile-page";
 import MyCoursesPage from "./view/pages/my-courses-page";
 import TeachOnUdemyLandingPage from "./view/pages/teachOnLandingPage";
+import CreateCoursePage from "./view/pages/create-course"
 import InstructorPage from "./view/pages/instructor-page";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thereUser } from "./features/user/isUserSlice";
 import { isNavbarSelector } from "./features/user/navbarSlice";
+import {isFooterSelector} from "./features/user/footerSlice"
 import { auth } from "./firebase";
 import {
   setAcronyms,
@@ -43,10 +45,12 @@ import SingleCoursePage from "./Components/Courses/SingleCoursePage";
 function App() {
   const dispatch = useDispatch();
   const navbarRedux = useSelector(isNavbarSelector);
+  const footerRedux = useSelector(isFooterSelector);
   const userRedux = useSelector(userSelector);
   const [teachers, setTeachers] = useState<User[]>();
   const [dataFetched, setDataFetched] = useState(false);
   const [isNavbar, setIsNavbar] = useState<boolean>(true);
+  const [isFooter, setIsfooter] = useState<boolean>(true);
   // useEffect(() => {
   //   const fetchTeachers = async () => {
   //     try {
@@ -67,6 +71,12 @@ function App() {
   useEffect(() => {
     setIsNavbar(navbarRedux);
   },[navbarRedux])
+
+  useEffect(() => {
+    setIsfooter(footerRedux);
+  },[footerRedux])
+
+
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -173,6 +183,7 @@ function App() {
           <Route path="/login-page" element={<Login />} />
           <Route path="/terms-Page" element={<Terms />} />
           <Route path="/instructor-page" element={<InstructorPage />} />
+          <Route path="/create-course" element={<CreateCoursePage/>}/>
           <Route path="/user/edit-profile" element={<UserPage />} />
           <Route path="/user/public-profile" element={<PublicProfilePage />} />
           <Route path="/my-courses/:page" element={<MyCoursesPage />} />
@@ -185,7 +196,7 @@ function App() {
           <Route path="/user/:teachersName" element={<TeacherPage />} />;
           <Route path="/teach/landing" element={<TeachOnUdemyLandingPage />} />
         </Routes>
-        <Footer />
+        {isFooter && <Footer />}
       </BrowserRouter>
     </>
   );

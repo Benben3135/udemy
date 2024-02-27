@@ -3,6 +3,7 @@ import { Course } from "../../../db/dbStart";
 import express from "express";
 import { Request, Response } from "express";
 
+
 export async function getAllCourses(req: Request, res: Response) {
   try {
     const courses = await Course.find({});
@@ -175,3 +176,65 @@ export async function getMostPopularCourse(req: Request, res: Response) {
     console.error("Error fetching courses:", error);
   }
 }
+
+
+export async function addNewCourse(req: Request, res: Response) {
+  try {
+    const teacherId = req.body.userUid
+    const teacherName = req.body.userName
+    const name = req.body.name;
+    const mainDescription = req.body.mainDes;
+    const secondDescriptions = req.body.secondDescriptions;
+    const fullPrice = req.body.price;
+    const discountPrice = req.body.disPrice;
+    const course_img = req.body.img;
+    const category = req.body.category;
+    const fullDescription = req.body.bio;
+    const courseId = Math.floor(Math.random() * 9000) + 1000;
+    const currentDate = new Date().toISOString();
+
+    const newCourseData = {
+      courseId: courseId,
+      teacherId: teacherId,
+      courseName: name,
+      teacherName: teacherName,
+      mainDescription: mainDescription,
+      rating: 0,
+      numberOfRatings: 0,
+      numberOfStudents: 0,
+      lastUpdated: currentDate,
+      language: "English",
+      subtitlesLanguage: "English",
+      fullPrice: fullPrice,
+      discountPrice: discountPrice,
+      secondDescriptions: secondDescriptions,
+      courseDuration: 8,
+      articlesNumber: 24,
+      downloadableResourcesNumber: 12,
+      courseContent: "Synagoga iusto terra. Desidero tripudio illum virtus asperiores casus. Auditor venio angustus. Aetas est nisi vicinus defero tutis amissio volup. Adeo quis ventosus nisi cado. Tergum adflicto caelestis neque tendo territo thymbra.Aestus capio tardus comes distinctio utpote animi vir subito aegrotatio. Testimonium quod agnosco tamquam arbor atrox corporis tergum. Summa statua spes acies suasoria capillus doloribus.",
+      requirements: ["Computer","Basic knowledge in design"],
+      fullDescription: fullDescription,
+      course_img: course_img,
+      category: category
+    };
+
+    const newCourse = new Course(newCourseData);
+    await newCourse.save();
+
+    res.status(201).json({
+      ok: true,
+      message: "New course added successfully!",
+      course: newCourse
+    });
+
+  } catch (error) {
+    res.status(500).send({
+      ok: false,
+      message: "Error in function addNewCourse in courseCont!",
+    });
+    console.error("Error fetching courses:", error);
+  }
+}
+
+
+
