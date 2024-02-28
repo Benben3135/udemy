@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {} from "../../../public/images/Untitled_design__24_-removebg-preview.png";
-import { MonitorPlay } from "lucide-react";
+import { GraduationCap, HelpCircle, MonitorPlay } from "lucide-react";
 
 interface SideNavBarProps {
     active: number;
@@ -40,18 +40,18 @@ const SideNavBar = ({active,onTabChange}: SideNavBarProps) => {
           </div>
           <div onClick={() => onTabChange(1)} className={active===1 ? " w-fit cursor-pointer border-l-[4px] border-purple-500 h-[3.5rem] flex flex-row justify-centeri items-center":" w-fit cursor-pointer h-[3.5rem] flex flex-row justify-centeri items-center"}>
             <div className=" w-[3.5rem] flex flex-row justify-center items-center pr-2">
-              <MonitorPlay color="white"/>
+              <GraduationCap color="white"/>
             </div>
             <div className=" w-[6rem] ml-3 opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-500">
-                <h1 className=" font-bold text-white">Courses</h1>
+                <h1 className=" font-bold text-white">Created</h1>
             </div>
           </div>
           <div onClick={() => onTabChange(2)} className={active===2 ? " w-fit cursor-pointer border-l-[4px] border-purple-500 h-[3.5rem] flex flex-row justify-centeri items-center":" w-fit cursor-pointer h-[3.5rem] flex flex-row justify-centeri items-center"}>
             <div className=" w-[3.5rem] flex flex-row justify-center items-center pr-2">
-              <MonitorPlay color="white"/>
+              <HelpCircle color="white"/>
             </div>
             <div className=" w-[6rem] ml-3 opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-500">
-                <h1 className=" font-bold text-white">Courses</h1>
+                <h1 className=" font-bold text-white">Resources</h1>
             </div>
           </div>
         </div>

@@ -4,6 +4,7 @@ import {noNavbar} from "../../features/user/navbarSlice"
 import { useDispatch } from 'react-redux'
 import Courses from "../../Components/instructor-gui/Courses"
 import TopNavBar from "../../Components/instructor-gui/topNavBar"
+import Help from "../../Components/instructor-gui/help"
 
 const instructorPage = () => {
 
@@ -27,6 +28,7 @@ const instructorPage = () => {
       <SideNavBar active={active} onTabChange={handleTabChange}/>
       <TopNavBar/>
       {active===0 && <Courses/>}
+      {active === 2 && <Help/>}
     </div>
   )
 }
