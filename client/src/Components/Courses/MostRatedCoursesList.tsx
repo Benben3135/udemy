@@ -1,15 +1,15 @@
-// MostViewedCoursesList.jsx
+// MostRatedCoursesList.jsx
 import React from 'react';
 import Course, { CourseProps } from '../Courses/Course';
 
-interface MostViewedCoursesListProps {
-  mostViewedCourses: CourseProps[];
+interface MostRatedCoursesListProps {
+  mostRatedCourses: CourseProps[];
 }
 
-const MostViewedCoursesList: React.FC<MostViewedCoursesListProps> = ({ mostViewedCourses }) => {
+const MostRatedCoursesList: React.FC<MostRatedCoursesListProps> = ({ mostRatedCourses }) => {
   return (
     <div className="flex flex-wrap">
-      {mostViewedCourses.map((course) => (
+      {mostRatedCourses.map((course) => (
         <Course 
           key={course.courseId}
           img={course.course_img}
@@ -30,4 +30,4 @@ const MostViewedCoursesList: React.FC<MostViewedCoursesListProps> = ({ mostViewe
   );
 };
 
-export default MostViewedCoursesList;
+export default MostRatedCoursesList;

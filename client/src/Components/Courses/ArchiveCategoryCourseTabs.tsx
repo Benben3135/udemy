@@ -1,14 +1,18 @@
+// ArchiveCategoryCourseTabs.jsx
 import React, { useState } from "react";
 import MostViewedCoursesList from "./MostViewedCoursesList";
+import MostRatedCoursesList from "./MostRatedCoursesList"; // Import the new component
 import Course, { CourseProps } from "./Course";
 
-const ArchiveCategoryCourseTabs = ({
-  mostViewedCourses,
-  otherCourses,
-}: {
+interface ArchiveCategoryCourseTabsProps {
   mostViewedCourses: CourseProps[];
+  mostRatedCourses: CourseProps[];
   otherCourses: CourseProps[];
-}) => {
+}
+
+const ArchiveCategoryCourseTabs: React.FC<ArchiveCategoryCourseTabsProps> = (
+  props
+) => {
   const [activeTab, setActiveTab] = useState("MostViewed");
 
   const handleTabClick = (tabName: React.SetStateAction<string>) => {
@@ -17,68 +21,63 @@ const ArchiveCategoryCourseTabs = ({
 
   return (
     <div>
-      <div className="tabs-container bg-white items-center w-[28vw] pt-5 flex justify-center  flex-shrink-0 border-b-Udemygray-500 mb-1">
+
+      <div className="tabs-container bg-white items-center w-[36vw] pt-5 flex justify-start  flex-shrink-0 border-b-Udemygray-500 mb-1 border-Udemygray-300 border-1">
         <button
-          className={`tab-btn ${
+          className={`tab-btn mx-2 ${
             activeTab === "MostViewed"
               ? "active border-b-2 border-purple-500 text-black font-bold "
               : "text-gray-500 hover:text-black hover:border-black "
-          } mr-[8vw]`}
+          }`}
           onClick={() => handleTabClick("MostViewed")}
         >
           Most Viewed Courses
         </button>
         <button
-          className={`tab-btn ${
+          className={`tab-btn mx-2 ${
+            activeTab === "MostRated"
+              ? "active border-b-2 border-purple-500 text-black font-bold "
+              : "text-gray-500 hover:text-black hover:border-black "
+          }`}
+          onClick={() => handleTabClick("MostRated")}
+        >
+          Most Rated
+        </button>
+        <button
+          className={`tab-btn mx-2 ${
             activeTab === "Other"
               ? "active border-b-2 border-purple-500 text-black font-bold "
               : "text-gray-500 hover:text-black hover:border-black "
           }`}
           onClick={() => handleTabClick("Other")}
         >
-          Other Courses
+          New
         </button>
       </div>
 
       <div>
-        {activeTab === "MostViewed" && (
-          <MostViewedCoursesList mostViewedCourses={mostViewedCourses} />
-        )}
-
+        {activeTab === "MostViewed" && <MostViewedCoursesList {...props} />}
+        {activeTab === "MostRated" && <MostRatedCoursesList {...props} />}{" "}
+        {/* Add the condition for the new tab */}
         {activeTab === "Other" && (
           <div className="flex flex-wrap">
-            {otherCourses.map(
-              (course: {
-                courseId: React.Key | null | undefined;
-                course_img: string;
-                courseName: string;
-                teacherName: string;
-                rating: number;
-                fullPrice: number;
-                language: string;
-                numberOfRatings: number;
-                courseDuration: number;
-                lastUpdated: Date | undefined;
-                mainDescription: string;
-                secondDescriptions: string[];
-              }) => (
-                <Course
-                  key={course.courseId}
-                  img={course.course_img}
-                  title={course.courseName}
-                  teacher={course.teacherName}
-                  rating={course.rating}
-                  price={course.fullPrice}
-                  tag={course.language}
-                  numberOfRatings={course.numberOfRatings}
-                  id={typeof course.courseId === "number" ? course.courseId : 0}
-                  courseDuration={course.courseDuration}
-                  lastUpdated={course.lastUpdated}
-                  mainDescription={course.mainDescription}
-                  secondDescriptions={course.secondDescriptions}
-                />
-              )
-            )}
+            {props.otherCourses.map((course: CourseProps) => (
+              <Course
+                key={course.courseId}
+                img={course.course_img}
+                title={course.courseName}
+                teacher={course.teacherName}
+                rating={course.rating}
+                price={course.fullPrice}
+                tag={course.language}
+                numberOfRatings={course.numberOfRatings}
+                id={course.courseId}
+                courseDuration={course.courseDuration}
+                lastUpdated={course.lastUpdated}
+                mainDescription={course.mainDescription}
+                secondDescriptions={course.secondDescriptions}
+              />
+            ))}
           </div>
         )}
       </div>

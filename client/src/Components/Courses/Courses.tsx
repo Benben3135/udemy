@@ -1,5 +1,5 @@
 import Course, { CourseProps } from "./Course";
-import { MostViewedCoursesList } from "../../../api/coursesApi"; // הוספתי ייבוא של MostViewedCoursesList
+import MostViewedCoursesList from "./MostViewedCoursesList";
 
 const Courses = ({
   type,
