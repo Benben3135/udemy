@@ -1,6 +1,5 @@
 // PersonalTabContent.tsx
 import React from "react";
-import { Course } from "./../../../../server/api/courses/coursesModel";
 
 interface PersonalTabContentProps {
   handleLearnMoreClick: () => void;
@@ -23,7 +22,7 @@ const PersonalTabContent: React.FC<PersonalTabContentProps> = ({
         Get this course, plus 11,000+ of our top-rated courses, with Personal
         Plan.
         <span
-          className="text-Udemyblue-300 cursor-pointer pl-2 underline font-bold "
+          className="text-Udemyblue-300 cursor-pointer pl-2 underline font-bold pr-6 "
           onClick={handleLearnMoreClick}
         >
           Learn more

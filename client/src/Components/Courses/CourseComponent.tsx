@@ -5,11 +5,10 @@ import { Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import PersonalTabContent from "./PersonalTabContent";
 import TeamsTabContent from "./TeamsTabContent";
-import { Badge } from "lucide-react";
-import NewReleasesIcon from '@mui/icons-material/NewReleases';
+import LanguageIcon from '@mui/icons-material/Language';
+import NewReleasesIcon from "@mui/icons-material/NewReleases";
 import SvgIcon from "@mui/material/SvgIcon";
-
-
+import SubtitlesIcon from '@mui/icons-material/Subtitles';
 
 interface CourseComponentProps {
   course: {
@@ -26,7 +25,8 @@ interface CourseComponentProps {
     subtitlesLanguage: { type: string; default: "English" };
     fullPrice: number;
     discountPrice: number;
-    secondDescriptions: [string];
+    secondDescriptions: string[];
+
     courseDuration: number;
     articlesNumber: number;
     downloadableResourcesNumber: number;
@@ -38,7 +38,7 @@ interface CourseComponentProps {
   };
 }
 
-const CourseComponent: React.FC<CourseComponentProps> = ({ course,  }) => {
+const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
   const limitWords = (content: string, limit: number) => {
     const words = content.split(" ");
     return words.slice(0, limit).join(" ");
@@ -61,12 +61,15 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course,  }) => {
       if (course.lastUpdated) {
         const lastUpdatedDate = new Date(course.lastUpdated);
         const options = { month: "long", year: "numeric" };
-        const formattedDate = lastUpdatedDate.toLocaleDateString("en-US", options);
-  
+        const formattedDate = lastUpdatedDate.toLocaleDateString(
+          "en-US",
+          options
+        );
+
         setLastUpdatedString(formattedDate);
       }
     };
-  
+
     lastUpdatedSTR();
   }, [course.lastUpdated]);
   return (
@@ -105,21 +108,39 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course,  }) => {
           </div>
         </div>
         <div className="text-s text-white ml-1 pb-1 ">
-        Created by {course.teacherName} 
-          </div>
-          <div className="text-s text-white ml-1 pb-1  ">
-          
-          <h2 className="text-s text-white ml-1 pb-1">
-          <SvgIcon component={NewReleasesIcon} className="new-icon" sx={{ fontSize: 15, strokeWidth: "0.8px" }} />
+          Created by {course.teacherName}
+        </div>
+        <div className="text-s text-white ml-1 pb-1 flex ">
+          <h2 className="text-s text-white ml-0 pb-1 text-sm">
+            <SvgIcon
+              component={NewReleasesIcon}
+              className="new-icon"
+              sx={{ fontSize: 25, strokeWidth: "0.8px", paddingRight: "10px" }}
+            />
             Last updated{" "}
-          
-            <span className="font-semibold text-white">
-              {lastUpdatedString || "Not Available"} {/* Handle undefined case */}
+            <span className="font-semibold text-white ">
+              {lastUpdatedString || "Not Available"}{" "}
+              {/* Handle undefined case */}
             </span>{" "}
-           
           </h2>
-
-          </div>
+          <h2 className="text-s text-white ml-2 pb-1 text-sm">
+            <LanguageIcon
+              component={LanguageIcon}
+              className="new-icon"
+              sx={{ fontSize: 25, strokeWidth: "0.8px", paddingRight: "10px" }}
+            />
+            English
+            SubtitlesIcon
+          </h2>
+          <h2 className="text-s text-white ml-2 pb-1 text-sm">
+            <SubtitlesIcon
+              component={SubtitlesIcon}
+              className="new-icon"
+              sx={{ fontSize: 25, strokeWidth: "0.8px", paddingRight: "10px" }}
+            />
+            English [Auto]
+          </h2>
+        </div>
       </div>
       <div className="course-image sticky top-0 flex-shrink-0">
         <img
@@ -149,7 +170,7 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course,  }) => {
             handleLearnMoreClick={handleLearnMoreClick}
           />
         ) : (
-          <TeamsTabContent handleLearnMoreClick={handleLearnMoreClick} />
+<TeamsTabContent course={{ secondDescriptions: [] }} />
         )}
       </div>
     </div>
