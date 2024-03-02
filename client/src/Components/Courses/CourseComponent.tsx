@@ -163,7 +163,7 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
             </h2>
           </div>
         </div>
-        
+
         <div className="course-image sticky top-0 flex-shrink-0">
           <img
             src={course.course_img}
@@ -320,6 +320,28 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
                 style={{ filter: "brightness(30%)" }}
               />
             ))}
+          </div>
+        </div>
+      </div>
+      <div className="w-[100vw] h-70 bg-white pb-24 pt-12   ">
+        <div className="bg-Udemygray-100  h-[22vh] w-[40vw]   ml-[15vw] flex ">
+          <div className=" w-[40%] ">
+            <h2 className="text-Udemygray-500 text-[1.1rem] font-bold pt-6  ">
+              Coding Exercises
+            </h2>
+            <p className="text-Udemygray-300 text-[0.9rem] text-left py-3  ">
+              This course includes our updated coding exercises so you can
+              practice your skills as you learn.
+              <span
+                className="text-Udemyblue-300 cursor-pointer pl-2 underline font-bold pr-6 pb-10 "
+                onClick={handleLearnMoreClick}
+              >
+                <br></br> <br></br> <br></br>Learn more
+              </span>
+            </p>
+          </div>
+          <div className="w-[60%]">
+            <img src="https://www.udemy.com/staticx/udemy/js/webpack/coding-exercises-demo-preview-desktop.2957bed27c3ae43a02824b61ad9cda03.png"></img>
           </div>
         </div>
       </div>
