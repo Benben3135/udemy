@@ -10,9 +10,6 @@ import {
 import { useParams } from "react-router-dom";
 import FeaturedCourse from "../featuredCourse";
 import TestimonialsSlider from "../TestimonialsSlider";
-import TabsComponent from "../TabsComponent";
-import { categoriesTab } from "../../util/categories";
-import CategoryImages from "../CategoriesImges";
 
 export interface Course {
   courseId: number;
@@ -80,51 +77,54 @@ const ArchiveCategoryCourse = () => {
   }
 
   return (
-    <div className="font-custom max-w-[82rem] mx-auto h-fit  ">
-      <h1 className="text-Udemygray-500 text-3xl font-bold my-12">
-        {selectedCategory} Courses Archive
-      </h1>
-      <h2 className="text-Udemygray-500 text-2xl font-bold my-12">
-        {" "}
-        Courses to get you started
-      </h2>
+    <>
+      <div className="font-custom max-w-[82rem] mx-auto h-fit  ">
+        <h1 className="text-Udemygray-500 text-3xl font-bold mt-12 mb-2">
+          {selectedCategory} Courses Archive
+        </h1>
+        <h2 className="text-Udemygray-500 text-2xl font-bold my-10 ">
+          {" "}
+          Courses to get you started
+        </h2>
 
-      {/* Display tabs */}
-      <ArchiveCategoryCourseTabs
-        mostViewedCourses={mostViewedCourses}
-        mostRatedCourses={mostRatedCourses}
-        mostRecentCoursesList={mostRecentCoursesList}
-        otherCourses={[]}
-        selectedCategory={selectedCategory}
-      />
+        {/* Display tabs */}
+        <ArchiveCategoryCourseTabs
+          mostViewedCourses={mostViewedCourses}
+          mostRatedCourses={mostRatedCourses}
+          mostRecentCoursesList={mostRecentCoursesList}
+          otherCourses={[]}
+          selectedCategory={selectedCategory}
+        />
 
-      {/* Display Other Courses */}
-      <div className="mb-12">
-        <FeaturedCourse />
-        <h2 className="mt-12">Other Courses</h2>
-        <div className="flex flex-wrap gap-5">
-          {courses.map((course) => (
-            <Course
-              key={course.courseId}
-              img={course.course_img}
-              title={course.courseName}
-              teacher={course.teacherName}
-              rating={course.rating}
-              price={course.fullPrice}
-              tag={course.language}
-              numberOfRatings={course.numberOfRatings}
-              id={course.courseId}
-              courseDuration={course.courseDuration}
-              lastUpdated={course.lastUpdated}
-              mainDescription={course.mainDescription}
-              secondDescriptions={course.secondDescriptions}
+        {/* Display Other Courses */}
+        <div className=" mt-10">
+          <FeaturedCourse />
 
-            />
-          ))}
+          <div className="flex flex-wrap gap-5 max-w-[82rem]  justify-around mt-12">
+            {courses.map((course) => (
+              <Course
+                key={course.courseId}
+                img={course.course_img}
+                title={course.courseName}
+                teacher={course.teacherName}
+                rating={course.rating}
+                price={course.fullPrice}
+                tag={course.language}
+                numberOfRatings={course.numberOfRatings}
+                id={course.courseId}
+                courseDuration={course.courseDuration}
+                lastUpdated={course.lastUpdated}
+                mainDescription={course.mainDescription}
+                secondDescriptions={course.secondDescriptions}
+              />
+            ))}
+          </div>
+
+          <h2 className="mt-12">Other Courses</h2>
         </div>
+        <TestimonialsSlider />
       </div>
-      <TestimonialsSlider />
-    </div>
+    </>
   );
 };
 
