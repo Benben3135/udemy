@@ -28,7 +28,7 @@ const MostRecentCoursesList: React.FC<MostRecentCoursesListProps> = ({ selectedC
   }, [selectedCategory]);
 
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap  gap-5">
       {recentCourses.map((course: CourseProps) => (
         <Course
           key={course.courseId}

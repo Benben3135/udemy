@@ -10,7 +10,7 @@ const MostRatedCoursesList: React.FC<MostRatedCoursesListProps> = ({
   mostRatedCourses,
 }) => {
   return (
-    <div className="flex flex-wrap mb-5">
+    <div className="flex flex-wrap mb-5  gap-5">
       {mostRatedCourses.map((course) => (
         <Course
           key={course.courseId}
