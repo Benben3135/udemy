@@ -56,7 +56,16 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
     setActiveTab(tab);
     // Add logic to handle tab change if needed
   };
+  const [showFullRequirements, setShowFullRequirements] = useState(false);
+  const [showFullDescription, setShowFullDescription] = useState(false);
 
+  const toggleFullRequirements = () => {
+    setShowFullRequirements(!showFullRequirements);
+  };
+
+  const toggleFullDescription = () => {
+    setShowFullDescription(!showFullDescription);
+  };
   const navigate = useNavigate();
 
   const handleLearnMoreClick = () => {
@@ -269,7 +278,7 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
             </ul>
           </div>
 
-          <div className="row w-[30vw] bg-white flex flex-col justify-between items-center ml-2">
+          <div className="row w-[30vw] bg-white flex flex-col justify-between items-center ml-[-30px]">
             <ul>
               {secondDescriptions && secondDescriptions.length > 2 && (
                 <li className="my-2">
@@ -324,7 +333,7 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
         </div>
       </div>
       <div className="w-[100vw] h-70 bg-white pb-24 pt-12   ">
-        <div className="bg-Udemygray-100  h-[22vh] w-[40vw]   ml-[15vw] flex ">
+        <div className="bg-Udemygray-100  h-[36vh] w-[40vw]   ml-[15vw] flex pt-5 px-5 ">
           <div className=" w-[40%] ">
             <h2 className="text-Udemygray-500 text-[1.1rem] font-bold pt-6  ">
               Coding Exercises
@@ -343,6 +352,58 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
           <div className="w-[60%]">
             <img src="https://www.udemy.com/staticx/udemy/js/webpack/coding-exercises-demo-preview-desktop.2957bed27c3ae43a02824b61ad9cda03.png"></img>
           </div>
+        </div>
+      </div>
+      <div className="w-[100vw] bg-white py-1 ">
+        <div className="border border-Udemygray-200 h-fit w-[40vw] ml-[15vw] pb-5 shadow-inner">
+          <h2 className="text-Udemygray-500 text-[1.5rem] font-bold pt-6 pl-3">
+            Requirements
+          </h2>
+          <p className="text-Udemygray-300 text-[0.9rem] text-left py-3 px-3">
+            {showFullRequirements
+              ? course.requirements.join(" ")
+              : course.requirements.slice(0, 5).join(" ")}
+            <span>
+              {course.requirements.length > 5
+                ? showFullRequirements
+                  ? ""
+                  : "..."
+                : ""}
+            </span>
+            {course.requirements.length > 5 && (
+              <button
+                className="text-blue-500 underline"
+                onClick={toggleFullRequirements}
+              >
+                {showFullRequirements ? "Read Less" : "Read More"}
+              </button>
+            )}
+          </p>
+          <h2 className="text-Udemygray-500 text-[1.5rem] font-bold pt-6 pl-3">
+            Description
+          </h2>
+          <p className="text-Udemygray-300 text-[0.9rem] text-left py-3 px-3 ">
+            {showFullDescription
+              ? course.fullDescription
+              : course.fullDescription.slice(0, 500)}
+            <span>
+              <br></br>
+              <br></br>
+              {course.fullDescription.length > 500
+                ? showFullDescription
+                  ? ""
+                  : ""
+                : ""}
+            </span>
+            {course.fullDescription.length > 5 && (
+              <button
+                className="text-Udemyblue-300 underline "
+                onClick={toggleFullDescription}
+              >
+                {showFullDescription ? "Read Less ↑" : "Read More ↓"}
+              </button>
+            )}
+          </p>
         </div>
       </div>
     </>
