@@ -1,16 +1,18 @@
 // MostRatedCoursesList.jsx
-import React from 'react';
-import Course, { CourseProps } from '../Courses/Course';
+import React from "react";
+import Course, { CourseProps } from "../Courses/Course";
 
 interface MostRatedCoursesListProps {
   mostRatedCourses: CourseProps[];
 }
 
-const MostRatedCoursesList: React.FC<MostRatedCoursesListProps> = ({ mostRatedCourses }) => {
+const MostRatedCoursesList: React.FC<MostRatedCoursesListProps> = ({
+  mostRatedCourses,
+}) => {
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap mb-5">
       {mostRatedCourses.map((course) => (
-        <Course 
+        <Course
           key={course.courseId}
           img={course.course_img}
           title={course.courseName}

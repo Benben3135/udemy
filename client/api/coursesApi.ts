@@ -33,6 +33,16 @@ export const getCoursesByRecentlySearched = async () => {
     console.error(error);
   }
 };
+export const getMostRecentCoursesByCategory = async (selectedCategory: string) => {
+  try {
+    const response = await axios.get(`/API/courses/getMostRecentCourses/${selectedCategory}`);
+    console.log(response.data.courses);
+    return response.data.courses;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const get5CoursesByCategory = async (selectedCategory: string) => {
   try {
     const response = await axios.get(

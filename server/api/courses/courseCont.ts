@@ -17,6 +17,19 @@ export async function getAllCourses(req: Request, res: Response) {
     console.error("Error fetching courses:", error);
   }
 }
+export async function getMostRecentCourses(req: Request, res: Response){
+  try {
+    const { category } = req.params;
+    const courses = await Course.find({ category }).sort({ lastUpdated: -1 }).limit(5);
+    res.status(200).send({ ok: true, courses });
+  } catch (error) {
+    res.status(500).send({
+      ok: false,
+      message: "Error in function getMostRecentCourses in courseCont!",
+    });
+    console.error("Error fetching most recent courses:", error);
+  }
+}
 
 export async function getOneCourseById(req: Request, res: Response) {
   try {

@@ -15,6 +15,9 @@ import {
   addNewCourse
 } from "./courseCont";
 
+// הוסף את השורה הבאה
+import { getMostRecentCourses } from "./courseCont"; 
+
 router
   .get("", getAllCourses)
   .get("/getCourseById/:id", getOneCourseById)
@@ -33,6 +36,8 @@ router
   )
   .get("/getBestSellerCourses", getBestSellerCourses)
   .get("/getMostPopularCourse", getMostPopularCourse)
-  .post("/addNewCourse",addNewCourse)
+  .post("/addNewCourse", addNewCourse)
+  // הוסף את השורה הבאה
+  .get("/getMostRecentCourses/:category", getMostRecentCourses);
 
 export default router;

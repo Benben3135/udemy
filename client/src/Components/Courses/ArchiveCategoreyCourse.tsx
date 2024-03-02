@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Course, { CourseProps } from "./Course";
 import ArchiveCategoryCourseTabs from "./ArchiveCategoryCourseTabs";
-import { getCoursesByMostViewing, getCoursesByMostRated, getAllCoursesByCategory } from "../../../api/coursesApi";
+import { getCoursesByMostViewing, getCoursesByMostRated, getAllCoursesByCategory, getCoursesByRecentlySearched } from "../../../api/coursesApi";
 import { useParams } from "react-router-dom";
 import FeaturedCourse from "../featuredCourse";
 
@@ -9,11 +9,14 @@ export interface Course {
   courseId: number;
 }
 
+// ...
+
 const ArchiveCategoryCourse = () => {
   const { selectedCategory } = useParams();
   const [courses, setCourses] = useState<CourseProps[]>([]);
   const [mostViewedCourses, setMostViewedCourses] = useState<CourseProps[]>([]);
   const [mostRatedCourses, setMostRatedCourses] = useState<CourseProps[]>([]);
+  const [mostRecentCoursesList, setMostRecentCoursesList] = useState<CourseProps[]>([]);
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -45,9 +48,20 @@ const ArchiveCategoryCourse = () => {
       }
     };
 
+    const fetchMostRecentCoursesData = async () => {
+      try {
+        // Assuming you have the correct function getCoursesByMostRecent
+        const mostRecentCoursesData = await getCoursesByRecentlySearched();
+        setMostRecentCoursesList(mostRecentCoursesData); // Fix the assignment here
+      } catch (error) {
+        console.error("Error fetching most recent courses:", error);
+      }
+    };
+
     fetchCourses();
     fetchMostViewedCoursesData();
     fetchMostRatedCoursesData();
+    fetchMostRecentCoursesData();
   }, [selectedCategory]);
 
   if (!selectedCategory) {
@@ -68,13 +82,11 @@ const ArchiveCategoryCourse = () => {
       <ArchiveCategoryCourseTabs
         mostViewedCourses={mostViewedCourses}
         mostRatedCourses={mostRatedCourses}
-        otherCourses={courses}
-      />
+        mostRecentCoursesList={mostRecentCoursesList} otherCourses={[]} selectedCategory={selectedCategory}      />
 
       {/* Display Other Courses */}
       <div className="mb-12">
-
-      <FeaturedCourse/>
+        <FeaturedCourse />
         <h2 className="mt-12">Other Courses</h2>
         <div className="flex flex-wrap">
           {courses.map((course) => (
