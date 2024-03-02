@@ -14,7 +14,7 @@ const PersonalTabContent: React.FC<PersonalTabContentProps> = ({
   course,
 }) => {
   return (
-    <div className="bg-white p-2   w-[23vw] text-center pl-5">
+    <div className="bg-white p-2   w-[23vw] text-center pl-5 ">
       <h3 className="text-[1.3rem] font-bold text-Udemygray-500 mt-4 text-left pl-6 pb-1">
         Subscribe to Udemy’s top <br></br>courses
       </h3>

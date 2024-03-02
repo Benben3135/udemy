@@ -18,7 +18,10 @@ const TeamsTabContent: React.FC<TeamsTabContentProps> = ({
 }) => {
 
   const navigate = useNavigate();
-
+  const limitWords = (text: string, limit: number) => {
+    const words = text.split(" ");
+    return words.slice(0, limit).join(" ");
+  };
   const handleNavigateToOtherPage = () => {
     navigate("/teach/landing");
   };
@@ -28,7 +31,7 @@ const TeamsTabContent: React.FC<TeamsTabContentProps> = ({
     return secondDescriptions.slice(0, 4).map((description, index) => (
       <div key={index} className="flex flex-row justify-start items-start w-full text-sm font-normal text-slate-700 gap-4">
         <Check className="min-w-4" size="16px" color="gray" />
-        <h3 className="text-sm font-normal text-slate-700">{description}</h3>
+        <h3 className="text-sm font-normal text-slate-700"> {limitWords(description, 4)}</h3>
       </div>
     ));
   };
@@ -40,7 +43,7 @@ const TeamsTabContent: React.FC<TeamsTabContentProps> = ({
   
 
   return (
-    <div className="bg-white p-2 w-[23vw] text-center pl-5">
+    <div className="bg-white p-2 w-[23vw] text-center pl-5 ">
    
       {course ? (
         <div>
@@ -61,21 +64,7 @@ const TeamsTabContent: React.FC<TeamsTabContentProps> = ({
           <div className="flex flex-col justify-start items-start h-fit w-full mt-3 gap-2">
             {renderSecondDescriptions(course.secondDescriptions)}
           </div>
-          <p className="text-slate-600 text-[0.8rem]  text-center">
-        Starting at ₪66.67 per month after trial.<br></br> Cancel anytime.
-      </p>
-      <h5 className="flex justify-center text-[0.8rem] text-Udemygray-300 my-2">
-        ————————or————————
-      </h5>
-      <h4 className="text-left text-[1.5rem] font-bold text-Udemygray-600 pl-6 py-1 ">
-        {course.fullPrice}$
-      </h4>
-      <button
-        className="  w-[85%] h-12 bg-white hover:bg-Udemygray-150 font-bold my-2 cursor-pointer text-Udemygray-600 mr-5 border-[1px] border-Udemygray-550 "
-        onClick={handleLearnMoreClick}
-      >
-        Buy this course
-      </button>
+          
         </div>
       ) : (
         <div>No course data available</div>

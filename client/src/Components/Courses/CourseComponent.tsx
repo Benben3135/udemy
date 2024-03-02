@@ -1,4 +1,4 @@
-// CourseComponent.js
+// CourseComponent.ts
 import React, { useEffect, useState } from "react";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import { Check, Star } from "lucide-react";
@@ -16,6 +16,7 @@ import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import SmartphoneOutlinedIcon from "@mui/icons-material/SmartphoneOutlined";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
+import { FooterLogos } from "../../../public/images/footerLogos/FooterLogos";
 
 interface CourseComponentProps {
   course: {
@@ -162,18 +163,19 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
             </h2>
           </div>
         </div>
+        
         <div className="course-image sticky top-0 flex-shrink-0">
           <img
             src={course.course_img}
             alt={course.courseName}
-            className="w-[38vw] bg-Udemygray-500 h-[216px] pr-[15vw] pt-6 shadow-inner "
+            className="w-[38vw] bg-Udemygray-500 h-[216px] pr-[15vw] pt-6 shadow-inner  "
           />
-          <div className="tabs-container bg-white items-center w-[23vw] pt-5 flex justify-center">
+          <div className="tabs-container bg-white items-center w-[23vw] pt-5 flex justify-center sticky top-0 flex-shrink-0">
             <button
               className={`tab-btn ${
                 activeTab === "Personal"
-                  ? "active border-b-2 border-purple-500 text-black font-bold"
-                  : "text-gray-500 hover:text-black hover:border-black"
+                  ? "active border-b-2 border-purple-500 text-black font-bold sticky top-0"
+                  : "text-gray-500 hover:text-black hover:border-black sticky top-0"
               } mr-[8vw]`}
               onClick={() => handleTabClick("Personal")}
             >
@@ -182,8 +184,8 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
             <button
               className={`tab-btn ${
                 activeTab === "Teams"
-                  ? "active border-b-2 border-purple-500 text-black font-bold"
-                  : "text-gray-500 hover:text-black hover:border-black"
+                  ? "active border-b-2 border-purple-500 text-black font-bold sticky top-0"
+                  : "text-gray-500 hover:text-black hover:border-black sticky top-0"
               }`}
               onClick={() => handleTabClick("Teams")}
             >
@@ -290,6 +292,35 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
           </div>
 
           {/* עמודה שנייה */}
+        </div>
+      </div>
+      <div className="w-[100vw] h-50 bg-white   ">
+        <div className="border border-Udemygray-200  h-[22vh] w-[40vw]   ml-[15vw] ">
+          <h2 className="text-Udemygray-500 text-[1.1rem] font-bold pt-6  pl-3">
+            Top companies offer this course to their employees
+          </h2>
+          <p className="text-Udemygray-600 text-[0.9rem] text-left pl-6">
+            Get this course, plus 11,000+ of our top-rated courses, with
+            Personal Plan.
+            <span
+              className="text-Udemyblue-300 cursor-pointer pl-2 underline font-bold pr-6 "
+              onClick={handleLearnMoreClick}
+            >
+              <br></br> Learn more
+            </span>
+          </p>
+          <div className="flex items-center space-x-8 my-4 pl-4">
+            {/* לוגואים שמתקראים מהמערך FooterLogos */}
+            {FooterLogos.map((logo, index) => (
+              <img
+                key={index}
+                src={logo}
+                alt={`Partner Logo ${index + 1}`}
+                className="h-10 w-auto dark-logo "
+                style={{ filter: "brightness(30%)" }}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </>
