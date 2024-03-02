@@ -47,6 +47,7 @@ export const Course = ({
   courseDuration,
   mainDescription,
   secondDescriptions,
+  
 }: {
   img: string;
   title: string;

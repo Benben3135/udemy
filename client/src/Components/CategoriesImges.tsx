@@ -1,7 +1,7 @@
 import React from "react";
 import categoryImagesData from "../util/categories";
 import { Link, useNavigate } from "react-router-dom";
- // Use the correct path to your file
+
 
 interface CategoryImage {
   category: string;
@@ -22,9 +22,8 @@ const Category: React.FC<CategoryProps> = ({
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/categoryPage?category=${category.category}`);
+    navigate(`/category-page/${category.category}`);
   };
-
   if (displayAltOnly) {
     return (
       <>

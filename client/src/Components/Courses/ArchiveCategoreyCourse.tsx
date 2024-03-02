@@ -10,6 +10,9 @@ import {
 import { useParams } from "react-router-dom";
 import FeaturedCourse from "../featuredCourse";
 import TestimonialsSlider from "../TestimonialsSlider";
+import TabsComponent from "../TabsComponent";
+import { categoriesTab } from "../../util/categories";
+import CategoryImages from "../CategoriesImges";
 
 export interface Course {
   courseId: number;
@@ -115,6 +118,7 @@ const ArchiveCategoryCourse = () => {
               lastUpdated={course.lastUpdated}
               mainDescription={course.mainDescription}
               secondDescriptions={course.secondDescriptions}
+
             />
           ))}
         </div>

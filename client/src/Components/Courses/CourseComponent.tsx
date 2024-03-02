@@ -17,7 +17,7 @@ import SmartphoneOutlinedIcon from "@mui/icons-material/SmartphoneOutlined";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import { FooterLogos } from "../../../public/images/footerLogos/FooterLogos";
 
-interface CourseComponentProps {
+  interface CourseComponentProps {
   course: {
     courseId: number;
     teacherId: number;
