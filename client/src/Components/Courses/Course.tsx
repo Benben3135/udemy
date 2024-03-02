@@ -33,6 +33,7 @@ export interface CourseProps {
   course_img: string;
   category: string;
 }
+
 export const Course = ({
   img,
   title,
@@ -54,11 +55,11 @@ export const Course = ({
   price: number;
   tag: string;
   numberOfRatings: number;
- id: number;
+  id: number;
   lastUpdated?: Date;
   courseDuration: number;
   mainDescription: string;
-  secondDescriptions: string[]; 
+  secondDescriptions: string[];
 }) => {
   const [ratingRounded, setRatingRounded] = useState<number>(0);
   const [bestIds, setBestIds] = useState<number[]>([]);
@@ -76,6 +77,7 @@ export const Course = ({
     console.log(id, title);
     starColor();
   }, []);
+
   const starColor = () => {
     const roundedRating = Math.round(rating);
     setRatingRounded(roundedRating);
@@ -100,7 +102,9 @@ export const Course = ({
     setLastUpdatedString(formattedDate);
   };
 
-  const addToCart = async (courseId: number) => {};
+  const addToCart = async (courseId: number) => {
+    // פונקציה זו יכולה להיות מוממשת כשהיא נדרשת
+  };
 
   const addToWishlist = async () => {
     const result = await addCourseWishlist(id, user!.uid);
@@ -216,7 +220,7 @@ export const Course = ({
           </div>
           <div className=" flex flex-row w-full h-fit mt-4 gap-2">
             <div
-              // onClick={() => addToCart()}
+              // onClick={() => addToCart(id)}
               className=" w-4/5 h-12 bg-Udemyindigo-300 hover:bg-Udemypurple-600 flex flex-row justify-center items-center cursor-pointer"
             >
               <h2 className="font-[650] text-[1.02rem] text-white">
@@ -225,7 +229,7 @@ export const Course = ({
             </div>
             {wishlist && (
               <div
-                onClick={() => addToWishlist()}
+                onClick={addToWishlist}
                 className=" w-12 rounded-full h-12 border border-black flex flex-row items-center justify-center hover:bg-slate-300 cursor-pointer"
               >
                 {wishlist.includes(id) ? (

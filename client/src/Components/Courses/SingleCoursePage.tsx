@@ -35,7 +35,7 @@ const SingleCoursePage = () => {
 
    
 
-    <CourseComponent course={course} />
+    <CourseComponent course={course} selectedCategory={""} />
   </div>
   );
 };

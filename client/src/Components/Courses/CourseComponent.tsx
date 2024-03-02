@@ -9,7 +9,6 @@ import LanguageIcon from "@mui/icons-material/Language";
 import NewReleasesIcon from "@mui/icons-material/NewReleases";
 import SvgIcon from "@mui/material/SvgIcon";
 import SubtitlesIcon from "@mui/icons-material/Subtitles";
-import Typography from "@mui/material/Typography";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import CodeIcon from "@mui/icons-material/Code";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
@@ -46,7 +45,9 @@ interface CourseComponentProps {
   };
 }
 
-const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
+const CourseComponent: React.FC<
+  CourseComponentProps & { selectedCategory: string }
+> = ({ course, selectedCategory }) => {
   const limitWords = (content: string, limit: number) => {
     const words = content.split(" ");
     return words.slice(0, limit).join(" ");
@@ -260,20 +261,25 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
           This course includes:
         </h2>
         <div className="flex flex-row w-[92vw] h-[20vh]">
-          {/* עמודה ראשונה */}
           <div className="row w-[20vw] bg-white flex flex-col justify-between items-start ml-5 ">
-            <ul className="">
+            <ul>
               <li className="my-2  ">
                 <OndemandVideoIcon className="mr-3" />
-                {secondDescriptions && secondDescriptions[3]}
+                {secondDescriptions &&
+                  secondDescriptions[2] &&
+                  limitWords(secondDescriptions[2], 5)}
               </li>
               <li className="my-2">
                 <CodeIcon className="mr-3" />
-                {secondDescriptions && secondDescriptions[6]}
+                {secondDescriptions &&
+                  secondDescriptions[7] &&
+                  limitWords(secondDescriptions[7], 4)}
               </li>
               <li className="my-2">
                 <ContentPasteIcon className="mr-3" />
-                {secondDescriptions && secondDescriptions[1]}
+                {secondDescriptions &&
+                  secondDescriptions[1] &&
+                  limitWords(secondDescriptions[1], 4)}
               </li>
             </ul>
           </div>
@@ -283,24 +289,23 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
               {secondDescriptions && secondDescriptions.length > 2 && (
                 <li className="my-2">
                   <SaveAltIcon className="mr-3" />
-                  {secondDescriptions[1]}
+                  {secondDescriptions[1] &&
+                    limitWords(secondDescriptions[1], 5)}
                 </li>
               )}
               {secondDescriptions && secondDescriptions.length > 3 && (
                 <li className="my-2 ">
                   <SmartphoneOutlinedIcon className="mr-3" />
-                  {secondDescriptions[8]}
+                  {secondDescriptions[7] &&
+                    limitWords(secondDescriptions[7], 5)}
                 </li>
               )}
-              {/* המשך רשימת האייקונים כרצונך */}
               <li className="my-2">
                 <EmojiEventsOutlinedIcon className="mr-3" />
-                {secondDescriptions[0]}
+                {secondDescriptions[2] && limitWords(secondDescriptions[2], 5)}
               </li>
             </ul>
           </div>
-
-          {/* עמודה שנייה */}
         </div>
       </div>
       <div className="w-[100vw] h-50 bg-white   ">
@@ -354,12 +359,12 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
           </div>
         </div>
       </div>
-      <div className="w-[100vw] bg-white py-1 ">
-        <div className="border border-Udemygray-200 h-fit w-[40vw] ml-[15vw] pb-5 shadow-inner">
+      <div className="w-[100vw] bg-white mt-[-10vh]  ">
+        <div className=" h-fit w-[40vw] ml-[15vw] pb-5 ">
           <h2 className="text-Udemygray-500 text-[1.5rem] font-bold pt-6 pl-3">
             Requirements
           </h2>
-          <p className="text-Udemygray-300 text-[0.9rem] text-left py-3 px-3">
+          <p className="text-Udemygray-300 text-[0.9rem] text-left py-3 px-3 ">
             {showFullRequirements
               ? course.requirements.join(" ")
               : course.requirements.slice(0, 5).join(" ")}
@@ -382,14 +387,14 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
           <h2 className="text-Udemygray-500 text-[1.5rem] font-bold pt-6 pl-3">
             Description
           </h2>
-          <p className="text-Udemygray-300 text-[0.9rem] text-left py-3 px-3 ">
+          <p className="text-Udemygray-300 text-[0.9rem] text-left py-3 px-3  ">
             {showFullDescription
               ? course.fullDescription
-              : course.fullDescription.slice(0, 500)}
+              : course.fullDescription.slice(0, 200)}
             <span>
               <br></br>
               <br></br>
-              {course.fullDescription.length > 500
+              {course.fullDescription.length > 200
                 ? showFullDescription
                   ? ""
                   : ""
@@ -397,13 +402,24 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
             </span>
             {course.fullDescription.length > 5 && (
               <button
-                className="text-Udemyblue-300 underline "
+                className="text-Udemyblue-300 underline font-bold "
                 onClick={toggleFullDescription}
               >
                 {showFullDescription ? "Read Less ↑" : "Read More ↓"}
               </button>
             )}
           </p>
+        </div>
+      </div>
+      <div className="w-[100vw] h-50 bg-white   ">
+        <div className="  h-[22vh] w-[40vw]   ml-[15vw] ">
+          <h2 className="text-Udemygray-500 text-[1.5rem] font-bold pt-6  pl-3">
+            Students also bought
+          </h2>
+          {/* <Courses
+            type={MostViewedCoursesList}
+            componentsTitle={selectedCategory || ""}
+          /> */}
         </div>
       </div>
     </>

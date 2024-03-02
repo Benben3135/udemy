@@ -1,104 +1,96 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Course, { CourseProps } from "../Courses/Course";
-import { getAllCoursesByCategory, getCoursesByMostViewing } from '../../../api/coursesApi'; 
+import {
+  getAllCoursesByCategory,
+  getCoursesByMostViewing,
+} from "../../../api/coursesApi";
+import ArchiveCategoryCourseTabs from "./ArchiveCategoryCourseTabs";
 
 export interface Course {
-    courseId: number;
+  courseId: number;
 }
 
-const ArchiveCategoreyCourse = () => {
-    const { selectedCategory } = useParams();
-    const [courses, setCourses] = useState<CourseProps[]>([]);
-    const [mostViewedCourses, setMostViewedCourses] = useState<CourseProps[]>([]);
+const ArchiveCategoryCourse = () => {
+  const { selectedCategory } = useParams();
+  const [courses, setCourses] = useState<CourseProps[]>([]);
+  const [mostViewedCourses, setMostViewedCourses] = useState<CourseProps[]>([]);
 
-    useEffect(() => {
-        const fetchCourses = async () => {
-            try {
-                debugger
-                if (selectedCategory) {
-                    const coursesData = await getAllCoursesByCategory(selectedCategory);
-                    console.log('coursesData:', coursesData);
-                    setCourses(coursesData);
-                }
-            } catch (error) {
-                console.error('Error fetching courses by category:', error);
-            }
-        };
-    
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        debugger;
+        if (selectedCategory) {
+          const coursesData = await getAllCoursesByCategory(selectedCategory);
+          console.log("coursesData:", coursesData);
+          setCourses(coursesData);
+        }
+      } catch (error) {
+        console.error("Error fetching courses by category:", error);
+      }
+    };
 
-        const fetchMostViewedCoursesData = async () => {
-            try {
-                const mostViewedCoursesData = await getCoursesByMostViewing();
-                console.log('mostViewedCoursesData:', mostViewedCoursesData);
-                setMostViewedCourses(mostViewedCoursesData);
-            } catch (error) {
-                console.error('Error fetching most viewed courses:', error);
-            }
-        };
+    const fetchMostViewedCoursesData = async () => {
+      try {
+        const mostViewedCoursesData = await getCoursesByMostViewing();
+        console.log("mostViewedCoursesData:", mostViewedCoursesData);
+        setMostViewedCourses(mostViewedCoursesData);
+      } catch (error) {
+        console.error("Error fetching most viewed courses:", error);
+      }
+    };
 
-        fetchCourses();
-        fetchMostViewedCoursesData();
-    }, [selectedCategory]);
+    fetchCourses();
+    fetchMostViewedCoursesData();
+  }, [selectedCategory]);
 
-    if (!selectedCategory) {
-        return <div>Loading...</div>;
-    }
+  if (!selectedCategory) {
+    return <div>Loading...</div>;
+  }
 
-    return (
-        <div className="font-custom max-w-[82rem] mx-auto h-fit  ">
-            <h1 className='text-Udemygray-500 text-3xl font-bold my-12'>{selectedCategory} Courses Archive</h1>
-            <h2 className='text-Udemygray-500 text-2xl font-bold my-12'> Courses to get you started
-</h2>
+  return (
+    <div className="font-custom max-w-[82rem] mx-auto h-fit  ">
+      <h1 className="text-Udemygray-500 text-3xl font-bold my-12">
+        {selectedCategory} Courses Archive
+      </h1>
+      <h2 className="text-Udemygray-500 text-2xl font-bold my-12">
+        {" "}
+        Courses to get you started
+      </h2>
 
+      {/* Display tabs */}
+      <ArchiveCategoryCourseTabs
+        mostViewedCourses={mostViewedCourses}
+        otherCourses={courses}
+      />
 
-            {/* Display Most Viewed Courses */}
-            <div>
-                <h2>Most Viewed Courses</h2>
-                <div className="flex flex-wrap">
-                    {mostViewedCourses.map((course) => (
-                        <Course 
-                            key={course.courseId}
-                            img={course.course_img}
-                            title={course.courseName}
-                            teacher={course.teacherName}
-                            rating={course.rating}
-                            price={course.fullPrice}
-                            tag={course.language}
-                            numberOfRatings={course.numberOfRatings}
-                            id={course.courseId}
-                            courseDuration={course.courseDuration}
-                            lastUpdated={course.lastUpdated}
-                            mainDescription={course.mainDescription}
-                            secondDescriptions={course.secondDescriptions} />
-                    ))}
-                </div>
-            </div>
+      {/* Display Most Viewed Courses */}
 
-            {/* Display Other Courses */}
-            <div>
-                <h2>Other Courses</h2>
-                <div className="flex flex-wrap">
-                    {courses.map((course) => (
-                        <Course 
-                            key={course.courseId}
-                            img={course.course_img}
-                            title={course.courseName}
-                            teacher={course.teacherName}
-                            rating={course.rating}
-                            price={course.fullPrice}
-                            tag={course.language}
-                            numberOfRatings={course.numberOfRatings}
-                            id={course.courseId}
-                            courseDuration={course.courseDuration}
-                            lastUpdated={course.lastUpdated}
-                            mainDescription={course.mainDescription}
-                            secondDescriptions={course.secondDescriptions} />
-                    ))}
-                </div>
-            </div>
+      {/* Display Other Courses */}
+      <div>
+        <h2>Other Courses</h2>
+        <div className="flex flex-wrap">
+          {courses.map((course) => (
+            <Course
+              key={course.courseId}
+              img={course.course_img}
+              title={course.courseName}
+              teacher={course.teacherName}
+              rating={course.rating}
+              price={course.fullPrice}
+              tag={course.language}
+              numberOfRatings={course.numberOfRatings}
+              id={course.courseId}
+              courseDuration={course.courseDuration}
+              lastUpdated={course.lastUpdated}
+              mainDescription={course.mainDescription}
+              secondDescriptions={course.secondDescriptions}
+            />
+          ))}
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
-export default ArchiveCategoreyCourse;
+export default ArchiveCategoryCourse;
