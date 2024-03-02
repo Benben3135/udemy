@@ -1,6 +1,6 @@
-import  { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import  { CourseProps } from "../Courses/Course";
+import Course, { CourseProps } from "../Courses/Course";
 import { getCourseById } from "../../../api/coursesApi";
 import CourseComponent from "./CourseComponent";
 

@@ -23,7 +23,7 @@ export interface CourseProps {
   subtitlesLanguage: { type: string; default: "English" };
   fullPrice: number;
   discountPrice: number;
-  secondDescriptions: [string];
+  secondDescriptions: string[];
   courseDuration: number;
   articlesNumber: number;
   downloadableResourcesNumber: number;
@@ -58,7 +58,7 @@ export const Course = ({
   lastUpdated?: Date;
   courseDuration: number;
   mainDescription: string;
-  secondDescriptions: string[] | []; // השורה השתנתה כאן
+  secondDescriptions: string[]; 
 }) => {
   const [ratingRounded, setRatingRounded] = useState<number>(0);
   const [bestIds, setBestIds] = useState<number[]>([]);
