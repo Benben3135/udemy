@@ -94,6 +94,7 @@ export const getMostPopularCourse = async () => {
       console.error(error);
     }
   };
+
   export async function getCourseById(courseId: number) {
     try {
       const response = await fetch(`/API/courses/getCourseById/${courseId}`); 
@@ -110,3 +111,13 @@ export const getMostPopularCourse = async () => {
     }
   }
   
+  export const addCourse = async (userUid:string, userName:string,name:string,mainDes:string,secondDescriptions:string[],price:number,disPrice:number,img:string,bio:string,category:string) => {
+    try {
+      const { data } = await axios.post(
+        `/API/courses/addNewCourse` , {userUid,userName,name,mainDes,secondDescriptions,price,disPrice,img,bio,category}
+      );
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  };

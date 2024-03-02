@@ -3,12 +3,17 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainPage from "./view/pages/main-page";
 import NotFound from "./view/pages/not-found";
 import NavBar from "./Components/NavBar/NavBar";
-import UserPage from "./view/pages/user-page"
-import PublicProfilePage from "./view/pages/public-profile-page"
-import MyCoursesPage from "./view/pages/my-courses-page"
+import UserPage from "./view/pages/user-page";
+import PublicProfilePage from "./view/pages/public-profile-page";
+import MyCoursesPage from "./view/pages/my-courses-page";
+import TeachOnUdemyLandingPage from "./view/pages/teachOnLandingPage";
+import CreateCoursePage from "./view/pages/create-course"
+import InstructorPage from "./view/pages/instructor-page";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thereUser } from "./features/user/isUserSlice";
+import { isNavbarSelector } from "./features/user/navbarSlice";
+import {isFooterSelector} from "./features/user/footerSlice"
 import { auth } from "./firebase";
 import {
   setAcronyms,
@@ -21,14 +26,14 @@ import {
   setIsTeacherFalse,
   setIsTeacherTrue,
   userSelector,
-  setWishlist
+  setWishlist,
 } from "./features/user/userSlice";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
-import Terms from "./view/pages/terms-page"
-import { getUser } from "../api/userApi/usersAPI"
-import { checkImgDB } from "../api/userApi/usersAPI"
-import { getUserWishlist } from "../api/userApi/usersAPI"
+import Terms from "./view/pages/terms-page";
+import { getUser } from "../api/userApi/usersAPI";
+import { checkImgDB } from "../api/userApi/usersAPI";
+import { getUserWishlist } from "../api/userApi/usersAPI";
 
 import Footer from "./Components/Footer/Footer";
 import TeacherPage from "./view/teacher-page";
@@ -39,9 +44,13 @@ import SingleCoursePage from "./Components/Courses/SingleCoursePage";
 
 function App() {
   const dispatch = useDispatch();
+  const navbarRedux = useSelector(isNavbarSelector);
+  const footerRedux = useSelector(isFooterSelector);
   const userRedux = useSelector(userSelector);
-  const [teachers, setTeachers] = useState<User[]>()
+  const [teachers, setTeachers] = useState<User[]>();
   const [dataFetched, setDataFetched] = useState(false);
+  const [isNavbar, setIsNavbar] = useState<boolean>(true);
+  const [isFooter, setIsfooter] = useState<boolean>(true);
   // useEffect(() => {
   //   const fetchTeachers = async () => {
   //     try {
@@ -58,6 +67,17 @@ function App() {
   // useEffect(() => {
   //   dispathTeachers();
   // }, [])
+
+  useEffect(() => {
+    setIsNavbar(navbarRedux);
+  },[navbarRedux])
+
+  useEffect(() => {
+    setIsfooter(footerRedux);
+  },[footerRedux])
+
+
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -72,16 +92,15 @@ function App() {
           dispatch(setEmail(user.email));
           dispatch(setUid(user.uid));
           dispatch(setName(user.displayName));
-          checkImg(user.uid)
-          dispatchUser(user.uid)
-          setWishlistFromDB(user.uid)
+          checkImg(user.uid);
+          dispatchUser(user.uid);
+          setWishlistFromDB(user.uid);
           if (localStorage.getItem("userName")) {
             dispatch(setLogInTrue());
           } else {
             dispatch(setLogInFalse());
           }
         }
-
       } else {
         if (localStorage.getItem("userName")) {
           dispatch(setLogInTrue());
@@ -100,39 +119,34 @@ function App() {
   // }
   const dispatchUser = async (uid: string) => {
     const result = await getUser(uid);
-    const teacher = result.user.isTeacher
+    const teacher = result.user.isTeacher;
 
     if (teacher) {
-
       dispatch(setIsTeacherTrue());
-    }
-    else {
+    } else {
       dispatch(setIsTeacherFalse());
     }
-  }
-
+  };
 
   const checkImg = async (uid: string) => {
     const result = await checkImgDB(uid);
     if (result) {
-      console.log("now testing true", result)
+      console.log("now testing true", result);
       const newImage = result.image;
-      dispatch(setImg(newImage))
+      dispatch(setImg(newImage));
+    } else {
+      console.log("now testing false", result);
     }
-    else {
-      console.log("now testing false", result)
-    }
-  }
+  };
 
   const setWishlistFromDB = async (uid: string) => {
     const wishlist = await getUserWishlist(uid);
     if (wishlist.ok) {
-      dispatch(setWishlist(wishlist.wishlist))
+      dispatch(setWishlist(wishlist.wishlist));
+    } else {
+      dispatch(setWishlist([]));
     }
-    else {
-      dispatch(setWishlist([]))
-    }
-  }
+  };
 
   const getaddNameSRT = (name: string) => {
     const words = name.split(" ");
@@ -161,22 +175,28 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <NavBar />
+        {isNavbar && <NavBar />}
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/register-page" element={<Register />} />
           <Route path="/login-page" element={<Login />} />
           <Route path="/terms-Page" element={<Terms />} />
+          <Route path="/instructor-page" element={<InstructorPage />} />
+          <Route path="/create-course" element={<CreateCoursePage/>}/>
           <Route path="/user/edit-profile" element={<UserPage />} />
           <Route path="/user/public-profile" element={<PublicProfilePage />} />
           <Route path="/my-courses/:page" element={<MyCoursesPage />} />
-          <Route path="category-page/:selectedCategory" element={<ArchiveCategoreyCourse />} />
+          <Route
+            path="category-page/:selectedCategory"
+            element={<ArchiveCategoreyCourse />}
+          />
           <Route path="course-page/:courseId" element={<SingleCoursePage />} />
           {/* {teachers && teachers.length > 0 && dataFetched ? teachers.map((teacher, index) => { return <Route path={`/user/${teacher.displayName}`} element={<TeacherPage key={teacher.uid} teacher={teacher} />} /> }) : ""} */}
           <Route path="/user/:teachersName" element={<TeacherPage />} />;
+          <Route path="/teach/landing" element={<TeachOnUdemyLandingPage />} />
         </Routes>
-        <Footer />
+        {isFooter && <Footer />}
       </BrowserRouter>
     </>
   );

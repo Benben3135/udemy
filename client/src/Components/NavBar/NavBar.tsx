@@ -173,25 +173,31 @@ const NavBar = () => {
                   user?.isTeacher ? (
                     <a
                       className=" text-Udemygray-500 hover:text-Udemyblue-300  text-[0.9rem] tracking-tight ml-12"
-                      href="instructor page"
+                      href="/instructor-page"
                     >
                       Instructor
                     </a>
                   ) : (
+                    <div onClick={() => navigate("/teach/landing")} className=" flex flex-col group">
                     <a
                       className=" text-Udemygray-500 hover:text-Udemyblue-300  text-[0.9rem] tracking-tight"
-                      href="teaching"
+                      href="/teach/landing"
                     >
                       Teach on Udemy
                     </a>
+                    <div className="absolute scale-0 group-hover:scale-100 transition-all ease-in-out w-[18rem] p-4 right-[20rem] h-[11rem] bg-white border border-gray-500 top-[4.6rem] flex flex-col justify-center items-end">
+                      <h1 className=" text-[1.14rem] font-bold leading-7 mb-3">Turn what you know into an opportunity and reach millions around the world.</h1>
+                      <button onClick={() => navigate("/teach/landing")} className=" bg-Udemygray-500 w-full h-[5rem] hover:bg-Udemygray-400 text-white">Learn more</button>
+                    </div>
+                    </div>
                   )
-                  // TODO: add the right navigations
                 }
               </div>
               <div className=" h-full w-32 flex flex-col justify-center items-center">
                 <a
                   className=" text-Udemygray-500 hover:text-Udemyblue-300  text-[0.9rem] tracking-tight"
-                  href="My learning page"
+                  href="/my-courses/learning"
+
                 >
                   My learning
                 </a>
@@ -337,7 +343,7 @@ const NavBar = () => {
                             My learning
                           </h3>
                         </div>
-                        <div className=" h-8 text-sm w-full flex flex-row justify-start items-between group">
+                        <div onClick={() => navigate("/my-courses/learning")} className=" h-8 text-sm w-full flex flex-row justify-start items-between group">
                           <h3 className=" text-slate-900 cursor-pointer w-full hover:text-Udemyblue-300">
                             My Cart
                           </h3>

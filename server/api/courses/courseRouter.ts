@@ -11,7 +11,8 @@ import {
   getAllCoursesByCategory,
   getAllCoursesByInstructorName,
   getBestSellerCourses,
-  getMostPopularCourse
+  getMostPopularCourse,
+  addNewCourse
 } from "./courseCont";
 
 router
@@ -32,5 +33,6 @@ router
   )
   .get("/getBestSellerCourses", getBestSellerCourses)
   .get("/getMostPopularCourse", getMostPopularCourse)
+  .post("/addNewCourse",addNewCourse)
 
 export default router;
