@@ -196,11 +196,14 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
               handleLearnMoreClick={handleLearnMoreClick}
             />
           ) : (
-            <TeamsTabContent course={{ secondDescriptions: [] }} />
+            <TeamsTabContent
+              course={course}
+              handleLearnMoreClick={handleLearnMoreClick}
+            />
           )}
         </div>
       </div>
-      <div className="w-[100vw] h-50 bg-white py-1 mt-[-20vh]  ">
+      <div className="w-[100vw] h-50 bg-white py-1 mt-[-35vh]  ">
         <div className="border border-Udemygray-200  h-[27vh] w-[40vw]  my-10 ml-[15vw] ">
           <h2 className="text-Udemygray-500 text-[1.5rem] font-bold pt-6  pl-3">
             What you'll learn
@@ -268,19 +271,19 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
             <ul>
               {secondDescriptions && secondDescriptions.length > 2 && (
                 <li className="my-2">
-                  <SaveAltIcon  className="mr-3"/>
+                  <SaveAltIcon className="mr-3" />
                   {secondDescriptions[1]}
                 </li>
               )}
               {secondDescriptions && secondDescriptions.length > 3 && (
                 <li className="my-2 ">
-                  <SmartphoneOutlinedIcon  className="mr-3"/>
+                  <SmartphoneOutlinedIcon className="mr-3" />
                   {secondDescriptions[8]}
                 </li>
               )}
               {/* המשך רשימת האייקונים כרצונך */}
               <li className="my-2">
-                <EmojiEventsOutlinedIcon className="mr-3"/>
+                <EmojiEventsOutlinedIcon className="mr-3" />
                 {secondDescriptions[0]}
               </li>
             </ul>
