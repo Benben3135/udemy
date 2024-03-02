@@ -1,10 +1,15 @@
 // CourseComponent.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import { Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import PersonalTabContent from "./PersonalTabContent";
 import TeamsTabContent from "./TeamsTabContent";
+import { Badge } from "lucide-react";
+import NewReleasesIcon from '@mui/icons-material/NewReleases';
+import SvgIcon from "@mui/material/SvgIcon";
+
+
 
 interface CourseComponentProps {
   course: {
@@ -16,7 +21,7 @@ interface CourseComponentProps {
     rating: number;
     numberOfRatings: number;
     numberOfStudents: number;
-    lastUpdated: Date;
+    lastUpdated?: Date;
     language: string;
     subtitlesLanguage: { type: string; default: "English" };
     fullPrice: number;
@@ -33,7 +38,7 @@ interface CourseComponentProps {
   };
 }
 
-const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
+const CourseComponent: React.FC<CourseComponentProps> = ({ course,  }) => {
   const limitWords = (content: string, limit: number) => {
     const words = content.split(" ");
     return words.slice(0, limit).join(" ");
@@ -49,6 +54,21 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
   const handleLearnMoreClick = () => {
     navigate(`/category-page/${course.category}`);
   };
+  const [lastUpdatedString, setLastUpdatedString] = useState<string>(""); // Declare the state
+
+  useEffect(() => {
+    const lastUpdatedSTR = () => {
+      if (course.lastUpdated) {
+        const lastUpdatedDate = new Date(course.lastUpdated);
+        const options = { month: "long", year: "numeric" };
+        const formattedDate = lastUpdatedDate.toLocaleDateString("en-US", options);
+  
+        setLastUpdatedString(formattedDate);
+      }
+    };
+  
+    lastUpdatedSTR();
+  }, [course.lastUpdated]);
   return (
     <div className="course-component flex">
       <div className="course-details pl-[15vw] flex-grow">
@@ -77,10 +97,29 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
               />
             ))}
           </div>
-          <div className="text-s text-Udemyblue-200 ml-1 pb-1">
-            ({course.numberOfRatings})
+          <div className="text-s text-Udemyblue-200 ml-1 pb-1 underline">
+            ({course.numberOfRatings} ratings)
+          </div>
+          <div className="text-s text-white ml-1 pb-1 ">
+            {course.numberOfStudents} Students
           </div>
         </div>
+        <div className="text-s text-white ml-1 pb-1 ">
+        Created by {course.teacherName} 
+          </div>
+          <div className="text-s text-white ml-1 pb-1  ">
+          
+          <h2 className="text-s text-white ml-1 pb-1">
+          <SvgIcon component={NewReleasesIcon} className="new-icon" sx={{ fontSize: 15, strokeWidth: "0.8px" }} />
+            Last updated{" "}
+          
+            <span className="font-semibold text-white">
+              {lastUpdatedString || "Not Available"} {/* Handle undefined case */}
+            </span>{" "}
+           
+          </h2>
+
+          </div>
       </div>
       <div className="course-image sticky top-0 flex-shrink-0">
         <img
