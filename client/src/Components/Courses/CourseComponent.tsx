@@ -186,9 +186,9 @@ const CourseComponent: React.FC<
             <button
               className={`tab-btn ${
                 activeTab === "Personal"
-                  ? "active border-b-2 border-purple-500 text-black font-bold sticky top-0"
-                  : "text-gray-500 hover:text-black hover:border-black sticky top-0"
-              } mr-[8vw]`}
+                  ? "active border-b-2 border-purple-500 text-black font-bold sticky top-0 flex-1"
+                  : "text-gray-500 hover:text-black hover:border-black sticky top-0 flex-1 border-b-1 border-purple-500 " 
+              }`}
               onClick={() => handleTabClick("Personal")}
             >
               Personal
@@ -196,8 +196,8 @@ const CourseComponent: React.FC<
             <button
               className={`tab-btn ${
                 activeTab === "Teams"
-                  ? "active border-b-2 border-purple-500 text-black font-bold sticky top-0"
-                  : "text-gray-500 hover:text-black hover:border-black sticky top-0"
+                  ? "active border-b-2 border-purple-500 text-black font-bold sticky top-0 flex-1"
+                  : "text-gray-500 hover:text-black hover:border-black sticky top-0 flex-1 border-b-1 border-purple-500"
               }`}
               onClick={() => handleTabClick("Teams")}
             >
