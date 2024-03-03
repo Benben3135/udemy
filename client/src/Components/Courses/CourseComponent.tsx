@@ -16,8 +16,10 @@ import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import SmartphoneOutlinedIcon from "@mui/icons-material/SmartphoneOutlined";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import { FooterLogos } from "../../../public/images/footerLogos/FooterLogos";
+import TeacherInfo from "./TeacherInfo";
+import { User } from "../../util/interfaces";
 
-  interface CourseComponentProps {
+interface CourseComponentProps {
   course: {
     courseId: number;
     teacherId: number;
@@ -422,6 +424,13 @@ const CourseComponent: React.FC<
           /> */}
         </div>
       </div>
+      <div>
+      <TeacherInfo
+  teacher={course.teacherName as User}
+  numberOfStudents={course.numberOfStudents}
+  numberOfReviews={course.numberOfRatings}
+  numberOfCourses={null}
+/></div>
     </>
   );
 };

@@ -15,7 +15,7 @@ import { Dot, Heart, Star } from "lucide-react";
 import { getBestSellerCourses } from "../../api/coursesApi";
 
 
-const TeacherPage = () => {
+export const TeacherPage = () => {
   const navigate = useNavigate();
 
   const [teacher, setTeacher] = useState<User | null>(null);
