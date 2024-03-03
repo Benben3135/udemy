@@ -23,7 +23,9 @@ const UserProfileTab = () => {
   const [linkedin, setLinkedin] = useState<string>("");
   const [youtube, setYoutube] = useState<string>("");
 
-
+  useEffect(() => {
+    console.log(bio)
+  }, [bio])
   useEffect(() => {
     setUser(userRedux);
   }, [userRedux]);
