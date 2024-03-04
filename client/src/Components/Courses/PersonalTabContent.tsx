@@ -1,18 +1,24 @@
 // PersonalTabContent.tsx
 import React from "react";
+import AddToCart from "../cart/AddToCart";
 
 interface PersonalTabContentProps {
   handleLearnMoreClick: () => void;
   course: {
+    courseId: number;
+    courseName: string;
+    teacherName: string;
     fullPrice: number;
     discountPrice: number;
   };
 }
 
-const PersonalTabContent: React.FC<PersonalTabContentProps> = ({
-  handleLearnMoreClick,
-  course,
-}) => {
+const PersonalTabContent: React.FC<PersonalTabContentProps> = ({ handleLearnMoreClick, course }) => {
+  const handleAddToCart = async () => {
+    console.log("Adding to cart...");
+  };
+  
+
   return (
     <div className="bg-white p-2   w-[23vw] text-center pl-5 ">
       <h3 className="text-[1.3rem] font-bold text-Udemygray-500 mt-4 text-left pl-6 pb-1">
@@ -43,12 +49,7 @@ const PersonalTabContent: React.FC<PersonalTabContentProps> = ({
       <h4 className="text-left text-[1.5rem] font-bold text-Udemygray-600 pl-6 py-1 ">
         {course.fullPrice}$
       </h4>
-      <button
-        className="  w-[85%] h-12 bg-white hover:bg-Udemygray-150 font-bold my-2 cursor-pointer text-Udemygray-600 mr-5 border-[1px] border-Udemygray-550 "
-        onClick={handleLearnMoreClick}
-      >
-        Buy this course
-      </button>
+      <AddToCart handleAddToCart={handleAddToCart} />
     </div>
   );
 };

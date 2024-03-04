@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 import mongoose from "mongoose";
-import userModel, { User } from "../server/api/users/usersModel"
+import userModel, { User } from "../server/api/users/usersModel";
 
 export const categories = [
   "Development",
@@ -18,24 +18,16 @@ export const categories = [
   "Teaching & Academics",
 ];
 
-const pricesRange = [
-  119.90,
-  269.90,
-  469.90
-]
+const pricesRange = [119.9, 269.9, 469.9];
 
-const discountRange = [
-  49.90,
-  69.90,
-  99.90
-]
-
+const discountRange = [49.9, 69.9, 99.9];
 
 mongoose.connect(
   "mongodb+srv://bennyvolo28:EjO9PTKNvr8Exr8Z@udemy.shffm2f.mongodb.net/"
 );
 
 export const courseSchema = new mongoose.Schema({
+  // _id: Scehema.Types.ObjectId
   courseId: Number,
   teacherId: String,
   courseName: String,
@@ -62,18 +54,25 @@ export const courseSchema = new mongoose.Schema({
 
 export const Course = mongoose.model("Course", courseSchema);
 
+
 const generatePersonImageURL = () => {
   const randomNumber = Math.floor(Math.random() * 1000); // Picsum Photos has images up to 1000
   return `https://picsum.photos/200/300?random=${randomNumber}`;
 };
 
-const generateRandomCourses = async (count: number, teacherId: string, teacherName: string, category: string,teacherNumber:number) => {
+const generateRandomCourses = async (
+  count: number,
+  teacherId: string,
+  teacherName: string,
+  category: string,
+  teacherNumber: number
+) => {
   const courses = [];
 
   for (let i = 1; i <= count; i++) {
     const index = Math.round(Math.random() * 2);
     const course = {
-      courseId: teacherNumber*10 + i,
+      courseId: teacherNumber * 10 + i,
       teacherId: teacherId,
       courseName: faker.lorem.words(3),
       teacherName: teacherName,
@@ -122,7 +121,7 @@ export const generateAndCreateTeachers = async (count: number) => {
   try {
     for (let i = 1; i <= count; i++) {
       const name = faker.person.fullName();
-      const displayNameWithoutSpaces = name.replace(/\s/g, '');
+      const displayNameWithoutSpaces = name.replace(/\s/g, "");
       const category = categories[Math.floor(Math.random() * 8)];
       const numberOfCourses = Math.floor(Math.random() * 8) + 1;
 
@@ -138,19 +137,26 @@ export const generateAndCreateTeachers = async (count: number) => {
         twitter: "https://twitter.com/" + displayNameWithoutSpaces,
         facebook: "https://www.facebook.com/" + displayNameWithoutSpaces,
         linkedin: "https://www.linkedin.com/in/" + displayNameWithoutSpaces,
-        youtube: "https://www.youtube.com/user/" + displayNameWithoutSpaces
+        youtube: "https://www.youtube.com/user/" + displayNameWithoutSpaces,
       };
 
-      const newTeacher = await userModel.create(teacher)
+      const newTeacher = await userModel.create(teacher);
       if (newTeacher) {
         const teacherNumber = i;
-        const courses = await generateRandomCourses(numberOfCourses, teacher.uid, name, category,teacherNumber);
+        const courses = await generateRandomCourses(
+          numberOfCourses,
+          teacher.uid,
+          name,
+          category,
+          teacherNumber
+        );
       }
     }
   } catch (error) {
     console.error(error);
   }
 };
+
 
 // const db = mongoose.connection;
 // db.on("error", console.error.bind(console, "MongoDB connection error:"));

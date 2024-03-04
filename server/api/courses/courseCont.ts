@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import { Course } from "../../../db/dbStart";
-import express from "express";
 import { Request, Response } from "express";
 
 

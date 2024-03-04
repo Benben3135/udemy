@@ -18,6 +18,8 @@ import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import { FooterLogos } from "../../../public/images/footerLogos/FooterLogos";
 import TeacherInfo from "./TeacherInfo";
 import { User } from "../../util/interfaces";
+import AddToCart from "../cart/AddToCart";  // Import AddToCart component
+
 
 interface CourseComponentProps {
   course: {
@@ -93,6 +95,10 @@ const CourseComponent: React.FC<
 
     lastUpdatedSTR();
   }, [course.lastUpdated]);
+  function handleAddToCart(_course: { courseId: number; courseName: string; teacherName: string; fullPrice: number; discountPrice: number; }): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <>
       <div className="course-component flex">
@@ -208,6 +214,8 @@ const CourseComponent: React.FC<
             <PersonalTabContent
               course={course}
               handleLearnMoreClick={handleLearnMoreClick}
+              handleAddToCart={handleAddToCart}  
+
             />
           ) : (
             <TeamsTabContent
@@ -426,7 +434,7 @@ const CourseComponent: React.FC<
       </div>
       <div>
       <TeacherInfo
-  teacher={course.teacherName as User}
+  teacher={course.teacherName as unknown as User}
   numberOfStudents={course.numberOfStudents}
   numberOfReviews={course.numberOfRatings}
   numberOfCourses={null}

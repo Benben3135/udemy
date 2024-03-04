@@ -27,8 +27,8 @@ import WishlistRouter from "./api/wishlist/wishlistRoutes";
 app.use("/API/wishlist", WishlistRouter);
 import TeachersRouter from "./api/teachers/teachersRouter";
 app.use("/API/teachers", TeachersRouter);
-
-//////////////////////
+import cartRouter from "./api/cart/cartRouter";
+app.use("/API/cart", cartRouter);
 // Connect to MongoDB
 mongoose.connect(MONGO_URI!);
 
