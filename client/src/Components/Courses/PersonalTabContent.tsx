@@ -48,15 +48,15 @@ const PersonalTabContent: React.FC<PersonalTabContentProps> = ({ handleLearnMore
   const [user, setUser] = useState<User>();
 
   useEffect(() => {
-    return
+    setUser(userRedux);
   }, [userRedux]);
 
   const handleAddToCartInternal = async () => {
     console.log("Adding to cart...");
     try {
       debugger
-     
-      await addCourseToCart(course.courseId, user?.uid || ''); 
+      console.log(user.uid)
+      await addCourseToCart(course.courseId, user?.uid || '');
       console.log("Course added to cart successfully!");
     } catch (error) {
       console.error("Failed to add course to cart", error);
