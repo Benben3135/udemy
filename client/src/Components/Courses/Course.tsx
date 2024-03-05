@@ -12,7 +12,7 @@ export interface CourseProps {
   duration: number;
   courseId: number;
   teacherId: number;
-  uid: string;
+  userid: string;
   courseName: string;
   teacherName: string;
   mainDescription: string;
@@ -39,6 +39,7 @@ export const Course = ({
   img,
   title,
   teacher,
+  uid,
   rating,
   price,
   tag,

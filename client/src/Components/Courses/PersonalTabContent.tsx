@@ -55,7 +55,7 @@ const PersonalTabContent: React.FC<PersonalTabContentProps> = ({ handleLearnMore
     console.log("Adding to cart...");
     try {
       debugger
-      console.log(user.uid)
+     
       await addCourseToCart(course.courseId, user?.uid || ''); 
       console.log("Course added to cart successfully!");
     } catch (error) {

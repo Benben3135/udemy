@@ -24,6 +24,7 @@ interface CourseComponentProps {
   course: {
     courseId: number;
     teacherId: number;
+    uid:string;
     courseName: string;
     teacherName: string;
     mainDescription: string;

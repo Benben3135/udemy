@@ -115,8 +115,7 @@ const ArchiveCategoryCourse = () => {
                 courseDuration={course.courseDuration}
                 lastUpdated={course.lastUpdated}
                 mainDescription={course.mainDescription}
-                secondDescriptions={course.secondDescriptions}
-              />
+                secondDescriptions={course.secondDescriptions} uid={""}              />
             ))}
           </div>
 
