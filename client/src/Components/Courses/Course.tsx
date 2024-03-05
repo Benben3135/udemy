@@ -4,7 +4,7 @@ import { getBestSellerCourses } from "../../../api/coursesApi";
 import { addCourseWishlist } from "../../../api/coursesApi";
 
 import { useSelector } from "react-redux";
-import { userSelector } from "../../features/user/userSlice";
+import { setUid, userSelector } from "../../features/user/userSlice";
 import { User } from "../../util/interfaces";
 import { useNavigate } from "react-router-dom";
 
@@ -12,6 +12,7 @@ export interface CourseProps {
   duration: number;
   courseId: number;
   teacherId: number;
+  uid: string;
   courseName: string;
   teacherName: string;
   mainDescription: string;
@@ -52,6 +53,7 @@ export const Course = ({
   img: string;
   title: string;
   teacher: string;
+  uid:string;
   rating: number;
   price: number;
   tag: string;
@@ -68,11 +70,12 @@ export const Course = ({
   const userRedux = useSelector(userSelector);
   const [user, setUser] = useState<User>();
   const [wishlist, setWishlist] = useState<number[]>([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     setUser(userRedux);
-  }, [userRedux]);
+  }, []);
 
   useEffect(() => {
     console.log(id, title);
@@ -94,6 +97,11 @@ export const Course = ({
     const bestID: [] = await getBestSellerCourses();
     setBestIds(bestID);
   };
+  useEffect(() => {
+    if (user && user.uid) {
+      setUid(user.uid);
+    }
+  }, [user?.uid]);
 
   const lastUpdatedSTR = () => {
     const lastUpdatedDate = new Date(lastUpdated);
@@ -103,9 +111,7 @@ export const Course = ({
     setLastUpdatedString(formattedDate);
   };
 
-  const addToCart = async (courseId: number) => {
-    // פונקציה זו יכולה להיות מוממשת כשהיא נדרשת
-  };
+ 
 
   const addToWishlist = async () => {
     const result = await addCourseWishlist(id, user!.uid);

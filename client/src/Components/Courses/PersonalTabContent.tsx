@@ -1,23 +1,68 @@
 // PersonalTabContent.tsx
-import React from "react";
-import AddToCart from "../cart/AddToCart";
+import React, { useEffect, useState } from "react";
+import AddToCart from "../carts/AddToCart";
+import { addCourseToCart } from "../../../api/carts/carts";
+import { useSelector } from "react-redux";
+import { userSelector } from "../../features/user/userSlice";
+import { User } from "../../util/interfaces";
+
 
 interface PersonalTabContentProps {
   handleLearnMoreClick: () => void;
-  course: {
+  handleAddToCart: (course: {
     courseId: number;
     courseName: string;
     teacherName: string;
     fullPrice: number;
     discountPrice: number;
+  }) => void;
+  course: {
+    userId: string;
+    courseId: number;
+    teacherId: number;
+    courseName: string;
+    teacherName: string;
+    mainDescription: string;
+    rating: number;
+    numberOfRatings: number;
+    numberOfStudents: number;
+    lastUpdated?: Date;
+    language: string;
+    subtitlesLanguage: { type: string; default: "English" };
+    fullPrice: number;
+    discountPrice: number;
+    secondDescriptions: string[];
+    courseDuration: number;
+    articlesNumber: number;
+    downloadableResourcesNumber: number;
+    courseContent: string;
+    requirements: [string];
+    fullDescription: string;
+    course_img: string;
+    category: string;
   };
 }
 
 const PersonalTabContent: React.FC<PersonalTabContentProps> = ({ handleLearnMoreClick, course }) => {
-  const handleAddToCart = async () => {
+  const userRedux = useSelector(userSelector); // השם שבו אתה שמור את התוצאה מה־userSelector
+  const [user, setUser] = useState<User>();
+
+  useEffect(() => {
+    return
+  }, [userRedux]);
+
+  const handleAddToCartInternal = async () => {
     console.log("Adding to cart...");
+    try {
+      debugger
+      console.log(user.uid)
+      await addCourseToCart(course.courseId, user?.uid || ''); 
+      console.log("Course added to cart successfully!");
+    } catch (error) {
+      console.error("Failed to add course to cart", error);
+    }
   };
-  
+
 
   return (
     <div className="bg-white p-2   w-[23vw] text-center pl-5 ">
@@ -49,7 +94,7 @@ const PersonalTabContent: React.FC<PersonalTabContentProps> = ({ handleLearnMore
       <h4 className="text-left text-[1.5rem] font-bold text-Udemygray-600 pl-6 py-1 ">
         {course.fullPrice}$
       </h4>
-      <AddToCart handleAddToCart={handleAddToCart} />
+      <AddToCart handleAddToCart={handleAddToCartInternal} />
     </div>
   );
 };

@@ -18,7 +18,6 @@ import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import { FooterLogos } from "../../../public/images/footerLogos/FooterLogos";
 import TeacherInfo from "./TeacherInfo";
 import { User } from "../../util/interfaces";
-import AddToCart from "../cart/AddToCart";  // Import AddToCart component
 
 
 interface CourseComponentProps {
@@ -212,11 +211,10 @@ const CourseComponent: React.FC<
           </div>
           {activeTab === "Personal" ? (
             <PersonalTabContent
-              course={course}
-              handleLearnMoreClick={handleLearnMoreClick}
-              handleAddToCart={handleAddToCart}  
-
-            />
+            course={course}
+            handleLearnMoreClick={handleLearnMoreClick}
+            handleAddToCart={handleAddToCart}  
+          />
           ) : (
             <TeamsTabContent
               course={course}

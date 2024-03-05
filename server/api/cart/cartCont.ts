@@ -1,17 +1,17 @@
 import mongoose from "mongoose";
 import express, { Request, Response } from "express";
-import CartModel from "./cartsModel";
+import CartsModel from "./cartsModel";
 
 export async function addCourseToCart(req: Request, res: Response) {
   try {
-    const { userId, courseId } = req.body;
-
+    const { uid, courseId } = req.body;
+console.log(courseId, uid)
     // בודק אם יש כבר סל קיים עבור המשתמש
-    let cart = await CartModel.findOne({ uid: userId });
+    let cart = await CartsModel.findOne({ uid: uid });
 
     // אם אין סל קיים, ניצור אחד
     if (!cart) {
-      cart = await CartModel.create({ uid: userId, coursesId: [] });
+      cart = await CartsModel.create({ uid: uid, coursesId: [] });
     }
 
     // בודק אם הקורס כבר נמצא בסל
