@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import AddToCart from "../carts/AddToCart";
 import { addCourseToCart } from "../../../api/carts/carts";
 import { useSelector } from "react-redux";
-import { userSelector } from "../../features/user/userSlice";
+import { UserState, userSelector } from "../../features/user/userSlice";
 import { User } from "../../util/interfaces";
 
 
@@ -45,17 +45,17 @@ interface PersonalTabContentProps {
 
 const PersonalTabContent: React.FC<PersonalTabContentProps> = ({ handleLearnMoreClick, course }) => {
   const userRedux = useSelector(userSelector); // השם שבו אתה שמור את התוצאה מה־userSelector
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<UserState>();
 
   useEffect(() => {
-    setUser(userRedux);
+    return setUser(userRedux);
   }, [userRedux]);
 
    const handleAddToCartInternal = async () => {
     console.log("Adding to cart...");
     try {
       debugger
-      console.log(user.uid)
+     
       await addCourseToCart(course.courseId, user?.uid || '');
       console.log("Course added to cart successfully!");
     } catch (error) {

@@ -13,6 +13,7 @@ import CourseComponentProps from "./CourseComponent"
 
 export interface CourseProps {
   duration: number;
+  uid:string;
   courseId: number;
   teacherId: number;
   userid: string;
@@ -78,7 +79,7 @@ export const Course = ({
   const navigate = useNavigate();
 
   useEffect(() => {
-    setUser(userRedux);
+    return setUser(userRedux);
   }, [userRedux]);
 
   useEffect(() => {
@@ -118,8 +119,7 @@ export const Course = ({
   const handleAddToCartInternal = async () => {
     console.log("Adding to cart...");
     try {
-      
-      await addCourseToCart(course.courseId, user?.uid || '');
+      await addCourseToCart(id, user!.uid);
       console.log("Course added to cart successfully!");
     } catch (error) {
       console.error("Failed to add course to cart", error);
