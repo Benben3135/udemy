@@ -4,20 +4,20 @@ import AddToCart from "../carts/AddToCart";
 import { addCourseToCart } from "../../../api/carts/carts";
 import { useSelector } from "react-redux";
 import { UserState, userSelector } from "../../features/user/userSlice";
-import { User } from "../../util/interfaces";
 
 
 interface PersonalTabContentProps {
   handleLearnMoreClick: () => void;
   handleAddToCart: (course: {
     courseId: number;
+    uid: string;
     courseName: string;
     teacherName: string;
     fullPrice: number;
     discountPrice: number;
   }) => void;
   course: {
-    userId: string;
+    uid: string;
     courseId: number;
     teacherId: number;
     courseName: string;
