@@ -20,7 +20,7 @@ import TeacherInfo from "./TeacherInfo";
 import { User } from "../../util/interfaces";
 
 
-interface CourseComponentProps {
+export interface CourseComponentProps {
   course: {
     courseId: number;
     teacherId: number;

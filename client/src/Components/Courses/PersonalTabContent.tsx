@@ -51,7 +51,7 @@ const PersonalTabContent: React.FC<PersonalTabContentProps> = ({ handleLearnMore
     setUser(userRedux);
   }, [userRedux]);
 
-  const handleAddToCartInternal = async () => {
+   const handleAddToCartInternal = async () => {
     console.log("Adding to cart...");
     try {
       debugger

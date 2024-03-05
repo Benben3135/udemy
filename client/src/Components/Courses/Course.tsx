@@ -7,6 +7,9 @@ import { useSelector } from "react-redux";
 import { setUid, userSelector } from "../../features/user/userSlice";
 import { User } from "../../util/interfaces";
 import { useNavigate } from "react-router-dom";
+import AddToCart from "../carts/AddToCart";
+import { addCourseToCart } from "../../../api/carts/carts";
+import CourseComponentProps from "./CourseComponent"
 
 export interface CourseProps {
   duration: number;
@@ -112,7 +115,16 @@ export const Course = ({
     setLastUpdatedString(formattedDate);
   };
 
-
+  const handleAddToCartInternal = async () => {
+    console.log("Adding to cart...");
+    try {
+      
+      await addCourseToCart(course.courseId, user?.uid || '');
+      console.log("Course added to cart successfully!");
+    } catch (error) {
+      console.error("Failed to add course to cart", error);
+    }
+  };
 
   const addToWishlist = async () => {
     const result = await addCourseWishlist(id, user!.uid);
@@ -231,9 +243,7 @@ export const Course = ({
               // onClick={() => addToCart(id)}
               className=" w-4/5 h-12 bg-Udemyindigo-300 hover:bg-Udemypurple-600 flex flex-row justify-center items-center cursor-pointer"
             >
-              <h2 className="font-[650] text-[1.02rem] text-white">
-                Add to cart
-              </h2>
+              <AddToCart handleAddToCart={handleAddToCartInternal} />
             </div>
             {wishlist && (
               <div
