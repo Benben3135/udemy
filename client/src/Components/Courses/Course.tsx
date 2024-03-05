@@ -48,12 +48,12 @@ export const Course = ({
   courseDuration,
   mainDescription,
   secondDescriptions,
-  
+
 }: {
   img: string;
   title: string;
   teacher: string;
-  uid:string;
+  uid: string;
   rating: number;
   price: number;
   tag: string;
@@ -75,7 +75,7 @@ export const Course = ({
 
   useEffect(() => {
     setUser(userRedux);
-  }, []);
+  }, [userRedux]);
 
   useEffect(() => {
     console.log(id, title);
@@ -111,7 +111,7 @@ export const Course = ({
     setLastUpdatedString(formattedDate);
   };
 
- 
+
 
   const addToWishlist = async () => {
     const result = await addCourseWishlist(id, user!.uid);
