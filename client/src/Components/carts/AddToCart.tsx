@@ -8,7 +8,7 @@ interface AddToCartProps {
 const AddToCart: React.FC<AddToCartProps> = ({ handleAddToCart }) => {
   return (
     <div>
-      <button onClick={handleAddToCart}>Add to Cart</button>
+      <button className='text-white font-bold' onClick={handleAddToCart}>Add to Cart</button>
     </div>
   );
 };
