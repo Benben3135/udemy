@@ -18,7 +18,7 @@ const MyCoursesPage = () => {
 
   useEffect(() => {
     if (currentPage) {
-      debugger;
+   
       setPage(currentPage);
       if (currentPage === "learning") {
         setIndex(0);
@@ -38,7 +38,7 @@ const MyCoursesPage = () => {
 
   useEffect(() => {
     if (currentPage) {
-      debugger;
+   
       setPage(currentPage);
       if (currentPage === "learning") {
         setIndex(0);

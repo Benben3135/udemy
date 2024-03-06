@@ -69,25 +69,39 @@ const ArchiveCategoryCourseTabs: React.FC<ArchiveCategoryCourseTabsProps> = ({
         {activeTab === "MostRated" && (
           <MostRatedCoursesList mostRatedCourses={mostRatedCourses} />
         )}
-        {activeTab === 'MostRecent' && <MostRecentCoursesList selectedCategory={selectedCategory} mostRecentCourses={mostRecentCoursesList} />}
-
+        {activeTab === "MostRecent" && (
+          <MostRecentCoursesList
+            selectedCategory={selectedCategory}
+            mostRecentCourses={mostRecentCoursesList}
+          />
+        )}
 
         <div className="flex flex-wrap">
           {otherCourses.map((course: CourseProps) => (
             <Course
               key={course.courseId}
-              img={course.course_img}
-              title={course.courseName}
-              teacher={course.teacherName}
+              course_img={course.course_img}
+              courseName={course.courseName}
+              teacherName={course.teacherName}
               rating={course.rating}
-              price={course.fullPrice}
-              tag={course.language}
+              fullPrice={course.fullPrice}
+              language={course.language}
               numberOfRatings={course.numberOfRatings}
-              id={course.courseId}
+              courseId={course.courseId}
               courseDuration={course.courseDuration}
               lastUpdated={course.lastUpdated}
               mainDescription={course.mainDescription}
               secondDescriptions={course.secondDescriptions}
+              teacherId={course.teacherId}
+              numberOfStudents={course.numberOfStudents}
+              subtitlesLanguage={course.subtitlesLanguage}
+              discountPrice={course.discountPrice}
+              articlesNumber={course.articlesNumber}
+              downloadableResourcesNumber={course.downloadableResourcesNumber}
+              courseContent={course.courseContent}
+              requirements={course.requirements}
+              fullDescription={course.fullDescription}
+              category={course.category}
             />
           ))}
         </div>

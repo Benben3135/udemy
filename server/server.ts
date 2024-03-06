@@ -14,6 +14,14 @@ app.use(express.json());
 //     origin: 'http://localhost:5173',
 // }));
 app.use(cookieParser());
+//////////////////////
+//Stripe initialization
+
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
+
+
+
+
 
 //////////////////////
 //API ROUTES
@@ -28,6 +36,7 @@ app.use("/API/wishlist", WishlistRouter);
 import TeachersRouter from "./api/teachers/teachersRouter";
 app.use("/API/teachers", TeachersRouter);
 import cartRouter from "./api/cart/cartRouter";
+import { Course } from "./api/courses/coursesModel";
 app.use("/API/cart", cartRouter);
 // Connect to MongoDB
 mongoose.connect(MONGO_URI!);

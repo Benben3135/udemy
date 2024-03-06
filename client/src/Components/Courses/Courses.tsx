@@ -1,11 +1,10 @@
 import Course, { CourseProps } from "./Course";
-import MostViewedCoursesList from "./MostViewedCoursesList";
 
 const Courses = ({
   type,
   componentsTitle,
 }: {
-  type: MostViewedCoursesList; // השינוי כאן נעשה על מנת להצביע על הטיפוס המתאים
+  type: CourseProps[]; // השינוי כאן נעשה על מנת להצביע על הטיפוס המתאים
   componentsTitle: string;
 }) => {
   if (!type || !type.length) return null; // שינוי כאן - הוספתי בדיקה שלא לצייר אם אין טיפוס או אם המערך ריק
@@ -22,19 +21,29 @@ const Courses = ({
           {type.map((course: CourseProps, index: number) => (
             <div className="h-full flex-1 flex-grow" key={index}>
               <Course
+                teacherId={course.teacherId}
                 key={index}
-                img={course.course_img}
-                title={course.courseName}
-                teacher={course.teacherName}
+                course_img={course.course_img}
+                courseName={course.courseName}
+                teacherName={course.teacherName}
                 rating={course.rating}
-                price={course.fullPrice}
-                tag={course.language}
+                fullPrice={course.fullPrice}
+                language={course.language}
                 numberOfRatings={course.numberOfRatings}
-                id={course.courseId}
+                courseId={course.courseId}
                 courseDuration={course.courseDuration}
                 lastUpdated={course.lastUpdated}
                 mainDescription={course.mainDescription}
                 secondDescriptions={course.secondDescriptions}
+                numberOfStudents={course.numberOfStudents}
+                subtitlesLanguage={course.subtitlesLanguage}
+                discountPrice={course.discountPrice}
+                articlesNumber={course.articlesNumber}
+                downloadableResourcesNumber={course.downloadableResourcesNumber}
+                courseContent={course.courseContent}
+                requirements={course.requirements}
+                fullDescription={course.fullDescription}
+                category={course.category}
               />
             </div>
           ))}

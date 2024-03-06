@@ -11,64 +11,55 @@ import { addCourseToCart } from "../../../api/carts/carts";
 import { User } from "../../util/interfaces";
 
 export interface CourseProps {
-  duration: number;
-  uid:string;
-  courseId: number;
-  teacherId: number;
-  userid: string;
-  courseName: string;
-  teacherName: string;
-  mainDescription: string;
-  rating: number;
-  numberOfRatings: number;
-  numberOfStudents: number;
-  lastUpdated: Date;
-  language: string;
-  subtitlesLanguage: { type: string; default: "English" };
-  fullPrice: number;
-  discountPrice: number;
-  secondDescriptions: string[];
-  courseDuration: number;
-  articlesNumber: number;
-  downloadableResourcesNumber: number;
-  courseContent: string;
-  requirements: [string];
-  fullDescription: string;
-  course_img: string;
-  category: string;
+  courseId: number,
+  teacherId: string,
+  courseName: string,
+  teacherName: string,
+  mainDescription: string,
+  rating: number,
+  numberOfRatings: number,
+  numberOfStudents: number,
+  lastUpdated: Date,
+  language: string,
+  subtitlesLanguage: string,
+  fullPrice: number,
+  discountPrice: number,
+  secondDescriptions: string[],
+  courseDuration: number,
+  articlesNumber: number,
+  downloadableResourcesNumber: number,
+  courseContent: string,
+  requirements: string[],
+  fullDescription: string,
+  course_img: string,
+  category: string,
 }
 
 export const Course = ({
-  img,
-  title,
-  teacher,
-  uid,
-  rating,
-  price,
-  tag,
-  numberOfRatings,
-  id,
-  lastUpdated,
-  courseDuration,
+  courseId,
+  teacherId,
+  courseName,
+  teacherName,
   mainDescription,
+  rating,
+  numberOfRatings,
+  numberOfStudents,
+  lastUpdated,
+  language,
+  subtitlesLanguage,
+  fullPrice,
+  discountPrice,
   secondDescriptions,
+  courseDuration,
+  articlesNumber,
+  downloadableResourcesNumber,
+  courseContent,
+  requirements,
+  fullDescription,
+  course_img,
+  category,
 
-}: {
-  img: string;
-  title: string;
-  teacher: string;
-  uid: string;
-  rating: number;
-  price: number;
-  tag: string;
-  numberOfRatings: number;
-  id: number;
-  lastUpdated?: Date;
-  courseDuration: number;
-  mainDescription: string;
-  secondDescriptions: string[];
-}) => {
-  const [ratingRounded, setRatingRounded] = useState<number>(0);
+}: CourseProps) => {
   const [bestIds, setBestIds] = useState<number[]>([]);
   const [lastUpdatedString, setLastUpdatedString] = useState<string>("");
   const userRedux = useSelector(userSelector);
@@ -82,15 +73,7 @@ const [user, setUser] = useState<User>();
       setUid(user.uid);
     }
   }, [user?.uid]);
-  useEffect(() => {
-    console.log(id, title);
-    starColor();
-  }, []);
 
-  const starColor = () => {
-    const roundedRating = Math.round(rating);
-    setRatingRounded(roundedRating);
-  };
 
   useEffect(() => {
     if (user && user.wishlist) {
@@ -111,7 +94,7 @@ const [user, setUser] = useState<User>();
   const lastUpdatedSTR = () => {
     const lastUpdatedDate = new Date(lastUpdated);
     const options = { month: "long", year: "numeric" };
-    const formattedDate = lastUpdatedDate.toLocaleDateString("en-US", options);
+    const formattedDate = lastUpdatedDate.toLocaleDateString("en-US", { month: "long", year: "numeric" });
 
     setLastUpdatedString(formattedDate);
   };
@@ -119,7 +102,7 @@ const [user, setUser] = useState<User>();
   const handleAddToCartInternal = async () => {
     console.log("Adding to cart...");
     try {
-      await addCourseToCart(id, user!.uid);
+      await addCourseToCart(courseId, user!.uid);
       console.log("Course added to cart successfully!");
     } catch (error) {
       console.error("Failed to add course to cart", error);
@@ -127,14 +110,14 @@ const [user, setUser] = useState<User>();
   };
 
   const addToWishlist = async () => {
-    const result = await addCourseWishlist(id, user!.uid);
+    const result = await addCourseWishlist(courseId, user!.uid);
     if (result.ok) {
-      if (wishlist.includes(id)) {
+      if (wishlist.includes(courseId)) {
         setWishlist((prevWishlist) =>
-          prevWishlist.filter((item) => item !== id)
+          prevWishlist.filter((item) => item !== courseId)
         );
       } else {
-        setWishlist((prevWishlist) => [...prevWishlist, id]);
+        setWishlist((prevWishlist) => [...prevWishlist, courseId]);
       }
     }
   };
@@ -147,13 +130,13 @@ const [user, setUser] = useState<User>();
   return (
     <div className="group flex flex-row">
       <div
-        onClick={() => navigate(`/course-page/${id}`)}
-        key={id}
+        onClick={() => navigate(`/course-page/${courseId}`)}
+        key={courseId}
         className=" h-full w-full cursor-pointer"
       >
-        <img className=" h-[9.6rem] w-full" src={img} alt="" />
-        <h2 className=" font-bold text-[1.1rem] text-slate-800">{title}</h2>
-        <p className=" text-xs font-light text-slate-800">{teacher}</p>
+        <img className=" h-[9.6rem] w-full" src={course_img} alt="" />
+        <h2 className=" font-bold text-[1.1rem] text-slate-800">{courseName}</h2>
+        <p className=" text-xs font-light text-slate-800">{teacherName}</p>
         <div className=" flex flex-row justify-start items-center mt-1">
           <div className=" text-sm font-bold">{rating.toFixed(2)}</div>
           <div className=" flex flex-row justify-start items-start h-fit w-fit ml-1 gap-[0.1rem]">
@@ -163,7 +146,7 @@ const [user, setUser] = useState<User>();
                 key={index}
                 size="15px"
                 className={
-                  index + 1 <= ratingRounded
+                  index + 1 <= Math.round(rating)
                     ? " border-slate-500 p-0 m-0 fill-Udemyorange-400 text-Udemyorange-400"
                     : "text-Udemyorange-400 border-slate-500 p-0 m-0"
                 }
@@ -176,10 +159,10 @@ const [user, setUser] = useState<User>();
         </div>
 
         <p className=" font-bold tracking-tight text-[1.2rem] mt-1">
-          ${Math.round(Number(price))}
+          ${Math.round(Number(fullPrice))}
         </p>
         <div className=" w-full h-fit flex flex-row items-center justify-start mt-2">
-          {bestIds.includes(id) && (
+          {bestIds.includes(courseId) && (
             <div className=" text-center w-fit px-2 py-1 text-xs font-bold text-slate-700 bg-Udemyyellow-200">
               Bestseller
             </div>
@@ -188,9 +171,9 @@ const [user, setUser] = useState<User>();
       </div>
       <div className="absolute w-[19rem] h-fit p-6 ml-64 border border-slate-300 shadow-md bg-white scale-0 group-hover:scale-100 transition-all ease-in">
         <div className=" h-fit flex flex-col justify-start items-start">
-          <h1 className=" text-[1.34rem] font-[700] text-slate-800">{title}</h1>
+          <h1 className=" text-[1.34rem] font-[700] text-slate-800">{courseName}</h1>
           <div className=" flex flex-row gap-2 h-fit w-full items-center justify-start mt-2">
-            {bestIds.includes(id) && (
+            {bestIds.includes(courseId) && (
               <div className=" text-center w-fit px-2 py-1 text-xs font-bold text-slate-700 bg-Udemyyellow-200">
                 Bestseller
               </div>
@@ -250,7 +233,7 @@ const [user, setUser] = useState<User>();
                 onClick={addToWishlist}
                 className=" w-12 rounded-full h-12 border border-black flex flex-row items-center justify-center hover:bg-slate-300 cursor-pointer"
               >
-                {wishlist.includes(id) ? (
+                {wishlist.includes(courseId) ? (
                   <Heart fill="black" size="22px" />
                 ) : (
                   <Heart size="22px" />
