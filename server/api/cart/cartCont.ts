@@ -1,11 +1,13 @@
 import mongoose from "mongoose";
 import express, { Request, Response } from "express";
 import CartsModel from "./cartsModel";
+import { Course } from "../../../db/dbStart";
+
 
 export async function addCourseToCart(req: Request, res: Response) {
   try {
     const { uid, courseId } = req.body;
-console.log(courseId, uid)
+    console.log(courseId, uid)
     // בודק אם יש כבר סל קיים עבור המשתמש
     let cart = await CartsModel.findOne({ uid: uid });
 
@@ -45,5 +47,46 @@ console.log(courseId, uid)
       ok: false,
       message: "Internal server error",
     });
+  }
+}
+
+export async function getCartCourses(req: Request, res: Response) {
+  try {
+    const { uid } = req.params;
+    const cartCourses = await CartsModel.findOne({ uid });
+    if (cartCourses) {
+      const courses = cartCourses.coursesId;
+      const fullCourses = [];
+      for (const course of courses) {
+        const newCourse = await getOneCourseById(course);
+        fullCourses.push(newCourse);
+      }
+      console.log("SENDING:" , fullCourses)
+      res.status(200).json({
+        ok: true,
+        courses: fullCourses,
+      });
+    } else {
+      res.status(404).json({
+        ok: false,
+        message: "Cart not found",
+      });
+    }
+  } catch (error) {
+    console.error("Error occurred while getCartCourses:", error);
+    res.status(500).json({
+      ok: false,
+      message: "Internal server error",
+    });
+  }
+}
+
+export async function getOneCourseById(courseId: number) {
+  try {
+    const course = await Course.findOne({ courseId: courseId });
+    return course
+   
+  } catch (error) {
+    console.error("Error fetching courses:", error);
   }
 }

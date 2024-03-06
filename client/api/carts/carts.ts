@@ -9,3 +9,12 @@ export const addCourseToCart = async (courseId: number, uid: string) => {
     console.error("Error occurred while adding course to cart:", error);
   }
 };
+
+export const getCartCourses = async (uid: string) => {
+  try {
+    const {data} = await axios.get(`/API/cart/${uid}`)
+    return(data)
+  } catch (error) {
+    console.error("Error occurred while getCartCourses:", error)
+  }
+}

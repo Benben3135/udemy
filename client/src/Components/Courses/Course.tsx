@@ -69,6 +69,10 @@ const [user, setUser] = useState<User>();
   const navigate = useNavigate();
 
   useEffect(() => {
+    setUser(userRedux)
+  },[userRedux])
+
+  useEffect(() => {
     if (user && user.uid) {
       setUid(user.uid);
     }
@@ -102,6 +106,7 @@ const [user, setUser] = useState<User>();
   const handleAddToCartInternal = async () => {
     console.log("Adding to cart...");
     try {
+      debugger
       await addCourseToCart(courseId, user!.uid);
       console.log("Course added to cart successfully!");
     } catch (error) {

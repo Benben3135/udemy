@@ -42,6 +42,7 @@ import ArchiveCategoreyCourse from "./Components/Courses/ArchiveCategoreyCourse"
 import { User } from "./util/interfaces";
 import SingleCoursePage from "./Components/Courses/SingleCoursePage";
 import CheckoutPage from "./view/pages/Checkout-page";
+import CartPage from "./view/pages/Cart-page";
 
 function App() {
   const dispatch = useDispatch();
@@ -179,6 +180,7 @@ function App() {
           <Route path="/user/public-profile" element={<PublicProfilePage />} />
           <Route path="/my-courses/:page" element={<MyCoursesPage />} />
           <Route path="/checkout" element={<CheckoutPage/>}/>
+          <Route path="/cart" element={<CartPage/>}/>
           <Route
             path="category-page/:selectedCategory"
             element={<ArchiveCategoreyCourse />}
