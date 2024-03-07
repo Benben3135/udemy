@@ -41,7 +41,6 @@ export default {
           100: '#eeeffc',
           600: '#cec0fc',
         },
-        // Add more color groups as needed
         Udemyindigo: {
           500: '#350c50',
           400: '#7325a3',
