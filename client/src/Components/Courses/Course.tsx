@@ -78,7 +78,6 @@ const [user, setUser] = useState<User>();
     }
   }, [user?.uid]);
 
-
   useEffect(() => {
     if (user && user.wishlist) {
       setWishlist(user.wishlist);
