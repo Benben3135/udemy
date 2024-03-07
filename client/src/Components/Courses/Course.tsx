@@ -82,6 +82,10 @@ const [user, setUser] = useState<User>();
       setUid(user.uid);
     }
   }, [user?.uid]);
+  useEffect(()=>{
+    if(userRedux != undefined
+      ){setUser(userRedux)}
+  },[userRedux])
   useEffect(() => {
     console.log(id, title);
     starColor();
