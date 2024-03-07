@@ -1,4 +1,3 @@
-import firebase from "firebase/compat/app";
 import { auth, provider } from "../../src/firebase";
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import { signOut } from "firebase/auth";
@@ -8,11 +7,9 @@ export const loginUserWithPopUp = async () => {
     const result = await signInWithPopup(auth, provider);
     if (result) {
       localStorage.setItem("userName", result.user.displayName!);
-      console.log("i set the local storage! with" , result.user.displayName)
       return { ok: true };
     }
   } catch (error) {
-    // Handle errors here
     console.error("Error signing in with popup:", (error as Error).message);
     throw error;
   }
@@ -25,7 +22,6 @@ export const loginUserWithEmail = async (email: string, password: string) => {
       return { ok: true };
     }
   } catch (error) {
-    // Handle errors here
     return { ok: false };
     console.error("Error creating user:", (error as Error).message);
     throw error;
