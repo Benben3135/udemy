@@ -14,7 +14,6 @@ export const registerUser = async (
       password
     );
     const user = userCredential.user;
-    debugger;
     sendUserDB(user.uid, name, user.email);
     return user;
   } catch (error) {
@@ -36,6 +35,6 @@ export const sendUserDB = async (
     displayName,
     email,
   });
-  debugger;
+
   console.log("result from sendUserDB", result);
 };

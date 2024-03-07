@@ -41,6 +41,8 @@ import { Archive } from "lucide-react";
 import ArchiveCategoreyCourse from "./Components/Courses/ArchiveCategoreyCourse";
 import { User } from "./util/interfaces";
 import SingleCoursePage from "./Components/Courses/SingleCoursePage";
+import CheckoutPage from "./view/pages/Checkout-page";
+import CartPage from "./view/pages/Cart-page";
 
 function App() {
   const dispatch = useDispatch();
@@ -111,12 +113,6 @@ function App() {
     });
   }, []);
 
-  // const dispathTeachers = async () => {
-  //   const result = await getTeachers()
-  //   console.log(result);
-  //   setTeachers(result);
-  //   console.log(teachers)
-  // }
   const dispatchUser = async (uid: string) => {
     const result = await getUser(uid);
     const teacher = result.user.isTeacher;
@@ -131,7 +127,6 @@ function App() {
   const checkImg = async (uid: string) => {
     const result = await checkImgDB(uid);
     if (result) {
-      console.log("now testing true", result);
       const newImage = result.image;
       dispatch(setImg(newImage));
     } else {
@@ -165,10 +160,7 @@ function App() {
     console.log("Difference in minutes:", differenceInMinutes);
     const recentThreshold = 480;
     // Return true if the sign-in occurred within the threshold, false otherwise
-    console.log(
-      "are the difference good?",
-      differenceInMinutes <= recentThreshold
-    );
+    
     return differenceInMinutes <= recentThreshold;
   };
 
@@ -187,6 +179,8 @@ function App() {
           <Route path="/user/edit-profile" element={<UserPage />} />
           <Route path="/user/public-profile" element={<PublicProfilePage />} />
           <Route path="/my-courses/:page" element={<MyCoursesPage />} />
+          <Route path="/checkout" element={<CheckoutPage/>}/>
+          <Route path="/cart" element={<CartPage/>}/>
           <Route
             path="category-page/:selectedCategory"
             element={<ArchiveCategoreyCourse />}

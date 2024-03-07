@@ -36,7 +36,7 @@ export const TeacherPage = () => {
   }, [courses]);
 
   const setRatings = () => {
-    debugger;
+
     const ratings: number[] = [];
     courses!.forEach((course) => {
       const rating = course.rating;

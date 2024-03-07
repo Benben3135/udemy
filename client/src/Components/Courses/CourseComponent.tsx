@@ -83,10 +83,9 @@ const CourseComponent: React.FC<
     const lastUpdatedSTR = () => {
       if (course.lastUpdated) {
         const lastUpdatedDate = new Date(course.lastUpdated);
-        const options = { month: "long", year: "numeric" };
         const formattedDate = lastUpdatedDate.toLocaleDateString(
           "en-US",
-          options
+          { month: "long", year: "numeric" }
         );
 
         setLastUpdatedString(formattedDate);

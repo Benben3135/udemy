@@ -84,9 +84,6 @@ const NavBar = () => {
   }, [wishlistCourses]);
 
 
-  useEffect(() => {
-    console.log("wishlist courses are:", wishlistCourses);
-  }, [wishlistCourses]);
 
   //functions
 
