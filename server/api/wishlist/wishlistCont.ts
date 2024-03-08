@@ -12,21 +12,18 @@ export async function addToWishlist(req: Request, res: Response) {
         const existingWishlistItem = await wishlistModel.findOne({ uid });
 
         if (existingWishlistItem) {
-            console.log("Wishlist item already exists for this user.");
 
             // Check if courseID already exists in the coursesId array
             //@ts-ignore
             const courseIdIndex = existingWishlistItem.coursesId.indexOf(courseID);
 
             if (courseIdIndex !== -1) {
-                console.log("Course ID already exists in the wishlist. Removing it.");
                 // Remove the courseID from the coursesId array
                 existingWishlistItem.coursesId.splice(courseIdIndex, 1);
 
                 // Save the updated wishlist item
                 await existingWishlistItem.save();
 
-                console.log("Course ID removed from the wishlist.");
                 return res.status(200).json({pk:true, existingWishlistItem}); // Respond with updated wishlist item
             }
 
@@ -37,7 +34,6 @@ export async function addToWishlist(req: Request, res: Response) {
             // Save the updated wishlist item
             const updatedWishlistItem = await existingWishlistItem.save();
 
-            console.log("Wishlist item updated:", updatedWishlistItem);
             return res.status(200).json({ok:true , updatedWishlistItem}); // Respond with updated wishlist item
         } else {
             // Create a new wishlist item
@@ -46,7 +42,6 @@ export async function addToWishlist(req: Request, res: Response) {
                 coursesId: [courseID]
             });
 
-            console.log("New wishlist item created:", newWishlistItem);
             return res.status(201).json({ok:true , newWishlistItem}); // Respond with newly created wishlist item
         }
     } catch (error) {

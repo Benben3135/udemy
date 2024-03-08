@@ -32,9 +32,7 @@ export async function getUser(req: Request, res: Response) {
 export async function getTeachersNames(req: Request, res: Response) {
   try {
     const teachersName = req.params.teachersName;
-    console.log("enter to getTeachersNames");
     const teacher = await userModel.findOne({ displayName: teachersName });
-    console.log(teacher);
     res.status(200).send({ teacher });
   } catch (error) {
     console.error("Error occurred during getTeachersNames:", error); // Log the error for debugging
