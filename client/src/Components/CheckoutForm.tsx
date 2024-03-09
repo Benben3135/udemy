@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import {
   PaymentElement,
   useStripe,
-  useElements
+  useElements,
 } from "@stripe/react-stripe-js";
-import "../Components/styles/stripeStyle.css"
+import "../Components/styles/stripeStyle.css";
+import { useNavigate } from "react-router-dom";
 
 export default function CheckoutForm() {
+  const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
 
@@ -21,7 +23,6 @@ export default function CheckoutForm() {
     const clientSecret = new URLSearchParams(window.location.search).get(
       "payment_intent_client_secret"
     );
-
     if (!clientSecret) {
       return;
     }
@@ -44,7 +45,7 @@ export default function CheckoutForm() {
     });
   }, [stripe]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     if (!stripe || !elements) {
@@ -55,12 +56,12 @@ export default function CheckoutForm() {
 
     setIsLoading(true);
 
-    const { error } = await stripe.confirmPayment({
+    const { error , paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3000",
+        return_url: `${window.location.origin}/completion`
       },
+      redirect: "if_required"
     });
 
     // This point will only be reached if there is an immediate error when
@@ -78,13 +79,19 @@ export default function CheckoutForm() {
   };
 
   const paymentElementOptions = {
-    layout: "tabs"
-  }
+    layout: "tabs",
+  };
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
-
       <PaymentElement id="payment-element" options={paymentElementOptions} />
+      <button disabled={isLoading || !stripe || !elements} id="submit">
+        <span id="button-text">
+          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+        </span>
+      </button>
+      {/* Show any error or success messages */}
+      {message && <div id="payment-message">{message}</div>}
     </form>
   );
 }

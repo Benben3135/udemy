@@ -14,6 +14,7 @@ import topNavBar from "../../Components/instructor-gui/topNavBar";
 import LanguageIcon from "@mui/icons-material/Language";
 import { Skeleton } from "@mui/material";
 import CheckoutForm from "../../Components/CheckoutForm";
+import Loader from "../../Components/animations/Loader";
 
 import {
   CardElement,
@@ -29,22 +30,6 @@ const stripePromise = loadStripe(
 );
 
 const CheckoutPage = () => {
-  const baseStripeElementOptions = {
-    style: {
-      base: {
-        fontFamily: "Oxanium",
-        fontSize: "16px",
-        color: "#000000",
-        "::placeholder": {
-          color: "#000000",
-        },
-      },
-      invalid: {
-        color: "#9e2146",
-      },
-    },
-  };
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -64,19 +49,28 @@ const CheckoutPage = () => {
     console.log("client secret:", clientSecret);
   }, [clientSecret]);
 
+  
+
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     fetch("http://localhost:4000/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items: cart }),
     })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));
-  }, []);
+  }, [cart]);
 
   const appearance = {
-    theme: "stripe",
+    theme: 'stripe',
+    variables: {
+      colorPrimary: '#c33ff3',
+      colorBackground: '#ebe0ff',
+      
+    },
   };
+
   const options = {
     clientSecret,
     appearance,
@@ -94,6 +88,10 @@ const CheckoutPage = () => {
   useEffect(() => {
     calculateFull();
   }, [cart]);
+
+  useEffect(() => {
+    cart
+  },[cart])
 
   const calculateFull = () => {
     let price = 0;
@@ -197,7 +195,7 @@ const CheckoutPage = () => {
           </div>
         </div>
 
-        <div className=" h-full w-1/2 bg-Udemygray-100">
+        {cart.length > 0 ?  (<div className=" h-full w-1/2 bg-Udemygray-100">
           <div className=" w-[18rem] h-[20rem] mt-[6rem] ml-14">
             <h1 className=" text-[1.6rem] font-bold text-slate-700">Summary</h1>
             <div className=" w-full flex flex-row justify-between items-center mt-4">
@@ -217,7 +215,11 @@ const CheckoutPage = () => {
             <button className=" w-full h-16 bg-Udemypurple-300 hover:bg-Udemypurple-400 mt-2 text-white font-bold">Complete Checkout</button>
             <h2 className=" mt-2 text-[0.8rem] text-gray-500 w-full text-center">30-Day Money-Back Guarantee</h2>
           </div>
-        </div>
+        </div>) : (
+          <div className="ml-14 mt-20">
+           <Loader height={10} width={10} />
+          </div>
+        )}
       </div>
     </div>
   );

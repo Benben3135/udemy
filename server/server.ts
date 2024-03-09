@@ -26,7 +26,7 @@ app.post("/create-payment-intent", async (req, res) => {
 
   // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: calculateOrderAmount(items),
+    amount: 2000,
     currency: "usd",
     automatic_payment_methods: {
       enabled: true,
@@ -39,11 +39,17 @@ app.post("/create-payment-intent", async (req, res) => {
 });
 
 
-const calculateOrderAmount = (items: any) => {
-  // Replace this constant with a calculation of the order's amount
-  // Calculate the order total on the server to prevent
-  // people from directly manipulating the amount on the client
-  return 1400;
+const calculateOrderAmount = (items: any[]): number => {
+  let amount = 0;
+  
+  for (let item of items) {
+    console.log("an item!", item.discountPrice);
+    amount += item.discountPrice;
+  }
+    
+  const finalAmount: number = Math.round(amount * 100); // Round to the nearest integer before multiplying by 100
+  
+ return 2000
 };
 
 
