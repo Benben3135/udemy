@@ -3,6 +3,7 @@ import {
   PaymentElement,
   useStripe,
   useElements,
+  CardElement,
 } from "@stripe/react-stripe-js";
 import "../Components/styles/stripeStyle.css";
 import { useNavigate } from "react-router-dom";
@@ -30,6 +31,7 @@ export default function CheckoutForm() {
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
       switch (paymentIntent.status) {
         case "succeeded":
+    
           setMessage("Payment succeeded!");
           break;
         case "processing":
@@ -49,26 +51,27 @@ export default function CheckoutForm() {
     e.preventDefault();
 
     if (!stripe || !elements) {
-      // Stripe.js hasn't yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
 
     setIsLoading(true);
+    const returnURL = 'http://localhost:5173/completion'
 
-    const { error , paymentIntent } = await stripe.confirmPayment({
+    const response = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/completion`
+        return_url: returnURL,
       },
-      redirect: "if_required"
-    });
+    })
 
-    // This point will only be reached if there is an immediate error when
-    // confirming the payment. Otherwise, your customer will be redirected to
-    // your `return_url`. For some payment methods like iDEAL, your customer will
-    // be redirected to an intermediate site first to authorize the payment, then
-    // redirected to the `return_url`.
+    if (response.error) {
+      setMessage(response.error.message);
+    } else {
+      setMessage(`Payment Succeeded: ${response.paymentIntent.id}`);
+
+    }
+
+
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message);
     } else {
@@ -84,14 +87,12 @@ export default function CheckoutForm() {
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
-      <PaymentElement id="payment-element" options={paymentElementOptions} />
-      <button disabled={isLoading || !stripe || !elements} id="submit">
+      <CardElement />
+      <button disabled={isLoading} type="submit">
         <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+          {isLoading ? "Processing":"Pay now"}
         </span>
       </button>
-      {/* Show any error or success messages */}
-      {message && <div id="payment-message">{message}</div>}
     </form>
   );
 }

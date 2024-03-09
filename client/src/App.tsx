@@ -46,6 +46,7 @@ import SingleCoursePage from "./Components/Courses/SingleCoursePage";
 import CheckoutPage from "./view/pages/Checkout-page";
 import CartPage from "./view/pages/Cart-page";
 import { Elements } from "@stripe/react-stripe-js";
+import CompletionPage from "./view/pages/completion-page";
 
 function App() {
   const dispatch = useDispatch();
@@ -189,6 +190,7 @@ function App() {
             />
             <Route path="/my-courses/:page" element={<MyCoursesPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/completion" element={<CompletionPage/>}/>
             <Route path="/cart" element={<CartPage />} />
             <Route
               path="category-page/:selectedCategory"

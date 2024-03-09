@@ -13,7 +13,7 @@ import cors from "cors";
 app.use(express.json());
 //when/if we will use CORS
 app.use(cors({
-    origin: 'http://localhost:5173',
+  origin: ['http://localhost:5173', 'http://localhost:3000'],
 }));
 app.use(cookieParser());
 //////////////////////
@@ -51,7 +51,6 @@ const calculateOrderAmount = (items: any[]): number => {
   
  return 2000
 };
-
 
 
 //////////////////////
