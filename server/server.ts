@@ -22,6 +22,7 @@ app.use(cookieParser());
 const stripe = require("stripe")('sk_test_51Ob07vGPw5IknvcV3zRoCrdupzCxj3rPGsq7QbnHlKKdlIiYdoU5EQ8fLccxbiasCkOGtILWoJbRybA1690xNWQ4001aTP3ppP')
 
 app.post("/create-payment-intent", async (req, res) => {
+  console.log("create-payment-intent")
   const { items } = req.body;
 
   // Create a PaymentIntent with the order amount and currency
@@ -37,6 +38,7 @@ app.post("/create-payment-intent", async (req, res) => {
     clientSecret: paymentIntent.client_secret,
   });
 });
+
 
 
 const calculateOrderAmount = (items: any[]): number => {

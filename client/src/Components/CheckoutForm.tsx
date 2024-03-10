@@ -17,22 +17,28 @@ export default function CheckoutForm() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    console.log("useeffect work");
     if (!stripe) {
       return;
     }
 
+    console.log("useeffect work 2");
+
     const clientSecret = new URLSearchParams(window.location.search).get(
       "payment_intent_client_secret"
     );
+    console.log("your clirnt secret:", clientSecret);
+
     if (!clientSecret) {
       return;
     }
 
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      switch (paymentIntent.status) {
+      switch (paymentIntent!.status) {
         case "succeeded":
-    
           setMessage("Payment succeeded!");
+          // Redirect to completion page
+          navigate("/completion");
           break;
         case "processing":
           setMessage("Your payment is processing.");
@@ -45,32 +51,32 @@ export default function CheckoutForm() {
           break;
       }
     });
-  }, [stripe]);
+  }, [stripe, navigate]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    console.log("handle submit")
 
     if (!stripe || !elements) {
       return;
     }
 
     setIsLoading(true);
-    const returnURL = 'http://localhost:5173/completion'
 
-    const response = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: returnURL,
-      },
+    
+      const { error } = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: "http://localhost:5173/completion",
+        },  
     })
+
 
     if (response.error) {
       setMessage(response.error.message);
     } else {
       setMessage(`Payment Succeeded: ${response.paymentIntent.id}`);
-
     }
-
 
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message);
@@ -87,12 +93,10 @@ export default function CheckoutForm() {
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
-      <CardElement />
-      <button disabled={isLoading} type="submit">
-        <span id="button-text">
-          {isLoading ? "Processing":"Pay now"}
-        </span>
-      </button>
+      <PaymentElement id="payment-element" options={{layout:"tabs"}}/>
+     <button id="submit">
+      <span id="button-text">Pay please!</span>
+     </button>
     </form>
   );
 }

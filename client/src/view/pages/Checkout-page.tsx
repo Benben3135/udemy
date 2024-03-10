@@ -1,28 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { loadStripe, Stripe } from "@stripe/stripe-js";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { User } from "../../util/interfaces";
-import { useDispatch, useSelector } from "react-redux";
-import { userSelector } from "../../features/user/userSlice";
-import { CourseProps } from "../../Components/Courses/Course";
-import { getCartCourses } from "../../../api/carts/carts";
-import { noNavbar } from "../../features/user/navbarSlice";
-import { noFooter } from "../../features/user/footerSlice";
-import { UseDispatch } from "react-redux";
-import topNavBar from "../../Components/instructor-gui/topNavBar";
 import LanguageIcon from "@mui/icons-material/Language";
-import { Skeleton } from "@mui/material";
+import { loadStripe } from "@stripe/stripe-js";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getCartCourses } from "../../../api/carts/carts";
 import CheckoutForm from "../../Components/CheckoutForm";
+import { CourseProps } from "../../Components/Courses/Course";
 import Loader from "../../Components/animations/Loader";
+import { noFooter } from "../../features/user/footerSlice";
+import { noNavbar } from "../../features/user/navbarSlice";
+import { userSelector } from "../../features/user/userSlice";
+import { User } from "../../util/interfaces";
 
 import {
-  CardElement,
-  useStripe,
-  useElements,
-  Elements,
-  LinkAuthenticationElement,
-  PaymentElement,
+  Elements
 } from "@stripe/react-stripe-js";
 
 const stripePromise = loadStripe(
@@ -45,9 +36,7 @@ const CheckoutPage = () => {
 
   const [clientSecret, setClientSecret] = useState("");
 
-  useEffect(() => {
-    console.log("client secret:", clientSecret);
-  }, [clientSecret]);
+
 
   
 

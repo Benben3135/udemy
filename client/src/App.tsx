@@ -191,7 +191,7 @@ function App() {
             <Route path="/my-courses/:page" element={<MyCoursesPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/completion" element={<CompletionPage/>}/>
-            <Route path="/cart" element={<CartPage />} />
+            <Route path="/cart" element={<CartPage/>} />
             <Route
               path="category-page/:selectedCategory"
               element={<ArchiveCategoreyCourse />}
