@@ -7,7 +7,6 @@ import { Course } from "../../../db/dbStart";
 export async function addCourseToCart(req: Request, res: Response) {
   try {
     const { uid, courseId } = req.body;
-    console.log(courseId, uid)
     // בודק אם יש כבר סל קיים עבור המשתמש
     let cart = await CartsModel.findOne({ uid: uid });
 
@@ -61,7 +60,6 @@ export async function getCartCourses(req: Request, res: Response) {
         const newCourse = await getOneCourseById(course);
         fullCourses.push(newCourse);
       }
-      console.log("SENDING:" , fullCourses)
       res.status(200).json({
         ok: true,
         courses: fullCourses,

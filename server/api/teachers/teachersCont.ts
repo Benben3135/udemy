@@ -8,7 +8,6 @@ export async function getTeachersNames(req: Request, res: Response) {
   try {
     const teachersName = req.params.teachersName;
     const teacher = await userModel.findOne({ displayName: teachersName });
-    console.log(teacher);
     res.status(200).send({ teacher });
   } catch (error) {
     console.error("Error occurred during getTeachersNames:", error); // Log the error for debugging
@@ -28,7 +27,6 @@ export async function getNumberOfStudents(req: Request, res: Response) {
         teacherNumberOfStudents += teacher.numberOfStudents;
       }
     });
-    console.log(teacherNumberOfStudents);
     res.status(200).send({ teacherNumberOfStudents });
   } catch (error) {
     console.error("Error occurred during getNumberOfStudents:", error); // Log the error for debugging
@@ -60,7 +58,6 @@ export async function getNumberOfReviews(req: Request, res: Response) {
         teacherNumberOfReviews += teacher.numberOfRatings;
       }
     });
-    console.log(teacherNumberOfReviews);
     res.status(200).send({ teacherNumberOfReviews });
   } catch (error) {
     console.error("Error occurred during getNumberOfReviews:", error);

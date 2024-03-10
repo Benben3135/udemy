@@ -6,7 +6,6 @@ import { Request, Response } from "express";
 export async function getAllCourses(req: Request, res: Response) {
   try {
     const courses = await Course.find({});
-    console.log(courses);
     res.status(200).send({ ok: true, courses });
   } catch (error) {
     res.status(500).send({
