@@ -38,18 +38,60 @@ app.post("/create-payment-intent", async (req, res) => {
   });
 });
 
+const YOUR_DOMAIN = 'http://localhost:5173';
+
+app.post('/create-checkout-session', async (req, res) => {
+  const session = await stripe.checkout.sessions.create({
+
+    payment_method_types: ['card'],
+
+    line_items: [
+
+      {
+
+        price_data: {
+
+          currency: 'usd',
+
+          product_data: {
+
+            name: 'Your Product Name',
+
+          },
+
+          unit_amount: 1000,
+
+        },
+
+        quantity: 1,
+
+      },
+
+    ],
+
+    mode: 'payment',
+
+    success_url: 'http://localhost:5173/completion',
+
+    cancel_url: 'http://localhost:5173/completion',
+
+  });
+  res.send({id: session.id})
+});
+
+
 
 const calculateOrderAmount = (items: any[]): number => {
   let amount = 0;
-  
+
   for (let item of items) {
     console.log("an item!", item.discountPrice);
     amount += item.discountPrice;
   }
-    
+
   const finalAmount: number = Math.round(amount * 100); // Round to the nearest integer before multiplying by 100
-  
- return 2000
+
+  return 2000
 };
 
 

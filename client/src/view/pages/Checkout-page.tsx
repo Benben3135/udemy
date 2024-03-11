@@ -12,7 +12,7 @@ import { noFooter } from "../../features/user/footerSlice";
 import { UseDispatch } from "react-redux";
 import topNavBar from "../../Components/instructor-gui/topNavBar";
 import LanguageIcon from "@mui/icons-material/Language";
-import { Skeleton } from "@mui/material";
+import { Button, Skeleton } from "@mui/material";
 import CheckoutForm from "../../Components/CheckoutForm";
 import Loader from "../../Components/animations/Loader";
 
@@ -38,7 +38,6 @@ const CheckoutPage = () => {
   const [cart, setCart] = useState<[CourseProps] | []>([]);
   const [dis, setDis] = useState<number>();
   const [full, setFull] = useState<number>();
-  const [error, setError] = useState<boolean>(false);
 
   const [message, setMessage] = useState<string | null | undefined>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +48,13 @@ const CheckoutPage = () => {
     console.log("client secret:", clientSecret);
   }, [clientSecret]);
 
-  
+  const [error, setError] = useState(null);
+
+
+
+
+
+
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
@@ -121,6 +126,58 @@ const CheckoutPage = () => {
     }
   };
 
+  const handleClick = async () => {
+
+    const stripe = await stripePromise;
+
+ 
+
+    try {
+
+      const response = await fetch('http://localhost:4000/create-checkout-session', {
+
+        method: 'POST',
+
+        headers: {
+
+          'Content-Type': 'application/json'
+
+        },
+
+        body: JSON.stringify({ /* any payload you need to send to your server */ })
+
+      });
+
+ 
+
+      const session = await response.json();
+
+ 
+
+      // When the customer clicks on the button, redirect them to Checkout.
+
+      const result = await stripe.redirectToCheckout({
+
+        sessionId: session.id,
+
+      });
+
+ 
+
+      if (result.error) {
+
+        setError(result.error.message);
+
+      }
+
+    } catch (error) {
+
+      setError('An error occurred, please try again.');
+
+    }
+
+  };
+
   return (
     <div>
       <div className=" h-[4.6rem] w-full flex flex-row justify-between shadow-md z-10 relative">
@@ -160,11 +217,7 @@ const CheckoutPage = () => {
               Udemy is required by law to collect applicable transaction taxes
               for purchases made in certain tax jurisdictions.
             </h3>
-            {clientSecret && (
-              <Elements options={options} stripe={stripePromise}>
-                <CheckoutForm />
-              </Elements>
-            )}
+
             <div className=" flex flex-col w-full h-fit justify-start items-start mt-4">
               <h1 className=" text-[1.6rem] font-bold text-slate-800">
                 Order details
@@ -212,7 +265,7 @@ const CheckoutPage = () => {
             <h2 className=" mt-6 text-[0.8rem] text-gray-500">
               By completing your purchase you agree to these <span className=" text-Udemyblue-300">Terms of Service</span>.
             </h2>
-            <button className=" w-full h-16 bg-Udemypurple-300 hover:bg-Udemypurple-400 mt-2 text-white font-bold">Complete Checkout</button>
+            <button  onClick={handleClick} className=" w-full h-16 bg-Udemypurple-300 hover:bg-Udemypurple-400 mt-2 text-white font-bold">Complete Checkout</button>
             <h2 className=" mt-2 text-[0.8rem] text-gray-500 w-full text-center">30-Day Money-Back Guarantee</h2>
           </div>
         </div>) : (
