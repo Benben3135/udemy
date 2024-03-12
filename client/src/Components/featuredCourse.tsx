@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { getMostPopularCourse } from "../../api/coursesApi";
 import { CourseProps } from "./Courses/Course";
 import { Dot, Star } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const FeaturedCourse = () => {
   const [course, setCourse] = useState<CourseProps>();
   const [lastUpdatedString, setLastUpdatedString] = useState<string>("");
   const [ratingRounded, setRatingRounded] = useState<number>();
+  const navigate = useNavigate()
 
   const getMostPopular = async () => {
     const mostPopularCourse = await getMostPopularCourse();
@@ -45,7 +47,7 @@ const FeaturedCourse = () => {
   return (
     <>
       {lastUpdatedString && course && (
-        <div className=" h-full w-4/5 flex flex-row justify-start items-start">
+        <div onClick={() => navigate(`/course-page/${course.courseId}`)} className=" h-full w-4/5 flex flex-row justify-start items-start">
           <img className=" h-full w-[45%]" src={course?.course_img} alt="" />
           <div className=" flex flex-col h-full items-between justify-between ml-4">
             <div className=" flex flex-col items-start justify-start ">

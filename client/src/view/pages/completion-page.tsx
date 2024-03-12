@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Course, { CourseProps } from "../../Components/Courses/Course";
 import { User } from "../../util/interfaces";
 import { userSelector } from "../../features/user/userSlice";
-import { getCartCourses } from "../../../api/carts/carts";
+import { addPurchasedCourse, getCartCourses } from "../../../api/carts/carts";
 import { Divider, Skeleton } from "@mui/material";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import { Check, Dot, Star } from "lucide-react";
@@ -41,6 +41,13 @@ const CompletionPage = () => {
   };
 
   useEffect(() => {
+    for (let course of cart) {
+      console.log("adding another one")
+      addCourseToPurchasedDB(course.courseId);
+    }
+  }, [cart]);
+
+  useEffect(() => {
     getCoursesFromDB();
   }, [user]);
 
@@ -57,6 +64,11 @@ const CompletionPage = () => {
     const bestID: [] = await getBestSellerCourses();
     setBestIds(bestID);
   };
+
+  const addCourseToPurchasedDB = async (courseId:number) => {
+    const response = await addPurchasedCourse(courseId, user!.uid)
+    console.log(response)
+  }
 
   const UpdatedRecentlyCheck = () => {
     const updatedItems: number[] = []; // Define an array to hold updated items
@@ -95,7 +107,7 @@ const CompletionPage = () => {
   };
 
   return (
-    <div className=" w-screen h-screen flex flex-col justify-center items-center mt-12">
+    <div className=" w-screen h-screen flex flex-col justify-start items-center mt-12">
       <div className=" w-[40rem] h-fit flex flex-col items-center justify-start">
         <h1 className=" text-[2.4rem] text-slate-800 font-bold">
           Order confirmation
@@ -105,9 +117,12 @@ const CompletionPage = () => {
         {cart.length > 0 ? (
           <div>
             {cart.map((item, index) => (
-              <div key={index} className=" w-full h-fit py-4">
+              <div key={index} className=" w-full h-fit py-4 ">
                 <Divider />
-                <div className=" flex flex-row items-start justify-between w-full h-fit gap-2 mt-4">
+                <div
+                  onClick={() => navigate(`/course-page/${item.courseId}`)}
+                  className=" flex flex-row items-start justify-between w-full h-fit gap-2 mt-4 hover:bg-Udemypurple-100 transition-all ease-in-out cursor-pointer"
+                >
                   <img
                     className="flex-[1.6] h-[4rem] mr-2"
                     src={item.course_img}
@@ -197,7 +212,12 @@ const CompletionPage = () => {
           />
         )}
       </div>
-      <div onClick={() => navigate("/")} className=" bg-Udemypurple-300 text-white font-bold w-fit h-fit py-4 px-6 hover:bg-Udemypurple-400 cursor-pointer">Back to homepage</div>
+      <div
+        onClick={() => navigate("/")}
+        className=" bg-Udemypurple-300 text-white font-bold w-fit h-fit py-4 px-6 hover:bg-Udemypurple-400 cursor-pointer"
+      >
+        Back to homepage
+      </div>
     </div>
   );
 };

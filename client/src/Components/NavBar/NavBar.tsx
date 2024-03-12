@@ -35,9 +35,8 @@ const NavBar = () => {
   const [wishlistCourses, setWishlistCourses] = useState<CourseProps[]>([]);
   const isUserRedux = useSelector(isUserSelector);
   const userRedux = useSelector(userSelector);
-  const [showSearch,setShowSearch] = useState<boolean>(false)
+  const [showSearch, setShowSearch] = useState<boolean>(false);
   const searchRef = useRef(null);
-
 
   //useEffects
 
@@ -51,14 +50,14 @@ const NavBar = () => {
   }, [searched]);
 
   useEffect(() => {
-    const handleClickOutside = (event:any) => {
+    const handleClickOutside = (event: any) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
         setShowSearch(false);
       }
     };
-  
+
     document.addEventListener("mousedown", handleClickOutside);
-  
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -94,8 +93,8 @@ const NavBar = () => {
   }, [userRedux]);
 
   useEffect(() => {
-    setShowSearch(true)
-  },[searched])
+    setShowSearch(true);
+  }, [searched]);
 
   useEffect(() => {
     if (user && user.wishlist) {
@@ -122,8 +121,8 @@ const NavBar = () => {
 
   const searchedClicked = (id: number) => {
     setShowSearch(false);
-    navigate(`/course-page/${id}`)
-  }
+    navigate(`/course-page/${id}`);
+  };
 
   const logoutUser = async () => {
     const response = await logOut();
@@ -202,7 +201,10 @@ const NavBar = () => {
                     type="text"
                   />
                   {showSearch && (
-                    <div  ref={searchRef} className="absolute h-fit max-h-96 overflow-y-scroll top-16 sm:w-[30%] md:w-[30%] sm:left-48 left-[15rem] md:left-[15rem] lg:w-[50%] bg-white pl-2">
+                    <div
+                      ref={searchRef}
+                      className="absolute h-fit max-h-96 overflow-y-scroll top-16 sm:w-[30%] md:w-[30%] sm:left-48 left-[15rem] md:left-[15rem] lg:w-[50%] bg-white pl-2"
+                    >
                       {searched.map((course) => (
                         <div
                           className=" w-full h-16 flex flex-row items-center justify-start gap-4 p-2 hover:bg-Udemygray-100 cursor-pointer"
@@ -215,11 +217,16 @@ const NavBar = () => {
                             alt=""
                           />
                           <div className=" flex flex-col items-start justify-start w-fit h-full">
-                            <h1 className=" font-bold text-[1rem]">{course.courseName}</h1>
+                            <h1 className=" font-bold text-[1rem]">
+                              {course.courseName}
+                            </h1>
                             <div className=" flex flex-row items-start justify-start w-fit h-fit">
-                              <h2 className=" font-bold text-gray-500 text-[0.75rem]">Course</h2>
-                              <h2 className=" text-gray-500 text-[0.75rem] ml-2">{course.teacherName}</h2>
-
+                              <h2 className=" font-bold text-gray-500 text-[0.75rem]">
+                                Course
+                              </h2>
+                              <h2 className=" text-gray-500 text-[0.75rem] ml-2">
+                                {course.teacherName}
+                              </h2>
                             </div>
                           </div>
                         </div>
@@ -303,7 +310,7 @@ const NavBar = () => {
                         wishlistCourses.map((course, index) => (
                           <div
                             key={index}
-                            className=" h-36 bg-white border-b border-slate-300 w-full gap-3 p-2 flex flex-col justify-start items-start"
+                            className="h-36 bg-white border-b border-slate-300 w-full gap-3 p-2 flex flex-col justify-start items-start"
                           >
                             <div className=" flex flex-row gap-2 items-start justify-start">
                               <img

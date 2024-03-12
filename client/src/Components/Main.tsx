@@ -46,7 +46,7 @@ const MainPage = () => {
 
   return (
     <>
-      {isUser ? (
+      {isUser && userName ? (
         <div>
           <>
             <div className=" h-100vh">
@@ -74,7 +74,7 @@ const MainPage = () => {
             <div className=" w-full h-fit flex-col justify-start items-start mx-auto max-w-[82rem] my-8">
               <h1 className=" text-4xl font-bold text-slate-800">What to learn next</h1>
               <h2 className=" text-2xl font-bold text-slate-800 mt-6">Our top pick for you</h2>
-              <div className=" w-full h-[20rem] border border-slate-300 mt-4 flex flex-row items-center justify-start p-6">
+              <div className=" hover:bg-Udemypurple-100 transition-all ease-in-out cursor-pointer w-full h-[20rem] border border-slate-300 mt-4 flex flex-row items-center justify-start p-6">
                   <FeaturedCourse/>
               </div>
             </div>

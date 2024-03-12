@@ -6,7 +6,7 @@ const NavMenu = () => {
     const navigate = useNavigate();
 
   return (
-    <div className="relative h-[3.3rem] w-full bg-white px-12 flex flex-row justify-center items-center shadow-lg z-20">
+    <div className=" h-[3.3rem] w-full bg-white px-12 flex flex-row justify-center items-center shadow-lg z-0">
         <div className='h-full w-fit flex flex-row justify-center items-center '>
         {categoriesNavBar.map((selectedCategory) => (
       <div
