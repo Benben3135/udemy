@@ -1,4 +1,5 @@
 <h1>Udemy Project</h1>
+------------------------
 <h2>About</h2>
 <p>A udemy clone, built in VITE with REACT, JS & TS.
 We cloned the online store enviroment, but not the courses learning system.
