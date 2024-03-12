@@ -51,8 +51,52 @@ const calculateOrderAmount = (items: any[]): number => {
     
   const finalAmount: number = Math.round(amount * 100); // Round to the nearest integer before multiplying by 100
   
- return 2000
+ return finalAmount
 };
+
+const YOUR_DOMAIN = 'http://localhost:5173';
+
+app.post('/create-checkout-session', async (req, res) => {
+const {items} = req.body;
+  console.log(items)
+  const session = await stripe.checkout.sessions.create({
+
+    payment_method_types: ['card'],
+
+    line_items: [
+
+      {
+
+        price_data: {
+
+          currency: 'usd',
+
+          product_data: {
+
+            name: 'Your Product Name',
+
+          },
+
+          unit_amount: calculateOrderAmount(items),
+
+        },
+
+        quantity: 1,
+
+      },
+
+    ],
+
+    mode: 'payment',
+
+    success_url: 'http://localhost:5173/completion',
+
+    cancel_url: 'http://localhost:5173/cancel',
+
+  });
+  res.send({id: session.id})
+});
+
 
 
 //////////////////////
