@@ -131,3 +131,15 @@ export const getMostPopularCourse = async () => {
       console.error(error);
     }
   };
+
+  export const getSearchedCoursesByName = async (search: string) => {
+    try {
+      const { data } = await axios.get(
+        `/API/courses/getSearchedCoursesByName/${search}`
+      );
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  

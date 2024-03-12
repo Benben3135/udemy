@@ -9,6 +9,8 @@ import { Divider, Skeleton } from "@mui/material";
 import { getBestSellerCourses } from "../../../api/coursesApi";
 import { Dot, Star } from "lucide-react";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+import { addCourseWishlist } from "../../../api/coursesApi";
+import { removeCourseFromCart } from "../../../api/carts/carts";
 
 const CartPage = () => {
   const navigate = useNavigate();
@@ -20,6 +22,8 @@ const CartPage = () => {
   const [dis, setDis] = useState<number>();
   const [full, setFull] = useState<number>();
   const [error, setError] = useState<boolean>(false);
+  const [wishlist, setWishlist] = useState<number[]>([]);
+
 
   useEffect(() => {
     setUser(userRedux);
@@ -47,7 +51,7 @@ const CartPage = () => {
 
   useEffect(() => {
     getCoursesFromDB();
-  }, [user]);
+  }, [user,cart]);
 
   useEffect(() => {
     console.log(cart);
@@ -65,6 +69,42 @@ const CartPage = () => {
       console.error(error);
     }
   };
+
+  
+  useEffect(() => {
+    if (user && user.wishlist) {
+      setWishlist(user.wishlist);
+    }
+  }, [user?.wishlist]);
+
+  const addToWishlist = async (courseID : number) => {
+    const remove = await removeFromCart(courseID)
+    const result = await addCourseWishlist(courseID, user!.uid);
+    if (result.ok) {
+      if (wishlist.includes(courseID)) {
+        setWishlist((prevWishlist) =>
+          prevWishlist.filter((item) => item !== courseID)
+        );
+      } else {
+        setWishlist((prevWishlist) => [...prevWishlist, courseID]);
+      }
+    }
+  };
+
+
+  const removeFromCart = async (courseID: number) => {
+    try {
+      const result: any = await removeCourseFromCart(courseID, user!.uid);
+      if (result) {
+        setCart(prevCart => prevCart.filter(item => item.courseId !== courseID) as [CourseProps] | []);
+        getCoursesFromDB();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
 
   const getBestSeller = async () => {
     const bestID: [] = await getBestSellerCourses();
@@ -184,13 +224,13 @@ const CartPage = () => {
                           </div>
                         </div>
                         <div className=" flex-[2] h-full flex flex-col justify-start items-end gap-1">
-                          <button className="text-Udemyblue-300 text-[0.9rem] hover:text-Udemyblue-400">
+                          <button onClick={() => removeFromCart(item.courseId)} className="text-Udemyblue-300 text-[0.9rem] hover:text-Udemyblue-400">
                             Remove
                           </button>
-                          <button className="text-Udemyblue-300 text-[0.9rem] hover:text-Udemyblue-400">
+                          <button onClick={() => addToWishlist(item.courseId)} className="text-Udemyblue-300 text-[0.9rem] hover:text-Udemyblue-400">
                             Save for Later
                           </button>
-                          <button className="text-Udemyblue-300 text-[0.9rem] hover:text-Udemyblue-400">
+                          <button onClick={() => addToWishlist(item.courseId)} className="text-Udemyblue-300 text-[0.9rem] hover:text-Udemyblue-400">
                             Move to Wishlist
                           </button>
                         </div>
@@ -214,7 +254,7 @@ const CartPage = () => {
                 <Skeleton animation="pulse" variant="rectangular" width={1000} height={1000} />
               )}
             </div>
-            <div className=" flex-[0.7] flex flex-col items-start justify-start">
+           {cart.length > 0 ? (<div className=" flex-[0.7] flex flex-col items-start justify-start">
               <h1 className="font-bold text-gray-600">Total:</h1>
               <h1 className=" font-bold text-[2rem]">${dis}</h1>
               <h2 className="line-through text-[1rem] text-gray-600">
@@ -253,7 +293,11 @@ const CartPage = () => {
                   you used the wrong coupon code?
                 </h3>
               )}
-            </div>
+            </div>):(
+              <div>
+                <img src="https://s.udemycdn.com/browse_components/flyout/empty-shopping-cart-v2.jpg" alt="" />
+              </div>
+            )}
           </div>
         </div>
       </div>

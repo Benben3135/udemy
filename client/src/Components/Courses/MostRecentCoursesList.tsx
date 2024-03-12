@@ -31,19 +31,29 @@ const MostRecentCoursesList: React.FC<MostRecentCoursesListProps> = ({ selectedC
     <div className="flex flex-wrap  gap-5">
       {recentCourses.map((course: CourseProps) => (
         <Course
-          key={course.courseId}
-          img={course.course_img}
-          title={course.courseName}
-          teacher={course.teacherName}
-          rating={course.rating}
-          price={course.fullPrice}
-          tag={course.language}
-          numberOfRatings={course.numberOfRatings}
-          id={course.courseId}
-          courseDuration={course.courseDuration}
-          lastUpdated={course.lastUpdated}
-          mainDescription={course.mainDescription}
-          secondDescriptions={course.secondDescriptions}
+        key={course.courseId}
+        course_img={course.course_img}
+        courseName={course.courseName}
+        teacherName={course.teacherName}
+        rating={course.rating}
+        fullPrice={course.fullPrice}
+        language={course.language}
+        numberOfRatings={course.numberOfRatings}
+        courseId={course.courseId}
+        courseDuration={course.courseDuration}
+        lastUpdated={course.lastUpdated}
+        mainDescription={course.mainDescription}
+        secondDescriptions={course.secondDescriptions}
+        teacherId={course.teacherId}
+        numberOfStudents={course.numberOfStudents}
+        subtitlesLanguage={course.subtitlesLanguage}
+        discountPrice={course.discountPrice}
+        articlesNumber={course.articlesNumber}
+        downloadableResourcesNumber={course.downloadableResourcesNumber}
+        courseContent={course.courseContent}
+        requirements={course.requirements}
+        fullDescription={course.fullDescription}
+        category={course.category}
         />
       ))}
     </div>

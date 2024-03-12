@@ -247,5 +247,27 @@ export async function addNewCourse(req: Request, res: Response) {
   }
 }
 
+export async function getSearchedCoursesByName(req: Request, res: Response) {
+  try {
+    console.log("getSearchedCoursesByName started")
+    const searchString = req.params.name;
+    console.log("your search string baby!" , searchString)
+    const courses = await Course.find({
+      courseName: { $regex: new RegExp(searchString, "i") },
+    });
+    if (!courses.length) {
+      throw new Error("No courses found matching the search criteria.");
+    }
+    console.log(courses.length)
+    res.status(200).send({ ok: true, courses });
+  } catch (error) {
+    res.status(500).send({
+      ok: false,
+      message: "Error in function getSearchedCoursesByName in courseCont!",
+    });
+    console.error("Error fetching courses:", error);
+  }
+}
+
 
 

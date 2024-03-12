@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 //UI
@@ -18,6 +18,7 @@ import { getUserWishlistCourses } from "../../../api/userApi/usersAPI";
 import NavMenu from "../NavMenu";
 import { User } from "../../util/interfaces";
 import { CourseProps } from "../Courses/Course";
+import { getSearchedCoursesByName } from "../../../api/coursesApi";
 
 const NavBar = () => {
   //initials
@@ -26,8 +27,7 @@ const NavBar = () => {
   //useStates
   const [glassColor, setGlassColor] = useState<Boolean>(false);
   const [search, setSearch] = useState<string>("");
-  // TODO: write regex/search function
-
+  const [searched, setSearched] = useState<CourseProps[] | []>([]);
   const [user, setUser] = useState<User>();
   const [isUser, setIsUser] = useState<boolean>(false);
   const [isInstructor, setIsInstructor] = useState<boolean>(false);
@@ -35,6 +35,9 @@ const NavBar = () => {
   const [wishlistCourses, setWishlistCourses] = useState<CourseProps[]>([]);
   const isUserRedux = useSelector(isUserSelector);
   const userRedux = useSelector(userSelector);
+  const [showSearch,setShowSearch] = useState<boolean>(false)
+  const searchRef = useRef(null);
+
 
   //useEffects
 
@@ -42,6 +45,37 @@ const NavBar = () => {
   useEffect(() => {
     setIsUser(isUserRedux);
   }, [isUserRedux]);
+
+  useEffect(() => {
+    console.log(searched);
+  }, [searched]);
+
+  useEffect(() => {
+    const handleClickOutside = (event:any) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowSearch(false);
+      }
+    };
+  
+    document.addEventListener("mousedown", handleClickOutside);
+  
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(async () => {
+      if (search.trim() !== "") {
+        const courses = await getSearchedCoursesByName(search);
+        setSearched(courses.courses);
+      } else {
+        setSearched([]);
+      }
+    }, 300);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [search]);
 
   useEffect(() => {
     if (search?.length > 0) {
@@ -60,7 +94,10 @@ const NavBar = () => {
   }, [userRedux]);
 
   useEffect(() => {
-    
+    setShowSearch(true)
+  },[searched])
+
+  useEffect(() => {
     if (user && user.wishlist) {
       setWishlist(user.wishlist);
       setTimeout(() => {
@@ -70,22 +107,23 @@ const NavBar = () => {
   }, [user?.wishlist]);
 
   useEffect(() => {
-    
     setTimeout(() => {
       getWishlistCourses();
     }, 2000);
   }, [wishlist]);
 
   useEffect(() => {
-    
     setTimeout(() => {
       getWishlistCourses();
     }, 2000);
   }, [wishlistCourses]);
 
-
-
   //functions
+
+  const searchedClicked = (id: number) => {
+    setShowSearch(false);
+    navigate(`/course-page/${id}`)
+  }
 
   const logoutUser = async () => {
     const response = await logOut();
@@ -163,19 +201,46 @@ const NavBar = () => {
                     className="w-full h-full placeholder:text-Udemygray-300 bg-Udemygray-100 border-0 active:border-none outline-none text-Udemygray-500 tracking-tight"
                     type="text"
                   />
+                  {showSearch && (
+                    <div  ref={searchRef} className="absolute h-fit max-h-96 overflow-y-scroll top-16 sm:w-[30%] md:w-[30%] sm:left-48 left-[15rem] md:left-[15rem] lg:w-[50%] bg-white pl-2">
+                      {searched.map((course) => (
+                        <div
+                          className=" w-full h-16 flex flex-row items-center justify-start gap-4 p-2 hover:bg-Udemygray-100 cursor-pointer"
+                          key={course.courseId}
+                          onClick={() => searchedClicked(course.courseId)}
+                        >
+                          <img
+                            className=" h-10 w-10"
+                            src={course.course_img}
+                            alt=""
+                          />
+                          <div className=" flex flex-col items-start justify-start w-fit h-full">
+                            <h1 className=" font-bold text-[1rem]">{course.courseName}</h1>
+                            <div className=" flex flex-row items-start justify-start w-fit h-fit">
+                              <h2 className=" font-bold text-gray-500 text-[0.75rem]">Course</h2>
+                              <h2 className=" text-gray-500 text-[0.75rem] ml-2">{course.teacherName}</h2>
+
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </form>
               </div>
               <div className=" h-full w-32 flex flex-col justify-center items-center">
-                {
-                  user?.isTeacher ? (
-                    <a
-                      className=" text-Udemygray-500 hover:text-Udemyblue-300  text-[0.9rem] tracking-tight ml-12"
-                      href="/instructor-page"
-                    >
-                      Instructor
-                    </a>
-                  ) : (
-                    <div onClick={() => navigate("/teach/landing")} className=" flex flex-col group">
+                {user?.isTeacher ? (
+                  <a
+                    className=" text-Udemygray-500 hover:text-Udemyblue-300  text-[0.9rem] tracking-tight ml-12"
+                    href="/instructor-page"
+                  >
+                    Instructor
+                  </a>
+                ) : (
+                  <div
+                    onClick={() => navigate("/teach/landing")}
+                    className=" flex flex-col group"
+                  >
                     <a
                       className=" text-Udemygray-500 hover:text-Udemyblue-300  text-[0.9rem] tracking-tight"
                       href="/teach/landing"
@@ -183,18 +248,24 @@ const NavBar = () => {
                       Teach on Udemy
                     </a>
                     <div className="absolute scale-0 group-hover:scale-100 transition-all ease-in-out w-[18rem] p-4 right-[20rem] h-[11rem] bg-white border border-gray-500 top-[4.6rem] flex flex-col justify-center items-end">
-                      <h1 className=" text-[1.14rem] font-bold leading-7 mb-3">Turn what you know into an opportunity and reach millions around the world.</h1>
-                      <button onClick={() => navigate("/teach/landing")} className=" bg-Udemygray-500 w-full h-[5rem] hover:bg-Udemygray-400 text-white">Learn more</button>
+                      <h1 className=" text-[1.14rem] font-bold leading-7 mb-3">
+                        Turn what you know into an opportunity and reach
+                        millions around the world.
+                      </h1>
+                      <button
+                        onClick={() => navigate("/teach/landing")}
+                        className=" bg-Udemygray-500 w-full h-[5rem] hover:bg-Udemygray-400 text-white"
+                      >
+                        Learn more
+                      </button>
                     </div>
-                    </div>
-                  )
-                }
+                  </div>
+                )}
               </div>
               <div className=" h-full w-32 flex flex-col justify-center items-center">
                 <a
                   className=" text-Udemygray-500 hover:text-Udemyblue-300  text-[0.9rem] tracking-tight"
                   href="/my-courses/learning"
-
                 >
                   My learning
                 </a>
@@ -269,11 +340,11 @@ const NavBar = () => {
                   </div>
                 )}
               </div>
-              <div className="w-12">
+              <a href="/cart" className="w-12">
                 <Badge variant="dot" badgeContent="" color="secondary">
                   <ShoppingCartOutlinedIcon className=" text-Udemygray-500 hover:text-Udemyblue-300 hover:cursor-pointer" />
                 </Badge>
-              </div>
+              </a>
               <div className="w-12">
                 <Badge variant="dot" badgeContent="" color="secondary">
                   <NotificationsOutlinedIcon className=" text-Udemygray-500 hover:text-Udemyblue-300 hover:cursor-pointer" />
@@ -340,7 +411,10 @@ const NavBar = () => {
                             My learning
                           </h3>
                         </div>
-                        <div onClick={() => navigate("/my-courses/learning")} className=" h-8 text-sm w-full flex flex-row justify-start items-between group">
+                        <div
+                          onClick={() => navigate("/my-courses/learning")}
+                          className=" h-8 text-sm w-full flex flex-row justify-start items-between group"
+                        >
                           <h3 className=" text-slate-900 cursor-pointer w-full hover:text-Udemyblue-300">
                             My Cart
                           </h3>

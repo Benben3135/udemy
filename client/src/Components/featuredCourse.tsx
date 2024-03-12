@@ -31,7 +31,7 @@ const FeaturedCourse = () => {
     debugger;
     const lastUpdatedDate = new Date(course!.lastUpdated);
     const options = { month: "long", year: "numeric" };
-    const formattedDate = lastUpdatedDate.toLocaleDateString("en-US", options);
+    const formattedDate = lastUpdatedDate.toLocaleDateString("en-US", { month: "long", year: "numeric" });
 
     setLastUpdatedString(formattedDate);
   };

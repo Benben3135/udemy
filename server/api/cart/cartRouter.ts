@@ -2,13 +2,15 @@ import express from "express";
 const cartRouter = express.Router();
 import {
     addCourseToCart,
-    getCartCourses
+    getCartCourses,
+    removeCourseFromCart
 } from "./cartCont";
 
 cartRouter
  
   .post("", addCourseToCart)
   .get("/:uid", getCartCourses)
+  .post("/remove",removeCourseFromCart)
   
   
   

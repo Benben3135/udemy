@@ -62,22 +62,7 @@ function App() {
   const [dataFetched, setDataFetched] = useState(false);
   const [isNavbar, setIsNavbar] = useState<boolean>(true);
   const [isFooter, setIsfooter] = useState<boolean>(true);
-  // useEffect(() => {
-  //   const fetchTeachers = async () => {
-  //     try {
-  //       const result = await getTeachers();
-  //       setTeachers(result);
-  //       setDataFetched(true);
-  //     } catch (error) {
-  //       console.error('Error fetching teachers:', error);
-  //     }
-  //   };
-
-  //   fetchTeachers();
-  // }, []);
-  // useEffect(() => {
-  //   dispathTeachers();
-  // }, [])
+  
 
   useEffect(() => {
     setIsNavbar(navbarRedux);

@@ -95,7 +95,7 @@ const CheckoutPage = () => {
 
   useEffect(() => {
     getCoursesFromDB();
-  }, [user]);
+  }, [user,cart]);
 
   useEffect(() => {
     console.log(cart);
@@ -103,7 +103,7 @@ const CheckoutPage = () => {
 
   const getCoursesFromDB = async () => {
     try {
-      const courses = await getCartCourses(user!.uid);
+      const courses = await getCartCourses(user!.uid); // Use optional chaining to prevent errors if user is null
       setCart(courses.courses);
     } catch (error) {
       console.error(error);
@@ -172,7 +172,7 @@ const CheckoutPage = () => {
         </div>
         <div className=" w-fit h-full flex items-center justify-between px-4">
           <button
-            onClick={() => navigate("/instructor-page")}
+            onClick={() => navigate("/cart")}
             className=" text-Udemyblue-300 font-bold mr-4 hover:text-Udemyblue-400"
           >
             cancel

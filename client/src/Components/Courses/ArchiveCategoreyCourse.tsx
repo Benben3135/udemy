@@ -104,18 +104,29 @@ const ArchiveCategoryCourse = () => {
             {courses.map((course) => (
               <Course
                 key={course.courseId}
-                img={course.course_img}
-                title={course.courseName}
-                teacher={course.teacherName}
+                course_img={course.course_img}
+                courseName={course.courseName}
+                teacherName={course.teacherName}
                 rating={course.rating}
-                price={course.fullPrice}
-                tag={course.language}
+                fullPrice={course.fullPrice}
                 numberOfRatings={course.numberOfRatings}
-                id={course.courseId}
+                courseId={course.courseId}
                 courseDuration={course.courseDuration}
                 lastUpdated={course.lastUpdated}
                 mainDescription={course.mainDescription}
-                secondDescriptions={course.secondDescriptions} uid={""}              />
+                secondDescriptions={course.secondDescriptions}
+                teacherId={course.teacherId}
+                numberOfStudents={course.numberOfStudents}
+                language={course.language}
+                subtitlesLanguage={course.subtitlesLanguage}
+                discountPrice={course.discountPrice}
+                articlesNumber= {course.articlesNumber}
+                downloadableResourcesNumber= {course.downloadableResourcesNumber}
+                courseContent={course.courseContent}
+                requirements={course.requirements}
+                fullDescription={course.fullDescription}
+                category={course.category}
+                />
             ))}
           </div>
 
