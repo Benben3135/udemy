@@ -33,7 +33,7 @@ const UserNavBar = ({ activeIndex, setActiveIndex }: Props) => {
               <h1 className='font-[700] text-4xl text-Udemywhite font-sans text-center'>{user.acronyms}</h1>
             </div>)}
             <div className='h-fit w-fit mt-3'>
-              <h1 className='font-bold'>{user.name}</h1>
+              <h1 className='font-bold'>{user.displayName}</h1>
             </div>
           </div>
           <div className='h-fit w-full mt-6'>

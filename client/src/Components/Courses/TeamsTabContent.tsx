@@ -7,8 +7,9 @@ interface TeamsTabContentProps {
   course: {
     fullPrice: number;
     discountPrice: number;
-    secondDescriptions: string[]
+    secondDescriptions: string[];
   };
+  handleLearnMoreClick: () => void;
 }
 
 const TeamsTabContent: React.FC<TeamsTabContentProps> = ({

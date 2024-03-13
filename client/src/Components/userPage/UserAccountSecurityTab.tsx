@@ -5,14 +5,12 @@ import { getAuth, updatePassword } from "firebase/auth";
 import { useEffect, useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import { useSelector } from "react-redux";
-import { sendNewImg } from "../../../api/userApi/usersAPI";
 import { userSelector } from "../../features/user/userSlice";
 import { User } from "../../util/interfaces";
 
 const UserAccountSecurityTab = () => {
   const userRedux = useSelector(userSelector);
   const [user, setUser] = useState<User>();
-  const [img, setImg] = useState<string>("");
   const [sucsess, setSucsess] = useState<Boolean>(false);
   const [warning, setWarning] = useState<Boolean>(false);
   const [newPassword, setNewPassword] = useState<string>("");
@@ -20,29 +18,10 @@ const UserAccountSecurityTab = () => {
 
 
 
-  const sendImgToDB = async () => {
-    const result = await sendNewImg(img, user!.uid);
-    if (result.ok) {
-      imgChanged();
-    } else {
-      imgChangedError();
-    }
-  };
-
   useEffect(() => {
     setUser(userRedux);
   }, [userRedux]);
 
-
-  const imgChanged = () => {
-    setWarning(false);
-    setSucsess(true);
-    window.location.reload();
-  };
-
-  const imgChangedError = () => {
-    setWarning(true);
-  };
 
   const changePassword = async () => {
     if (newPassword === reNewPassword) {

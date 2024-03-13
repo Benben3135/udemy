@@ -35,7 +35,7 @@ const MainPage = () => {
   }, [isUserRedux]);
 
   useEffect(() => {
-    const firstName = getFirstName(userRedux.name);
+    const firstName = getFirstName(userRedux.displayName);
     setUserName(firstName!);
   }, [userRedux]);
 

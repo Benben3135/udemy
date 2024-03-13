@@ -19,7 +19,7 @@ const PublicProfile = () => {
           <div className=" w-full h-[8.5rem] bg-Udemygray-500 flex flex-row justify-start items-center">
             <div className=" mx-auto px-6  max-w-[61.2rem] min-w-[50rem] flex flex-row items-start justify-start">
               <h1 className=" text-white text-[2.2rem] font-bold">
-                {user?.name}
+                {user?.displayName}
               </h1>
             </div>
           </div>

@@ -46,7 +46,7 @@ export const Course = ({
   secondDescriptions,
   courseDuration,
   course_img,
-  fullPrice
+  fullPrice,
 
 }: CourseProps) => {
   const [bestIds, setBestIds] = useState<number[]>([]);

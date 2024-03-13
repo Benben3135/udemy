@@ -61,7 +61,7 @@ const CreateCoursePage = () => {
       setIndex(4);
       const data = await addCourse(
         user!.uid,
-        user!.name,
+        user!.displayName,
         name,
         mainDes,
         secondDescriptions,

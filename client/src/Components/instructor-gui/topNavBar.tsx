@@ -77,8 +77,8 @@ const topNavBar = () => {
                     >
                       {" "}
                       <h1 className=" font-bold text-slate-800 leading-[1.3rem] hover:text-Udemyblue-300">
-                        {user?.name.split(" ")[0]} <br />{" "}
-                        {user?.name.split(" ")[1]}
+                        {user?.displayName.split(" ")[0]} <br />{" "}
+                        {user?.displayName.split(" ")[1]}
                       </h1>
                       <h2 className=" font-extralight text-xs">
                         {user?.email}

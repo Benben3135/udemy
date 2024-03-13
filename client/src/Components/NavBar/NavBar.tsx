@@ -136,8 +136,8 @@ const NavBar = () => {
   };
 
   const getWishlistCourses = async () => {
-    const courses = await getUserWishlistCourses(user!.uid);
-    const newWishlistCourses = [...courses.wishlistCourses]; // Create a new array
+    const courses = await getUserWishlistCourses(userRedux.uid);
+    const newWishlistCourses = [...courses.wishlistCourses];
     setWishlistCourses(newWishlistCourses);
   };
 
@@ -159,7 +159,7 @@ const NavBar = () => {
                 <button className="text-[0.9rem] h-[54px] pb-10  leading-normal font-normal text-gray-700 font-sans hover:text-Udemyblue-300 pr-3 flex-shrink-0 group-hover:text-Udemyblue-300">
                   Categories
                   <div className="absolute z-50 w-72 top-20 h-[38rem] bg-white border-Udemygray-200 border-[1.4px] shadow-lg scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all ease-in hover:scale-100">
-                    <div className="h-5/6 w-full flex flex-col items-center justify-senter">
+                    <div className="h-5/6 w-full flex flex-col items-center justify-center">
                       {categories.map((selectedCategory) => (
                         <div
                           key={selectedCategory}
@@ -399,8 +399,8 @@ const NavBar = () => {
                         >
                           {" "}
                           <h1 className=" font-bold text-slate-800 leading-[1.3rem] hover:text-Udemyblue-300">
-                            {user?.name.split(" ")[0]} <br />{" "}
-                            {user?.name.split(" ")[1]}
+                            {user?.displayName.split(" ")[0]} <br />{" "}
+                            {user?.displayName.split(" ")[1]}
                           </h1>
                           <h2 className=" font-extralight text-xs">
                             {user?.email}

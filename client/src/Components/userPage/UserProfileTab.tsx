@@ -20,7 +20,6 @@ const UserProfileTab = () => {
   const [linkedin, setLinkedin] = useState<string>("");
   const [youtube, setYoutube] = useState<string>("");
 
-
   useEffect(() => {
     setUser(userRedux);
   }, [userRedux]);
@@ -42,7 +41,6 @@ const UserProfileTab = () => {
     }
   }, [bio]);
 
-
   return (
     <div className=" border h-full w-[56.2rem]">
       <div className=" w-full h-24 border-b flex flex-col items-center justify-center">
@@ -53,10 +51,10 @@ const UserProfileTab = () => {
         <div className="h-full w-full flex flex-col items-start justify-start max-w-[40rem] gap-4 ">
           <h1 className=" font-bold text-slate-800">Basics</h1>
           <div className=" w-full h-12 border border-black pl-4 pt-2">
-            {user?.name?.split(" ")[0]}
+            {user?.displayName?.split(" ")[0]}
           </div>
           <div className=" w-full h-12 border border-black pl-4 pt-2">
-            {user?.name?.split(" ")[1]}
+            {user?.displayName?.split(" ")[1]}
           </div>
           <div className=" w-full h-12 border border-black pl-4 pt-2 flex flex-row items-start justify-start">
             <input
@@ -77,6 +75,7 @@ const UserProfileTab = () => {
           </p>
           <div className=" w-full h-fit flex flex-col justify-start items-start mb-14">
             <ReactQuill
+              //@ts-ignore
               onChange={(content, delta, source, editor) =>
                 setBio(editor.getContents())
               }
@@ -162,7 +161,23 @@ const UserProfileTab = () => {
           <p className=" text-xs text-slate-700">
             Input your Youtube username (e.g. johnsmith).
           </p>
-          <div onClick={() => addUserInfo(user!.uid, headline, bio.ops[0].insert, website, twitter, facebook, linkedin, youtube)} className=" bg-Udemygray-500 w-[5.4rem] h-12 flex flex-row justify-center items-center font-bold text-white mt-8 cursor-pointer">Save</div>
+          <div
+            onClick={() =>
+              addUserInfo(
+                user!.uid,
+                headline,
+                bio.ops[0].insert,
+                website,
+                twitter,
+                facebook,
+                linkedin,
+                youtube
+              )
+            }
+            className=" bg-Udemygray-500 w-[5.4rem] h-12 flex flex-row justify-center items-center font-bold text-white mt-8 cursor-pointer"
+          >
+            Save
+          </div>
         </div>
       </div>
     </div>

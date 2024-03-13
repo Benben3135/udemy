@@ -10,36 +10,34 @@ interface PersonalTabContentProps {
   handleLearnMoreClick: () => void;
   handleAddToCart: (course: {
     courseId: number;
-    uid: string;
     courseName: string;
     teacherName: string;
     fullPrice: number;
     discountPrice: number;
   }) => void;
   course: {
-    uid: string;
-    courseId: number;
-    teacherId: number;
-    courseName: string;
-    teacherName: string;
-    mainDescription: string;
-    rating: number;
-    numberOfRatings: number;
-    numberOfStudents: number;
-    lastUpdated?: Date;
-    language: string;
-    subtitlesLanguage: { type: string; default: "English" };
-    fullPrice: number;
-    discountPrice: number;
-    secondDescriptions: string[];
-    courseDuration: number;
-    articlesNumber: number;
-    downloadableResourcesNumber: number;
-    courseContent: string;
-    requirements: [string];
-    fullDescription: string;
-    course_img: string;
-    category: string;
+    courseId: number,
+  teacherId: string,
+  courseName: string,
+  teacherName: string,
+  mainDescription: string,
+  rating: number,
+  numberOfRatings: number,
+  numberOfStudents: number,
+  lastUpdated: Date,
+  language: string,
+  subtitlesLanguage: string,
+  fullPrice: number,
+  discountPrice: number,
+  secondDescriptions: string[],
+  courseDuration: number,
+  articlesNumber: number,
+  downloadableResourcesNumber: number,
+  courseContent: string,
+  requirements: string[],
+  fullDescription: string,
+  course_img: string,
+  category: string,
   };
 }
 
