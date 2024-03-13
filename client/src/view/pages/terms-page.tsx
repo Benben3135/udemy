@@ -13,13 +13,6 @@ const termsPage = () => {
     const getHref = (href:string) => {
         setHref(href)
     }
-    useEffect(() => {
-        console.log(href)
-    },[href])
-
-    useEffect(() => {
-      console.log("the initial href baby is!" , href)
-    },[])
 
   return (
     <div className=" h-fit w-screen flex flex-row items-start justify-start mb-8">

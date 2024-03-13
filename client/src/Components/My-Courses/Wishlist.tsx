@@ -69,9 +69,6 @@ const Wishlist = () => {
     setRatingRounded(ratings);
   };
 
-  useEffect(() => {
-    console.log("your result courses are:", resultCourses);
-  }, [resultCourses]);
 
   const getBestSeller = async () => {
     const bestID: [] = await getBestSellerCourses();

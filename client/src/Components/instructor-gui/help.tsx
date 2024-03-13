@@ -2,9 +2,7 @@ import { HelpCircle, MessageSquareText, User } from 'lucide-react'
 import React, { useEffect } from 'react'
 
 const Help = () => {
-    useEffect(() => {
-      console.log("help page")
-    },[])
+    
   return (
     <div className=' w-screen h-screen flex flex-col items-start justify-between'>
         <div className=' h-fit min-h-96 mx-auto mt-[5rem] w-[74%] flex flex-col items-start justify-start'>

@@ -45,9 +45,7 @@ const NavBar = () => {
     setIsUser(isUserRedux);
   }, [isUserRedux]);
 
-  useEffect(() => {
-    console.log(searched);
-  }, [searched]);
+
 
   useEffect(() => {
     const handleClickOutside = (event: any) => {

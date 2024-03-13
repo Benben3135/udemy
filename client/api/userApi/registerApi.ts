@@ -36,5 +36,4 @@ export const sendUserDB = async (
     email,
   });
 
-  console.log("result from sendUserDB", result);
 };

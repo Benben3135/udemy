@@ -7,7 +7,6 @@ import { Course } from "../../../db/dbStart";
 export async function getAllPurchasedCourses(req: Request, res: Response) {
   try {
     const { uid } = req.params;
-    console.log("getAllPurchasedCourses", uid);
 
     // Find all purchased courses for the user
     let purchased = await purchasedModel.findOne({ uid: uid });
@@ -40,7 +39,6 @@ export async function getAllPurchasedCourses(req: Request, res: Response) {
 export async function addAllPurchsedCourses(req: Request, res: Response) {
   try {
     const { uid, courseId } = req.body;
-    console.log("purchased got your info!", uid, courseId)
     let purchased = await purchasedModel.findOne({ uid: uid });
 
     // אם אין סל קיים, ניצור אחד

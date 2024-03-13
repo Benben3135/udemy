@@ -46,7 +46,6 @@ export async function getOneCourseById(req: Request, res: Response) {
 export async function getOneCourseByName(req: Request, res: Response) {
   try {
     const new_name = req.params.name;
-    console.log(new_name)
     const course = await Course.findOne({
       courseName: { $regex: new RegExp(new_name, "i") },
     });
@@ -149,11 +148,9 @@ export async function getAllCoursesByInstructorName(
 ) {
   try {
     const {instructorName} = req.params;
-    console.log(instructorName)
     const courses = await Course.find({
       teacherName: { $regex: new RegExp(instructorName, "i") },
     });
-    console.log(courses)
     res.status(200).send({ ok: true, courses });
   } catch (error) {
     res.status(500).send({
@@ -252,16 +249,13 @@ export async function addNewCourse(req: Request, res: Response) {
 
 export async function getSearchedCoursesByName(req: Request, res: Response) {
   try {
-    console.log("getSearchedCoursesByName started")
     const searchString = req.params.name;
-    console.log("your search string baby!" , searchString)
     const courses = await Course.find({
       courseName: { $regex: new RegExp(searchString, "i") },
     });
     if (!courses.length) {
       throw new Error("No courses found matching the search criteria.");
     }
-    console.log(courses.length)
     res.status(200).send({ ok: true, courses });
   } catch (error) {
     res.status(500).send({

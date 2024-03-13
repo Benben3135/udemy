@@ -20,9 +20,6 @@ const UserNavBar = ({ activeIndex, setActiveIndex }: Props) => {
     setUser(userRedux);
   }, [userRedux]);
 
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
 
 
   return (

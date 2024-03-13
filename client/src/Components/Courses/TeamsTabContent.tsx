@@ -27,7 +27,6 @@ const TeamsTabContent: React.FC<TeamsTabContentProps> = ({
   };
 
   const renderSecondDescriptions = (secondDescriptions: string[]) => {
-    console.log(course);
     return secondDescriptions.slice(0, 4).map((description, index) => (
       <div key={index} className="flex flex-row justify-start items-start w-full text-sm font-normal text-slate-700 gap-4">
         <Check className="min-w-4" size="16px" color="gray" />

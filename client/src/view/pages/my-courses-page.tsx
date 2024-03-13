@@ -32,7 +32,6 @@ const MyCoursesPage = () => {
       if (currentPage === "tools") {
         setIndex(3);
       }
-      console.log("Your current page:", currentPage);
     }
   }, [currentPage]);
 
@@ -52,7 +51,6 @@ const MyCoursesPage = () => {
       if (currentPage === "tools") {
         setIndex(3);
       }
-      console.log("Your current page:", currentPage);
     }
   }, []);
 

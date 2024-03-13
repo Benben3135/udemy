@@ -9,12 +9,10 @@ const SingleCoursePage = () => {
   const [course, setCourse] = useState<CourseProps | null>(null);
 
   useEffect(() => {
-    console.log("courseId:", courseId);
     const fetchCourse = async () => {
       try {
         if (courseId) {
           const courseData = await getCourseById(Number(courseId));
-          console.log("courseData:", courseData);
           setCourse(courseData);
         }
       } catch (error) {

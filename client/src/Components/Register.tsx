@@ -33,13 +33,8 @@ const Register = () => {
     }
   }, [password]);
 
-  useEffect(() => {
-    console.log(isChecked)
-  }, [isChecked])
 
-  useEffect(() => {
-    console.log("pass strong", passStrong);
-  }, [passStrong]);
+
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -48,8 +43,6 @@ const Register = () => {
     if (user) {
       setLoading(false);
       navigate("/login-page");
-
-      console.log("Registration successful!");
     } else {
       console.error("Registration failed.");
     }

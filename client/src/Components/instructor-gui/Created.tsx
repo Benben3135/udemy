@@ -29,7 +29,6 @@ const Courses = () => {
   }, [user]);
 
   useEffect(() => {
-    console.log("created are!", created);
   }, [created]);
 
   useEffect(() => {
@@ -39,9 +38,7 @@ const Courses = () => {
   }, [created]);
 
   const getPurchasedCourses = async () => {
-    console.log("your display name is:", user?.name);
     const courses = await getAllCoursesByInstructor(user!.name);
-    console.log(courses);
     const createdCourses: CourseProps[] = courses;
     setCreated(createdCourses);
   };

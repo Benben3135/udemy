@@ -97,9 +97,6 @@ const CheckoutPage = () => {
     getCoursesFromDB();
   }, [user,cart]);
 
-  useEffect(() => {
-    console.log(cart);
-  }, [cart]);
 
   const getCoursesFromDB = async () => {
     try {
@@ -115,7 +112,6 @@ const CheckoutPage = () => {
     const stripe = await stripePromise;
 
     try {
-      console.log("current cart" , cart)
 
       const response = await fetch('http://localhost:4000/create-checkout-session', {
 

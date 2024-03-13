@@ -26,9 +26,6 @@ const Learning = () => {
     setUser(userRedux);
   }, [userRedux]);
 
-  useEffect(() => {
-    console.log("purchased are!" , purchased)
-  },[purchased])
 
   useEffect(() => {
     if (user && user.uid) {
@@ -73,9 +70,7 @@ const Learning = () => {
     setRatingRounded(ratings);
   };
 
-  useEffect(() => {
-    console.log("your result courses are:", resultCourses);
-  }, [resultCourses]);
+
 
   const getBestSeller = async () => {
     const bestID: [] = await getBestSellerCourses();

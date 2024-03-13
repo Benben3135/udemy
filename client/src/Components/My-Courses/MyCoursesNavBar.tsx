@@ -24,9 +24,6 @@ const MyCoursesNavBar = ({index}:MyCoursesNavBarProps) => {
     }
   }, [activeIndex]);
 
-  useEffect(() => {
-    console.log("index is:" , index)
-  },[])
 
   return (
     <div className=" w-full h-[10.5rem] bg-Udemygray-500 flex flex-row items-end justify-center">

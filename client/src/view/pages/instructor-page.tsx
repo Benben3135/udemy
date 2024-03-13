@@ -20,9 +20,6 @@ const instructorPage = () => {
     dispatch(noNavbar())
   },[])
 
-  useEffect(() => {
-    console.log(active)
-  },[active])
 
   return (
     <div className=' h-fit min-h-screen'>

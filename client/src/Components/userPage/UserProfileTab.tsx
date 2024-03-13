@@ -46,9 +46,6 @@ const UserProfileTab = () => {
     }
   }, [bio]);
 
-  useEffect(() => {
-    console.log("bioCon is:", bioCon);
-  }, [bioCon]);
 
   return (
     <div className=" border h-full w-[56.2rem]">

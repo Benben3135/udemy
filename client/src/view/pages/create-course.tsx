@@ -17,7 +17,6 @@ const CreateCoursePage = () => {
   const userRedux: User = useSelector(userSelector);
   useEffect(() => {
     setUser(userRedux);
-    console.log(userRedux);
   }, [userRedux]);
 
   const navigate = useNavigate();
@@ -89,9 +88,7 @@ const CreateCoursePage = () => {
     }
   }, [secondDescriptions]);
 
-  useEffect(() => {
-    console.log(secondDescriptions);
-  }, [secondDescriptions]);
+
 
   useEffect(() => {
     if (name.length > 4) {
@@ -100,10 +97,6 @@ const CreateCoursePage = () => {
       setContinue(false);
     }
   }, [name]);
-
-  useEffect(() => {
-    console.log(selectedCategory);
-  }, [selectedCategory]);
 
   useEffect(() => {
     setCharNum(60 - name.length);

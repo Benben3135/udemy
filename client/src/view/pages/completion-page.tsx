@@ -42,7 +42,6 @@ const CompletionPage = () => {
 
   useEffect(() => {
     for (let course of cart) {
-      console.log("adding another one")
       addCourseToPurchasedDB(course.courseId);
     }
   }, [cart]);
@@ -51,9 +50,6 @@ const CompletionPage = () => {
     getCoursesFromDB();
   }, [user]);
 
-  useEffect(() => {
-    console.log(cart);
-  }, [cart]);
 
   useEffect(() => {
     getBestSeller();
@@ -67,14 +63,13 @@ const CompletionPage = () => {
 
   const addCourseToPurchasedDB = async (courseId:number) => {
     const response = await addPurchasedCourse(courseId, user!.uid)
-    console.log(response)
   }
 
   const UpdatedRecentlyCheck = () => {
     const updatedItems: number[] = []; // Define an array to hold updated items
     cart.forEach((item) => {
       if (hasMonthPassed(item.lastUpdated)) {
-        console.log("no!");
+        
       } else {
         updatedItems.push(item.courseId); // Add the item to the updatedItems array
       }

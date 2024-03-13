@@ -121,8 +121,6 @@ function App() {
     if (result) {
       const newImage = result.image;
       dispatch(setImg(newImage));
-    } else {
-      console.log("now testing false", result);
     }
   };
 

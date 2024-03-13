@@ -37,9 +37,6 @@ const UserAccountSecurityTab = () => {
     setUser(userRedux);
   }, [userRedux]);
 
-  useEffect(() => {
-    console.log(img);
-  }, [img]);
 
   const imgChanged = () => {
     setWarning(false);

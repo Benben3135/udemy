@@ -72,7 +72,6 @@ export const TeacherPage = () => {
       try {
         if (!teachersName) throw new Error(`Teacher's name is unrecognized`);
         const result = await getTeacher(teachersName);
-        console.log(result);
         setTeacher(result);
       } catch (error) {
         console.error("Error fetching teacher:", error);

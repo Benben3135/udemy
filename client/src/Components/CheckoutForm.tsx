@@ -17,17 +17,14 @@ export default function CheckoutForm() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    console.log("useeffect work");
     if (!stripe) {
       return;
     }
 
-    console.log("useeffect work 2");
 
     const clientSecret = new URLSearchParams(window.location.search).get(
       "payment_intent_client_secret"
     );
-    console.log("your clirnt secret:", clientSecret);
 
     if (!clientSecret) {
       return;
@@ -55,7 +52,6 @@ export default function CheckoutForm() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log("handle submit")
 
     if (!stripe || !elements) {
       return;

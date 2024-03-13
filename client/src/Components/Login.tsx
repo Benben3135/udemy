@@ -34,9 +34,7 @@ const Login = () => {
     }
   }, [tokenRedux]);
 
-  useEffect(() => {
-    console.log(token);
-  }, [token]);
+
 
   const loginUserWithEmailAndPassword = async () => {
     const result = await loginUserWithEmail(email, password);
@@ -45,7 +43,6 @@ const Login = () => {
       navigate("/");
     }
     else{
-      console.log("something went wrong darling!")
       setError(true)
     }
   };

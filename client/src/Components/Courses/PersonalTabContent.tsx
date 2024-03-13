@@ -52,12 +52,10 @@ const PersonalTabContent: React.FC<PersonalTabContentProps> = ({ handleLearnMore
   }, [userRedux]);
 
    const handleAddToCartInternal = async () => {
-    console.log("Adding to cart...");
     try {
       debugger
      
       await addCourseToCart(course.courseId, user?.uid || '');
-      console.log("Course added to cart successfully!");
     } catch (error) {
       console.error("Failed to add course to cart", error);
     }

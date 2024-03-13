@@ -2,7 +2,6 @@ import axios from "axios";
 export const getCoursesByMostViewing = async () => {
   try {
     const response = await axios.get(`/API/courses/get5CoursesByMostViewing`);
-    console.log(response.data.courses);
     return response.data.courses;
   } catch (error) {
     console.error(error);
@@ -12,7 +11,6 @@ export const getCoursesByMostViewing = async () => {
 export const getCoursesByMostRated = async () => {
   try {
     const response = await axios.get(`/API/courses/get5CoursesByMostRated`);
-    console.log(response.data.courses);
     return response.data.courses;
   } catch (error) {
     console.error(error);
@@ -27,7 +25,6 @@ export const getCoursesByRecentlySearched = async () => {
     const response = await axios.get(
       `/API/courses/get5CoursesByRecentlySearched/${recentlySearched}`
     );
-    console.log(response.data.courses);
     return response.data.courses;
   } catch (error) {
     console.error(error);
@@ -36,7 +33,6 @@ export const getCoursesByRecentlySearched = async () => {
 export const getMostRecentCoursesByCategory = async (selectedCategory: string) => {
   try {
     const response = await axios.get(`/API/courses/getMostRecentCourses/${selectedCategory}`);
-    console.log(response.data.courses);
     return response.data.courses;
   } catch (error) {
     console.error(error);
@@ -48,7 +44,6 @@ export const get5CoursesByCategory = async (selectedCategory: string) => {
     const response = await axios.get(
       `/API/courses/get5CoursesByCategory/${selectedCategory}`
     );
-    console.log(response.data.courses);
     return response.data.courses;
   } catch (error) {
     console.error(error);
@@ -60,7 +55,6 @@ export const getAllCoursesByCategory = async (selectedCategory: string) => {
       `/API/courses/getAllCoursesByCategory/${selectedCategory}`
       //                                       ^ Add a forward slash here
     );
-    console.log(response.data.courses);
     return response.data.courses;
   } catch (error) {
     console.error(error);

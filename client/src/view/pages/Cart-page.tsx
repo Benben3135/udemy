@@ -53,13 +53,6 @@ const CartPage = () => {
     getCoursesFromDB();
   }, [user,cart]);
 
-  useEffect(() => {
-    console.log(cart);
-  }, [cart]);
-
-  useEffect(() => {
-    console.log("updatedRecently is:", updatedRecently);
-  }, [updatedRecently]);
 
   const getCoursesFromDB = async () => {
     try {
@@ -115,7 +108,6 @@ const CartPage = () => {
     const updatedItems: number[] = []; // Define an array to hold updated items
     cart.forEach((item) => {
       if (hasMonthPassed(item.lastUpdated)) {
-        console.log("no!");
       } else {
         updatedItems.push(item.courseId); // Add the item to the updatedItems array
       }
