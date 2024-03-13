@@ -1,4 +1,3 @@
-import TabsComponent from "./TabsComponent";
 
 const CoursesTabs = ({ categoriesNavBar }: any) => {
   return <div></div>;

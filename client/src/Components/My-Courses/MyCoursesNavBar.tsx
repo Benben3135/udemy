@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { MyCoursesCategories } from "../My-Courses/MyCoursesCategories";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { MyCoursesCategories } from "../My-Courses/MyCoursesCategories";
 
 interface MyCoursesNavBarProps{
   index: number

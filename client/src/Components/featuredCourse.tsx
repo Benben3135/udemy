@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { Dot, Star } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getMostPopularCourse } from "../../api/coursesApi";
 import { CourseProps } from "./Courses/Course";
-import { Dot, Star } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 
 const FeaturedCourse = () => {
   const [course, setCourse] = useState<CourseProps>();

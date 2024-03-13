@@ -1,11 +1,10 @@
-import React from "react";
+import Badge from "@mui/material/Badge";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logOut } from "../../../api/userApi/logInApi";
 import { userSelector } from "../../features/user/userSlice";
 import { User } from "../../util/interfaces";
-import Badge from "@mui/material/Badge";
-import { logOut } from "../../../api/userApi/logInApi";
 
 const topNavBar = () => {
   const navigate = useNavigate();

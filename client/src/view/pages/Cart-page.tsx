@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { User } from "../../util/interfaces";
-import { useSelector } from "react-redux";
-import { userSelector } from "../../features/user/userSlice";
-import { getCartCourses } from "../../../api/carts/carts";
-import Course, { CourseProps } from "../../Components/Courses/Course";
-import { Divider, Skeleton } from "@mui/material";
-import { getBestSellerCourses } from "../../../api/coursesApi";
-import { Dot, Star } from "lucide-react";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import { addCourseWishlist } from "../../../api/coursesApi";
-import { removeCourseFromCart } from "../../../api/carts/carts";
+import { Divider, Skeleton } from "@mui/material";
+import { Dot, Star } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getCartCourses, removeCourseFromCart } from "../../../api/carts/carts";
+import { addCourseWishlist, getBestSellerCourses } from "../../../api/coursesApi";
+import { CourseProps } from "../../Components/Courses/Course";
+import { userSelector } from "../../features/user/userSlice";
+import { User } from "../../util/interfaces";
 
 const CartPage = () => {
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
-import React, { FC, useState } from 'react';
-import {termsCategories} from "../../util/categories"
+import { FC, useState } from 'react';
+import { termsCategories } from "../../util/categories";
 
 interface TermsNavBarProps {
     sendHref: (href: string) => void;

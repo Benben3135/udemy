@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Course, { CourseProps } from "../Courses/Course";
 import { getCourseById } from "../../../api/coursesApi";
+import { CourseProps } from "../Courses/Course";
 import CourseComponent from "./CourseComponent";
 
 const SingleCoursePage = () => {

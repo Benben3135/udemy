@@ -1,8 +1,6 @@
 // src/components/TwoColumnComponent.js
-import React from "react";
-import TestimonialsSlider from "./TestimonialsSlider";
-import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import TestimonialsSlider from "./TestimonialsSlider";
 
 
 const BannerUdemy = () => {

@@ -1,13 +1,13 @@
+import CheckIcon from "@mui/icons-material/Check";
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
+import { deleteUser, getAuth } from "firebase/auth";
 import { useEffect, useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { userSelector } from "../../features/user/userSlice";
 import { User } from "../../util/interfaces";
-import { deleteUser , getAuth } from "firebase/auth";
-import Alert from "@mui/material/Alert";
-import Stack from "@mui/material/Stack";
-import CheckIcon from "@mui/icons-material/Check";
 
 
 const UserCloseTab = () => {

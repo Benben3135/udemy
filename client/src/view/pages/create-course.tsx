@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { noNavbar } from "../../features/user/navbarSlice";
-import { noFooter } from "../../features/user/footerSlice";
-import {} from "../../../public/images/Udemy-Logo.png";
-import { useNavigate } from "react-router-dom";
-import { categories } from "../../util/categories";
 import { Check } from "lucide-react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { addCourse } from "../../../api/coursesApi";
+import { } from "../../../public/images/Udemy-Logo.png";
+import { noFooter } from "../../features/user/footerSlice";
+import { noNavbar } from "../../features/user/navbarSlice";
 import { userSelector } from "../../features/user/userSlice";
-import { useSelector } from "react-redux";
+import { categories } from "../../util/categories";
 import { User } from "../../util/interfaces";
 
 const CreateCoursePage = () => {

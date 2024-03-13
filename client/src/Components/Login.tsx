@@ -1,19 +1,15 @@
-import React from "react";
 import { Divider } from "@mui/material";
-import Checkbox from "@mui/material/Checkbox";
+import { AlertOctagon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../../api/userApi/registerApi";
-import { UseSelector, useDispatch, useSelector } from "react-redux";
-import { userSelector } from "../features/user/userSlice";
 import {
-  loginUserWithPopUp,
   loginUserWithEmail,
+  loginUserWithPopUp,
 } from "../../api/userApi/logInApi";
 import { loginLogos } from "../../public/images/loginLogos/loginLogos";
-import { UseDispatch } from "react-redux";
 import { thereUser } from "../features/user/isUserSlice";
-import { AlertOctagon } from "lucide-react";
+import { userSelector } from "../features/user/userSlice";
 
 const Login = () => {
   const [token, setToken] = useState<boolean>(false);

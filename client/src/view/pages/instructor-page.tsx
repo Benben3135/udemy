@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import SideNavBar from "../../Components/instructor-gui/SideNavBar"
-import {noNavbar} from "../../features/user/navbarSlice"
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import Courses from "../../Components/instructor-gui/Courses"
-import TopNavBar from "../../Components/instructor-gui/topNavBar"
-import Help from "../../Components/instructor-gui/help"
 import Created from "../../Components/instructor-gui/Created"
+import SideNavBar from "../../Components/instructor-gui/SideNavBar"
+import Help from "../../Components/instructor-gui/help"
+import TopNavBar from "../../Components/instructor-gui/topNavBar"
+import { noNavbar } from "../../features/user/navbarSlice"
 
 const instructorPage = () => {
 

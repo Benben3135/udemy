@@ -1,5 +1,4 @@
 import { HelpCircle, MessageSquareText, User } from 'lucide-react'
-import React, { useEffect } from 'react'
 
 const Help = () => {
     

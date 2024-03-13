@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { isUserSelector } from '../../features/user/isUserSlice';
-import { userSelector } from '../../features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { userSelector } from '../../features/user/userSlice';
 import { User } from '../../util/interfaces';
 import { userPageCategories } from './userPageCategories';
 

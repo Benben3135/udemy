@@ -1,6 +1,7 @@
+import { Dot, Star } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router";
-import { getAllCoursesByInstructor } from "../../api/coursesApi";
+import { useNavigate, useParams } from "react-router";
+import { getAllCoursesByInstructor, getBestSellerCourses } from "../../api/coursesApi";
 import {
   getNumberOfCourses,
   getNumberOfReviews,
@@ -8,11 +9,7 @@ import {
   getTeacher,
 } from "../../api/teachersAPI";
 import { CourseProps } from "../Components/Courses/Course";
-import Courses from "../Components/Courses/Courses";
 import { User } from "../util/interfaces";
-import NotFound from "./pages/not-found";
-import { Dot, Heart, Star } from "lucide-react";
-import { getBestSellerCourses } from "../../api/coursesApi";
 
 
 export const TeacherPage = () => {

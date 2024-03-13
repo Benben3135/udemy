@@ -1,6 +1,6 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import categoryImagesData from "../util/categories";
-import { Link, useNavigate } from "react-router-dom";
 
 
 interface CategoryImage {

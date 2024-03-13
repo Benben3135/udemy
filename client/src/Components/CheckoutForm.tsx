@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
 import {
   PaymentElement,
-  useStripe,
   useElements,
-  CardElement,
+  useStripe
 } from "@stripe/react-stripe-js";
-import "../Components/styles/stripeStyle.css";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../Components/styles/stripeStyle.css";
 
 export default function CheckoutForm() {
   const navigate = useNavigate();

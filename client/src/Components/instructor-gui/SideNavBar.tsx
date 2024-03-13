@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import {} from "../../../public/images/Untitled_design__24_-removebg-preview.png";
 import { GraduationCap, HelpCircle, MonitorPlay } from "lucide-react";
+import { useState } from "react";
+import { } from "../../../public/images/Untitled_design__24_-removebg-preview.png";
 
 interface SideNavBarProps {
     active: number;

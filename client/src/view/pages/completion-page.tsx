@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import Course, { CourseProps } from "../../Components/Courses/Course";
-import { User } from "../../util/interfaces";
-import { userSelector } from "../../features/user/userSlice";
-import { addPurchasedCourse, getCartCourses } from "../../../api/carts/carts";
 import { Divider, Skeleton } from "@mui/material";
-import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import { Check, Dot, Star } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addPurchasedCourse, getCartCourses } from "../../../api/carts/carts";
 import { getBestSellerCourses } from "../../../api/coursesApi";
+import { CourseProps } from "../../Components/Courses/Course";
+import { userSelector } from "../../features/user/userSlice";
+import { User } from "../../util/interfaces";
 
 const CompletionPage = () => {
   const navigate = useNavigate();

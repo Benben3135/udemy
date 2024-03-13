@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { Dot, Heart, Search, Star } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addCourseWishlist, getBestSellerCourses } from "../../../api/coursesApi";
+import { getUserWishlistCourses } from "../../../api/userApi/usersAPI";
 import { userSelector } from "../../features/user/userSlice";
 import { User } from "../../util/interfaces";
 import { CourseProps } from "../Courses/Course";
-import { getUserWishlistCourses } from "../../../api/userApi/usersAPI";
-import { useNavigate } from "react-router-dom";
-import { Dot, Heart, Search, Star } from "lucide-react";
-import { getBestSellerCourses } from "../../../api/coursesApi";
-import { addCourseWishlist } from "../../../api/coursesApi";
 
 const Wishlist = () => {
   const navigate = useNavigate();

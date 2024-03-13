@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Dot, Star } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getAllCoursesByInstructor } from "../../../api/coursesApi";
 import { userSelector } from "../../features/user/userSlice";
 import { User } from "../../util/interfaces";
 import { CourseProps } from "../Courses/Course";
-import { getUserWishlistCourses } from "../../../api/userApi/usersAPI";
-import { Dot, Heart, Search, Star } from "lucide-react";
-import { getAllPurchasedCourses } from "../../../api/carts/carts";
-import { getAllCoursesByInstructor } from "../../../api/coursesApi";
 
 const Courses = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User>();
   const userRedux = useSelector(userSelector);
   const [created, setCreated] = useState<CourseProps[]>([]);
-  const [coursesRatings, setCoursesRatings] = useState<[]>([]);
   const [ratingRounded, setRatingRounded] = useState<number[]>();
-  const [resultCourses, setResultCourses] = useState<CourseProps[]>([]);
 
   useEffect(() => {
     setUser(userRedux);
@@ -59,7 +55,7 @@ const Courses = () => {
       {created && created.length > 0 && (
         <div className=" w-full h-fit mt-8 min-h-[30rem] flex flex-col justify-start items-start">
           <div className=" w-full h-fit flex justify-center items-center text-center text-[2rem] font-bold text-slate-800 mt-8">
-            Courses by {user.name}
+            Courses by {user!.name}
           </div>
           <div className=" w-[50%] min-w-[50rem] h-fit min-h-20 mx-auto mt-10 grid grid-cols-4 gap-2">
             {created.map((course, index) => (
