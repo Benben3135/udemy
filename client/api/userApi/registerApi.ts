@@ -35,5 +35,5 @@ export const sendUserDB = async (
     displayName,
     email,
   });
-
+  return result
 };
