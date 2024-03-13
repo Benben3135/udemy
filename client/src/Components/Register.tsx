@@ -9,7 +9,6 @@ const Register = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
   const [passStrong, setPassStrong] = useState<number>(0);
   const [passStrongTXT, setPassStrongTXT] = useState<string>("");
   const [isChecked, setIsChecked] = useState(false);
@@ -37,11 +36,9 @@ const Register = () => {
 
 
   const handleSubmit = async () => {
-    setLoading(true);
     const user = await registerUser(email, password, name);
 
     if (user) {
-      setLoading(false);
       navigate("/login-page");
     } else {
       console.error("Registration failed.");

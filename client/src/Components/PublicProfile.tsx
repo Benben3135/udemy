@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { userSelector } from "../features/user/userSlice";
 import { User } from "../util/interfaces";
 
 
 const PublicProfile = () => {
-  const navigate = useNavigate();
   const userRedux: User = useSelector(userSelector);
   const [user, setUser] = useState<User>();
   useEffect(() => {

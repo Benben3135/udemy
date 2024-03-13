@@ -4,9 +4,6 @@ import Learning from "../../Components/My-Courses/Learning";
 import MyCoursesNavBar from "../../Components/My-Courses/MyCoursesNavBar";
 import Wishlist from "../../Components/My-Courses/Wishlist";
 
-interface CoursesPageProps {
-  page: string;
-}
 
 const MyCoursesPage = () => {
   const [page, setPage] = useState<string>();

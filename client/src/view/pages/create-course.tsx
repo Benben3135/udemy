@@ -37,7 +37,7 @@ const CreateCoursePage = () => {
 
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  const handleCategoryChange = (event) => {
+  const handleCategoryChange = (event:any) => {
     setSelectedCategory(event.target.value);
   };
   const hanleSetDes = () => {

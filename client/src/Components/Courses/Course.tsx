@@ -37,27 +37,16 @@ export interface CourseProps {
 
 export const Course = ({
   courseId,
-  teacherId,
   courseName,
   teacherName,
   mainDescription,
   rating,
   numberOfRatings,
-  numberOfStudents,
   lastUpdated,
-  language,
-  subtitlesLanguage,
-  fullPrice,
-  discountPrice,
   secondDescriptions,
   courseDuration,
-  articlesNumber,
-  downloadableResourcesNumber,
-  courseContent,
-  requirements,
-  fullDescription,
   course_img,
-  category,
+  fullPrice
 
 }: CourseProps) => {
   const [bestIds, setBestIds] = useState<number[]>([]);
@@ -96,7 +85,6 @@ const [user, setUser] = useState<User>();
 
   const lastUpdatedSTR = () => {
     const lastUpdatedDate = new Date(lastUpdated);
-    const options = { month: "long", year: "numeric" };
     const formattedDate = lastUpdatedDate.toLocaleDateString("en-US", { month: "long", year: "numeric" });
 
     setLastUpdatedString(formattedDate);

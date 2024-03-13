@@ -9,7 +9,7 @@ interface MostRecentCoursesListProps {
 
 }
 
-const MostRecentCoursesList: React.FC<MostRecentCoursesListProps> = ({ selectedCategory, mostRecentCourses }) => {
+const MostRecentCoursesList: React.FC<MostRecentCoursesListProps> = ({ selectedCategory }) => {
   const [recentCourses, setRecentCourses] = useState<CourseProps[]>([]);
 
   useEffect(() => {

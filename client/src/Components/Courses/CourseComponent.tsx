@@ -19,30 +19,27 @@ import { FooterLogos } from "../../../public/images/footerLogos/FooterLogos";
 import TeacherInfo from "./TeacherInfo";
 import { User } from "../../util/interfaces";
 
-
 export interface CourseComponentProps {
   course: {
     courseId: number;
-    teacherId: number;
-    uid:string;
+    teacherId: string;
     courseName: string;
     teacherName: string;
     mainDescription: string;
     rating: number;
     numberOfRatings: number;
     numberOfStudents: number;
-    lastUpdated?: Date;
+    lastUpdated: Date;
     language: string;
-    subtitlesLanguage: { type: string; default: "English" };
+    subtitlesLanguage: string;
     fullPrice: number;
     discountPrice: number;
     secondDescriptions: string[];
-
     courseDuration: number;
     articlesNumber: number;
     downloadableResourcesNumber: number;
     courseContent: string;
-    requirements: [string];
+    requirements: string[];
     fullDescription: string;
     course_img: string;
     category: string;
@@ -51,7 +48,7 @@ export interface CourseComponentProps {
 
 const CourseComponent: React.FC<
   CourseComponentProps & { selectedCategory: string }
-> = ({ course, selectedCategory }) => {
+> = ({ course }) => {
   const limitWords = (content: string, limit: number) => {
     const words = content.split(" ");
     return words.slice(0, limit).join(" ");
@@ -83,10 +80,10 @@ const CourseComponent: React.FC<
     const lastUpdatedSTR = () => {
       if (course.lastUpdated) {
         const lastUpdatedDate = new Date(course.lastUpdated);
-        const formattedDate = lastUpdatedDate.toLocaleDateString(
-          "en-US",
-          { month: "long", year: "numeric" }
-        );
+        const formattedDate = lastUpdatedDate.toLocaleDateString("en-US", {
+          month: "long",
+          year: "numeric",
+        });
 
         setLastUpdatedString(formattedDate);
       }
@@ -94,7 +91,13 @@ const CourseComponent: React.FC<
 
     lastUpdatedSTR();
   }, [course.lastUpdated]);
-  function handleAddToCart(_course: { courseId: number; courseName: string; teacherName: string; fullPrice: number; discountPrice: number; }): void {
+  function handleAddToCart(_course: {
+    courseId: number;
+    courseName: string;
+    teacherName: string;
+    fullPrice: number;
+    discountPrice: number;
+  }): void {
     throw new Error("Function not implemented.");
   }
 
@@ -192,7 +195,7 @@ const CourseComponent: React.FC<
               className={`tab-btn ${
                 activeTab === "Personal"
                   ? "active border-b-2 border-purple-500 text-black font-bold sticky top-0 flex-1"
-                  : "text-gray-500 hover:text-black hover:border-black sticky top-0 flex-1 border-b-1 border-purple-500 " 
+                  : "text-gray-500 hover:text-black hover:border-black sticky top-0 flex-1 border-b-1 border-purple-500 "
               }`}
               onClick={() => handleTabClick("Personal")}
             >
@@ -211,10 +214,10 @@ const CourseComponent: React.FC<
           </div>
           {activeTab === "Personal" ? (
             <PersonalTabContent
-            course={course}
-            handleLearnMoreClick={handleLearnMoreClick}
-            handleAddToCart={handleAddToCart}  
-          />
+              course={course}
+              handleLearnMoreClick={handleLearnMoreClick}
+              handleAddToCart={handleAddToCart}
+            />
           ) : (
             <TeamsTabContent
               course={course}
@@ -431,12 +434,13 @@ const CourseComponent: React.FC<
         </div>
       </div>
       <div>
-      <TeacherInfo
-  teacher={course.teacherName as unknown as User}
-  numberOfStudents={course.numberOfStudents}
-  numberOfReviews={course.numberOfRatings}
-  numberOfCourses={null}
-/></div>
+        <TeacherInfo
+          teacher={course.teacherName as unknown as User}
+          numberOfStudents={course.numberOfStudents}
+          numberOfReviews={course.numberOfRatings}
+          numberOfCourses={null}
+        />
+      </div>
     </>
   );
 };

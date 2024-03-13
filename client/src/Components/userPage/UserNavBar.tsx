@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { userSelector } from '../../features/user/userSlice';
 import { User } from '../../util/interfaces';
 import { userPageCategories } from './userPageCategories';
@@ -11,7 +10,6 @@ interface Props {
 }
 
 const UserNavBar = ({ activeIndex, setActiveIndex }: Props) => {
-  const navigate = useNavigate();
   const userRedux = useSelector(userSelector);
   const [user, setUser] = useState<User>();
 
@@ -26,9 +24,9 @@ const UserNavBar = ({ activeIndex, setActiveIndex }: Props) => {
       {user && (
         <div className='h-full w-[13.6rem] flex flex-col items-start justify-start border'>
           <div className='w-full h-fit flex flex-col items-center justify-center mt-4'>
-            {user.img? (
+            {user.photoURL? (
               <div className='rounded-full w-32 h-32 flex flex-col items-center justify-center'>
-                <img className='rounded-full w-32 h-32' src={user.img} alt="" />
+                <img className='rounded-full w-32 h-32' src={user.photoURL} alt="" />
               </div>
             ):(
             <div className='bg-Udemygray-500 rounded-full w-32 h-32 flex flex-col items-center justify-center '>

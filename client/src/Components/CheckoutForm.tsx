@@ -3,7 +3,7 @@ import {
   useElements,
   useStripe
 } from "@stripe/react-stripe-js";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Components/styles/stripeStyle.css";
 
@@ -11,9 +11,6 @@ export default function CheckoutForm() {
   const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
-
-  const [message, setMessage] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (!stripe) {
@@ -29,24 +26,7 @@ export default function CheckoutForm() {
       return;
     }
 
-    stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      switch (paymentIntent!.status) {
-        case "succeeded":
-          setMessage("Payment succeeded!");
-          // Redirect to completion page
-          navigate("/completion");
-          break;
-        case "processing":
-          setMessage("Your payment is processing.");
-          break;
-        case "requires_payment_method":
-          setMessage("Your payment was not successful, please try again.");
-          break;
-        default:
-          setMessage("Something went wrong.");
-          break;
-      }
-    });
+   
   }, [stripe, navigate]);
 
   const handleSubmit = async (e: any) => {
@@ -55,36 +35,16 @@ export default function CheckoutForm() {
     if (!stripe || !elements) {
       return;
     }
-
-    setIsLoading(true);
-
-    
+  
       const { error } = await stripe.confirmPayment({
         elements,
         confirmParams: {
           return_url: "http://localhost:5173/completion",
         },  
     })
-
-
-    if (response.error) {
-      setMessage(response.error.message);
-    } else {
-      setMessage(`Payment Succeeded: ${response.paymentIntent.id}`);
-    }
-
-    if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message);
-    } else {
-      setMessage("An unexpected error occurred.");
-    }
-
-    setIsLoading(false);
+    console.log(error)
   };
 
-  const paymentElementOptions = {
-    layout: "tabs",
-  };
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>

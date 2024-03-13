@@ -14,7 +14,6 @@ const Learning = () => {
   const [user, setUser] = useState<User>();
   const userRedux = useSelector(userSelector);
   const [purchased, setpurchased] = useState<CourseProps[]>([]);
-  const [coursesRatings, setCoursesRatings] = useState<[]>([]);
   const [ratingRounded, setRatingRounded] = useState<number[]>();
   const [bestIds, setBestIds] = useState<number[]>([]);
   const [search, setSearch] = useState<string>("");

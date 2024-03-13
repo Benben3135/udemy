@@ -14,7 +14,6 @@ const Wishlist = () => {
   const userRedux = useSelector(userSelector);
   const [wishlist, setWishlist] = useState<number[]>([]);
   const [wishlistCourses, setWishlistCourses] = useState<CourseProps[]>([]);
-  const [coursesRatings, setCoursesRatings] = useState<[]>([]);
   const [ratingRounded, setRatingRounded] = useState<number[]>();
   const [bestIds, setBestIds] = useState<number[]>([]);
   const [search, setSearch] = useState<string>("");

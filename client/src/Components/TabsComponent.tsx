@@ -9,8 +9,6 @@ interface TabsComponentProps {
 const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [coursesByCategory, setCoursesByCategory] = useState<CourseProps[]>();
-  const [showLearnMoreButton, setShowLearnMoreButton] =
-    useState<boolean>(false);
 
   // הגדרה של הקטגוריה שתוצג באופן דיפולטי
   useEffect(() => {
@@ -20,14 +18,12 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
     };
 
     initialCoursesByCategories();
-    setShowLearnMoreButton(true); // הצגת כפתור "גלו עוד" בתחילה
   }, []);
 
   const handleTabClick = async (category: string) => {
     setSelectedCategory(category);
     const courses = await get5CoursesByCategory(category);
     setCoursesByCategory(courses);
-    setShowLearnMoreButton(true); // הצגת כפתור "גלו עוד" בעת בחירת קטגוריה חדשה
   };
 
   return (
@@ -88,7 +84,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                           <div className=" flex gap-5 p-5 h-[21rem] ">
                             {coursesByCategory &&
                               coursesByCategory.map(
-                                (course: CourseProps, index: number) => (
+                                (course: CourseProps) => (
                                   <Course
                                   key={course.courseId}
                                   course_img={course.course_img}
@@ -144,7 +140,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                           <div className=" flex gap-5 p-5 h-[21rem] ">
                             {coursesByCategory &&
                               coursesByCategory.map(
-                                (course: CourseProps, index: number) => (
+                                (course: CourseProps) => (
                                   <Course
                                   key={course.courseId}
                                   course_img={course.course_img}
@@ -199,7 +195,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                           <div className=" flex gap-5 p-5 h-[21rem] ">
                             {coursesByCategory &&
                               coursesByCategory.map(
-                                (course: CourseProps, index: number) => (
+                                (course: CourseProps) => (
                                   <Course
                                   key={course.courseId}
                                   course_img={course.course_img}
@@ -255,7 +251,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                           <div className=" flex gap-5 p-5 h-[21rem] ">
                             {coursesByCategory &&
                               coursesByCategory.map(
-                                (course: CourseProps, index: number) => (
+                                (course: CourseProps) => (
                                   <Course
                                   key={course.courseId}
                                   course_img={course.course_img}
@@ -312,7 +308,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                           <div className=" flex gap-5 p-5 h-[21rem] ">
                             {coursesByCategory &&
                               coursesByCategory.map(
-                                (course: CourseProps, index: number) => (
+                                (course: CourseProps) => (
                                   <Course
                                   key={course.courseId}
                                   course_img={course.course_img}
@@ -369,7 +365,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                           <div className=" flex gap-5 p-5 h-[21rem] ">
                             {coursesByCategory &&
                               coursesByCategory.map(
-                                (course: CourseProps, index: number) => (
+                                (course: CourseProps) => (
                                   <Course
                                   key={course.courseId}
                                   course_img={course.course_img}
@@ -427,7 +423,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ categories }) => {
                           <div className=" flex gap-5 p-5 h-[21rem] ">
                             {coursesByCategory &&
                               coursesByCategory.map(
-                                (course: CourseProps, index: number) => (
+                                (course: CourseProps) => (
                                   <Course
                                   key={course.courseId}
                                   course_img={course.course_img}

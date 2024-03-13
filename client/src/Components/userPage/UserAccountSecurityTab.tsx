@@ -5,13 +5,11 @@ import { getAuth, updatePassword } from "firebase/auth";
 import { useEffect, useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { sendNewImg } from "../../../api/userApi/usersAPI";
 import { userSelector } from "../../features/user/userSlice";
 import { User } from "../../util/interfaces";
 
 const UserAccountSecurityTab = () => {
-  const navigate = useNavigate();
   const userRedux = useSelector(userSelector);
   const [user, setUser] = useState<User>();
   const [img, setImg] = useState<string>("");
@@ -20,9 +18,7 @@ const UserAccountSecurityTab = () => {
   const [newPassword, setNewPassword] = useState<string>("");
   const [reNewPassword, setReNewPassword] = useState<string>("");
 
-  const [checkImg, setCheckImg] = useState<string>(
-    "../../../public/images/anonymous_3.png"
-  );
+
 
   const sendImgToDB = async () => {
     const result = await sendNewImg(img, user!.uid);

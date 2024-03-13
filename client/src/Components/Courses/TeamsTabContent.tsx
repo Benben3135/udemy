@@ -4,7 +4,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Check } from "lucide-react";
 interface TeamsTabContentProps {
-  handleLearnMoreClick: () => void;
   course: {
     fullPrice: number;
     discountPrice: number;
@@ -13,7 +12,6 @@ interface TeamsTabContentProps {
 }
 
 const TeamsTabContent: React.FC<TeamsTabContentProps> = ({
-  handleLearnMoreClick,
   course,
 }) => {
 

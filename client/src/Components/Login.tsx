@@ -16,7 +16,6 @@ const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
-  const [loading, setLoading] = useState<boolean>(false);
   const tokenRedux = useSelector(userSelector);
   const dispatch = useDispatch();
   const [userName, setUserName] = useState<string>("");

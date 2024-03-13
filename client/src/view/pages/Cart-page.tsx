@@ -70,6 +70,7 @@ const CartPage = () => {
 
   const addToWishlist = async (courseID : number) => {
     const remove = await removeFromCart(courseID)
+    console.log(remove)
     const result = await addCourseWishlist(courseID, user!.uid);
     if (result.ok) {
       if (wishlist.includes(courseID)) {

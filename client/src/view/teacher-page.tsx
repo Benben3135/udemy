@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { getAllCoursesByInstructor, getBestSellerCourses } from "../../api/coursesApi";
 import {
-  getNumberOfCourses,
   getNumberOfReviews,
   getNumberOfStudents,
   getTeacher,
@@ -18,11 +17,9 @@ export const TeacherPage = () => {
   const [teacher, setTeacher] = useState<User | null>(null);
   const { teachersName } = useParams();
   const [NumberOfStudents, setNumberOfStudents] = useState(null);
-  const [NumberOfCourses, setNumberOfCourses] = useState(null);
   const [NumberOfReviews, setNumberOfReviews] = useState(null);
   const [courses, setCourses] = useState<CourseProps[]>();
   const [bestIds, setBestIds] = useState<number[]>([]);
-  const [coursesRatings, setCoursesRatings] = useState<[]>([]);
   const [ratingRounded, setRatingRounded] = useState<number[]>();
 
 
@@ -56,10 +53,8 @@ export const TeacherPage = () => {
     const fetchTeacherData = async () => {
       if (!teachersName) throw new Error(`Teacher's name is unrecognized`);
       const resultNumberOfStudents = await getNumberOfStudents(teachersName);
-      const resultNumberOfCourses = await getNumberOfCourses(teachersName);
       const resultNumberOfReviews = await getNumberOfReviews(teachersName);
       setNumberOfStudents(resultNumberOfStudents.teacherNumberOfStudents);
-      setNumberOfCourses(resultNumberOfCourses.teacherNumberOfCourses);
       setNumberOfReviews(resultNumberOfReviews.teacherNumberOfReviews);
     };
     fetchTeacherData();

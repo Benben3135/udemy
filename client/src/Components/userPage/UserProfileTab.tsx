@@ -4,19 +4,16 @@ import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { addUserInfo } from "../../../api/userApi/usersAPI";
 import { userSelector } from "../../features/user/userSlice";
 import { User } from "../../util/interfaces";
 
 const UserProfileTab = () => {
-  const navigate = useNavigate();
   const userRedux = useSelector(userSelector);
   const [user, setUser] = useState<User>();
   const [headline, setHeadline] = useState<string>("");
   const [headlineLen, setHeadlineLen] = useState<number>(0);
   const [bio, setBio] = useState<any>("");
-  const [bioCon, setBioCon] = useState<any>();
   const [website, setWebsite] = useState<string>("");
   const [twitter, setTwitter] = useState<string>("");
   const [facebook, setFacebook] = useState<string>("");
@@ -37,7 +34,6 @@ const UserProfileTab = () => {
     function quillGetHTML() {
       const tempCont = document.createElement("div");
       new Quill(tempCont).setContents(bio);
-      setBioCon(tempCont);
     }
 
     // Call the conversion function when bio changes

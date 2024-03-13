@@ -30,7 +30,6 @@ const NavBar = () => {
   const [searched, setSearched] = useState<CourseProps[] | []>([]);
   const [user, setUser] = useState<User>();
   const [isUser, setIsUser] = useState<boolean>(false);
-  const [isInstructor, setIsInstructor] = useState<boolean>(false);
   const [wishlist, setWishlist] = useState<number[]>([]);
   const [wishlistCourses, setWishlistCourses] = useState<CourseProps[]>([]);
   const isUserRedux = useSelector(isUserSelector);
@@ -49,6 +48,7 @@ const NavBar = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: any) => {
+      //@ts-ignore
       if (searchRef.current && !searchRef.current.contains(event.target)) {
         setShowSearch(false);
       }

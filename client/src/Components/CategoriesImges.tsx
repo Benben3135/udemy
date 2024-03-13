@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import categoryImagesData from "../util/categories";
 
-
 interface CategoryImage {
   category: string;
   imagePath: string;
@@ -27,31 +26,28 @@ const Category: React.FC<CategoryProps> = ({
   if (displayAltOnly) {
     return (
       <>
-      <div
-      className="relative cursor-pointer overflow-hidden group"
-      onClick={handleClick}
-    >
-      <div className="text-center pt-4">
-        {additionalText && (
-          <p className=" text-Udemygray-550 font-[700] text-[1.25rem] text-left pb-6 pt-5 mx-6">
-            {additionalText}
-          </p>
-        )}
-        <p className="text-Udemyblue-300 text-[1rem] font-bold underline text-left mx-6" >
-          {category.category }
-        </p>
-        <p className="text-Udemygray-300 text-[0.8rem] text-left mx-6">36,354,994 learners
- </p>
-      </div>
-      
-     <div/>
-      </div>
-      
+        <div
+          className="relative cursor-pointer overflow-hidden group"
+          onClick={handleClick}
+        >
+          <div className="text-center pt-4">
+            {additionalText && (
+              <p className=" text-Udemygray-550 font-[700] text-[1.25rem] text-left pb-6 pt-5 mx-6">
+                {additionalText}
+              </p>
+            )}
+            <p className="text-Udemyblue-300 text-[1rem] font-bold underline text-left mx-6">
+              {category.category}
+            </p>
+            <p className="text-Udemygray-300 text-[0.8rem] text-left mx-6">
+              36,354,994 learners
+            </p>
+          </div>
+
+          <div />
+        </div>
       </>
-
-
     );
-    
   }
 
   return (
@@ -69,7 +65,6 @@ const Category: React.FC<CategoryProps> = ({
 };
 
 const FeaturedCategory: React.FC = () => {
-  const navigate = useNavigate();
 
   // Define additional text for each category
   const additionalTexts = [

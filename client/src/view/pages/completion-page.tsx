@@ -14,9 +14,7 @@ const CompletionPage = () => {
   const [user, setUser] = useState<User>();
   const userRedux = useSelector(userSelector);
   const [cart, setCart] = useState<[CourseProps] | []>([]);
-  const [dis, setDis] = useState<number>();
-  const [full, setFull] = useState<number>();
-  const [error, setError] = useState<boolean>(false);
+ 
   const [bestIds, setBestIds] = useState<number[]>([]);
   const [updatedRecently, setUpdatedRecently] = useState<number[] | null>();
 
@@ -35,8 +33,6 @@ const CompletionPage = () => {
       price += item.discountPrice;
       fullPrice += item.fullPrice;
     });
-    setDis(price);
-    setFull(fullPrice);
   };
 
   useEffect(() => {
@@ -62,6 +58,7 @@ const CompletionPage = () => {
 
   const addCourseToPurchasedDB = async (courseId:number) => {
     const response = await addPurchasedCourse(courseId, user!.uid)
+    console.log(response)
   }
 
   const UpdatedRecentlyCheck = () => {

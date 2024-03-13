@@ -1,4 +1,3 @@
-import { loadStripe } from "@stripe/stripe-js";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -31,14 +30,12 @@ import {
   setName,
   setUid,
   setWishlist,
-  userSelector,
 } from "./features/user/userSlice";
 import Terms from "./view/pages/terms-page";
 
 import ArchiveCategoreyCourse from "./Components/Courses/ArchiveCategoreyCourse";
 import SingleCoursePage from "./Components/Courses/SingleCoursePage";
 import Footer from "./Components/Footer/Footer";
-import { User } from "./util/interfaces";
 import CartPage from "./view/pages/Cart-page";
 import CheckoutPage from "./view/pages/Checkout-page";
 import CompletionPage from "./view/pages/completion-page";
@@ -46,16 +43,11 @@ import TeacherPage from "./view/teacher-page";
 
 function App() {
   const dispatch = useDispatch();
-  const stripePromise = loadStripe(
-    'pk_test_51Ob07vGPw5IknvcVtIUwKmD9eGipq3c6RvsO5jjDuWkUWVtBeTCEfYosk42VsZka5bZpvNZ0O9FKJ63CO8R5qTh900nqsKvmNq'
-  );
+
 
 
   const navbarRedux = useSelector(isNavbarSelector);
   const footerRedux = useSelector(isFooterSelector);
-  const userRedux = useSelector(userSelector);
-  const [teachers, setTeachers] = useState<User[]>();
-  const [dataFetched, setDataFetched] = useState(false);
   const [isNavbar, setIsNavbar] = useState<boolean>(true);
   const [isFooter, setIsfooter] = useState<boolean>(true);
   
@@ -99,6 +91,7 @@ function App() {
         }
       }
     });
+    console.log(unsubscribe)
   }, []);
 
   const dispatchUser = async (uid: string) => {
