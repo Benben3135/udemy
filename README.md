@@ -14,8 +14,11 @@ features: student, instructor, buying courses, courses CRUD, studen CRUD, instru
 -Firebase Auth
 -Stripe
 -Redux
+-TailwindCSS
 -MUI
 -Framer-Motion
 -Axios
+-Quill
+-Postman
 -Faker/js
 </p>
