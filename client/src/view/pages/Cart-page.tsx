@@ -8,11 +8,9 @@ import { getCartCourses, removeCourseFromCart } from "../../../api/carts/carts";
 import { addCourseWishlist, getBestSellerCourses } from "../../../api/coursesApi";
 import { CourseProps } from "../../Components/Courses/Course";
 import { userSelector } from "../../features/user/userSlice";
-import { User } from "../../util/interfaces";
 
 const CartPage = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<User>();
   const userRedux = useSelector(userSelector);
   const [cart, setCart] = useState<[CourseProps] | []>([]);
   const [bestIds, setBestIds] = useState<number[]>([]);
@@ -22,10 +20,6 @@ const CartPage = () => {
   const [error, setError] = useState<boolean>(false);
   const [wishlist, setWishlist] = useState<number[]>([]);
 
-
-  useEffect(() => {
-    setUser(userRedux);
-  }, [userRedux]);
 
   useEffect(() => {
     calculateFull();
@@ -49,12 +43,12 @@ const CartPage = () => {
 
   useEffect(() => {
     getCoursesFromDB();
-  }, [user,cart]);
+  }, [userRedux,cart]);
 
 
   const getCoursesFromDB = async () => {
     try {
-      const courses = await getCartCourses(user!.uid);
+      const courses = await getCartCourses(userRedux!.uid);
       setCart(courses.courses);
     } catch (error) {
       console.error(error);
@@ -63,15 +57,15 @@ const CartPage = () => {
 
   
   useEffect(() => {
-    if (user && user.wishlist) {
-      setWishlist(user.wishlist);
+    if (userRedux && userRedux.wishlist) {
+      setWishlist(userRedux.wishlist);
     }
-  }, [user?.wishlist]);
+  }, [userRedux?.wishlist]);
 
   const addToWishlist = async (courseID : number) => {
     const remove = await removeFromCart(courseID)
     console.log(remove)
-    const result = await addCourseWishlist(courseID, user!.uid);
+    const result = await addCourseWishlist(courseID, userRedux!.uid);
     if (result.ok) {
       if (wishlist.includes(courseID)) {
         setWishlist((prevWishlist) =>
@@ -86,7 +80,7 @@ const CartPage = () => {
 
   const removeFromCart = async (courseID: number) => {
     try {
-      const result: any = await removeCourseFromCart(courseID, user!.uid);
+      const result: any = await removeCourseFromCart(courseID, userRedux!.uid);
       if (result) {
         setCart(prevCart => prevCart.filter(item => item.courseId !== courseID) as [CourseProps] | []);
         getCoursesFromDB();

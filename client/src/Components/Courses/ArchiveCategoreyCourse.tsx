@@ -15,8 +15,6 @@ export interface Course {
   courseId: number;
 }
 
-// ...
-
 const ArchiveCategoryCourse = () => {
   const { selectedCategory } = useParams();
   const [courses, setCourses] = useState<CourseProps[]>([]);
@@ -98,9 +96,7 @@ const ArchiveCategoryCourse = () => {
 
         {/* Display Other Courses */}
         <div className=" mt-10">
-          <FeaturedCourse />
-
-          <div className="flex flex-wrap gap-5 max-w-[82rem]  justify-around mt-12">
+          <div className="flex flex-wrap gap-5 max-w-[82rem]  justify-around items-start mt-12">
             {courses.map((course) => (
               <Course
                 key={course.courseId}

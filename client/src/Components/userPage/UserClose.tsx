@@ -4,11 +4,10 @@ import Stack from "@mui/material/Stack";
 import { deleteUser, getAuth } from "firebase/auth";
 import { useEffect, useState } from "react";
 import "react-quill/dist/quill.snow.css";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getAllPurchasedCourses } from "../../../api/carts/carts";
 import { userSelector } from "../../features/user/userSlice";
-import { useSelector } from "react-redux";
-import { User } from "../../util/interfaces";
 import { CourseProps } from "../Courses/Course";
 
 
@@ -16,7 +15,6 @@ import { CourseProps } from "../Courses/Course";
 const UserCloseTab = () => {
   const navigate = useNavigate();
   const [warning, setWarning] = useState<Boolean>(false);
-  const [user, setUser] = useState<User>();
   const [purchased, setpurchased] = useState<CourseProps[]>([]);
   const userRedux = useSelector(userSelector);
 
@@ -31,18 +29,15 @@ const UserCloseTab = () => {
       });
   };
 
-  useEffect(() => {
-    setUser(userRedux);
-  }, [userRedux]);
 
   useEffect(() => {
-    if (user && user.uid) {
+    if (userRedux && userRedux.uid) {
       getPurchasedCourses();
     }
-  }, [user]);
+  }, [userRedux]);
 
   const getPurchasedCourses = async () => {
-    const courses = await getAllPurchasedCourses(user!.uid);
+    const courses = await getAllPurchasedCourses(userRedux!.uid);
     if (courses.ok) {
       const purchasedCourses: CourseProps[] = courses.courses;
       setpurchased(purchasedCourses);

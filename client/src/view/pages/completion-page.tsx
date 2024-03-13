@@ -7,20 +7,15 @@ import { addPurchasedCourse, getCartCourses } from "../../../api/carts/carts";
 import { getBestSellerCourses } from "../../../api/coursesApi";
 import { CourseProps } from "../../Components/Courses/Course";
 import { userSelector } from "../../features/user/userSlice";
-import { User } from "../../util/interfaces";
 
 const CompletionPage = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<User>();
   const userRedux = useSelector(userSelector);
   const [cart, setCart] = useState<[CourseProps] | []>([]);
  
   const [bestIds, setBestIds] = useState<number[]>([]);
   const [updatedRecently, setUpdatedRecently] = useState<number[] | null>();
 
-  useEffect(() => {
-    setUser(userRedux);
-  }, [userRedux]);
 
   useEffect(() => {
     calculateFull();
@@ -43,7 +38,7 @@ const CompletionPage = () => {
 
   useEffect(() => {
     getCoursesFromDB();
-  }, [user]);
+  }, [userRedux]);
 
 
   useEffect(() => {
@@ -57,7 +52,7 @@ const CompletionPage = () => {
   };
 
   const addCourseToPurchasedDB = async (courseId:number) => {
-    const response = await addPurchasedCourse(courseId, user!.uid)
+    const response = await addPurchasedCourse(courseId, userRedux!.uid)
     console.log(response)
   }
 
@@ -90,7 +85,7 @@ const CompletionPage = () => {
 
   const getCoursesFromDB = async () => {
     try {
-      const courses = await getCartCourses(user!.uid);
+      const courses = await getCartCourses(userRedux!.uid);
       setCart(courses.courses);
     } catch (error) {
       console.error(error);

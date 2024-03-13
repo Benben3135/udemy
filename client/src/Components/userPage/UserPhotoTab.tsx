@@ -1,16 +1,14 @@
 import CheckIcon from "@mui/icons-material/Check";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import { useSelector } from "react-redux";
 import { sendNewImg } from "../../../api/userApi/usersAPI";
 import { userSelector } from "../../features/user/userSlice";
-import { User } from "../../util/interfaces";
 
 const UserPhotoTab = () => {
   const userRedux = useSelector(userSelector);
-  const [user, setUser] = useState<User>();
   const [img, setImg] = useState<string>("");
   const [sucsess, setSucsess] = useState<Boolean>(false);
   const [warning, setWarning] = useState<Boolean>(false);
@@ -20,7 +18,7 @@ const UserPhotoTab = () => {
   );
 
   const sendImgToDB = async () => {
-    const result = await sendNewImg(img, user!.uid);
+    const result = await sendNewImg(img, userRedux!.uid);
     if (result.ok) {
       imgChanged();
     } else {
@@ -28,9 +26,6 @@ const UserPhotoTab = () => {
     }
   };
 
-  useEffect(() => {
-    setUser(userRedux);
-  }, [userRedux]);
 
 
   const imgChanged = () => {

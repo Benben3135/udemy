@@ -1,9 +1,9 @@
 // PersonalTabContent.tsx
-import React, { useEffect, useState } from "react";
-import AddToCart from "../carts/AddToCart";
-import { addCourseToCart } from "../../../api/carts/carts";
+import React from "react";
 import { useSelector } from "react-redux";
-import { UserState, userSelector } from "../../features/user/userSlice";
+import { addCourseToCart } from "../../../api/carts/carts";
+import { userSelector } from "../../features/user/userSlice";
+import AddToCart from "../carts/AddToCart";
 
 
 interface PersonalTabContentProps {
@@ -42,18 +42,13 @@ interface PersonalTabContentProps {
 }
 
 const PersonalTabContent: React.FC<PersonalTabContentProps> = ({ handleLearnMoreClick, course }) => {
-  const userRedux = useSelector(userSelector); // השם שבו אתה שמור את התוצאה מה־userSelector
-  const [user, setUser] = useState<UserState>();
-
-  useEffect(() => {
-    return setUser(userRedux);
-  }, [userRedux]);
+  const userRedux = useSelector(userSelector);
 
    const handleAddToCartInternal = async () => {
     try {
       debugger
      
-      await addCourseToCart(course.courseId, user?.uid || '');
+      await addCourseToCart(course.courseId, userRedux?.uid || '');
     } catch (error) {
       console.error("Failed to add course to cart", error);
     }

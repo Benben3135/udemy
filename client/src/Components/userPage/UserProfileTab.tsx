@@ -6,11 +6,9 @@ import "react-quill/dist/quill.snow.css";
 import { useSelector } from "react-redux";
 import { addUserInfo } from "../../../api/userApi/usersAPI";
 import { userSelector } from "../../features/user/userSlice";
-import { User } from "../../util/interfaces";
 
 const UserProfileTab = () => {
   const userRedux = useSelector(userSelector);
-  const [user, setUser] = useState<User>();
   const [headline, setHeadline] = useState<string>("");
   const [headlineLen, setHeadlineLen] = useState<number>(0);
   const [bio, setBio] = useState<any>("");
@@ -20,9 +18,6 @@ const UserProfileTab = () => {
   const [linkedin, setLinkedin] = useState<string>("");
   const [youtube, setYoutube] = useState<string>("");
 
-  useEffect(() => {
-    setUser(userRedux);
-  }, [userRedux]);
 
   useEffect(() => {
     setHeadlineLen(headline.length);
@@ -51,10 +46,10 @@ const UserProfileTab = () => {
         <div className="h-full w-full flex flex-col items-start justify-start max-w-[40rem] gap-4 ">
           <h1 className=" font-bold text-slate-800">Basics</h1>
           <div className=" w-full h-12 border border-black pl-4 pt-2">
-            {user?.displayName?.split(" ")[0]}
+            {userRedux?.displayName?.split(" ")[0]}
           </div>
           <div className=" w-full h-12 border border-black pl-4 pt-2">
-            {user?.displayName?.split(" ")[1]}
+            {userRedux?.displayName?.split(" ")[1]}
           </div>
           <div className=" w-full h-12 border border-black pl-4 pt-2 flex flex-row items-start justify-start">
             <input
@@ -164,7 +159,7 @@ const UserProfileTab = () => {
           <div
             onClick={() =>
               addUserInfo(
-                user!.uid,
+                userRedux!.uid,
                 headline,
                 bio.ops[0].insert,
                 website,

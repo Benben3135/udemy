@@ -11,11 +11,7 @@ import { categories } from "../../util/categories";
 import { User } from "../../util/interfaces";
 
 const CreateCoursePage = () => {
-  const [user, setUser] = useState<User>();
   const userRedux: User = useSelector(userSelector);
-  useEffect(() => {
-    setUser(userRedux);
-  }, [userRedux]);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -60,8 +56,8 @@ const CreateCoursePage = () => {
       setAlert(false);
       setIndex(4);
       const data = await addCourse(
-        user!.uid,
-        user!.displayName,
+        userRedux!.uid,
+        userRedux!.displayName,
         name,
         mainDes,
         secondDescriptions,

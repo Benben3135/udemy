@@ -9,7 +9,6 @@ import Loader from "../../Components/animations/Loader";
 import { noFooter } from "../../features/user/footerSlice";
 import { noNavbar } from "../../features/user/navbarSlice";
 import { userSelector } from "../../features/user/userSlice";
-import { User } from "../../util/interfaces";
 
 
 const stripePromise = loadStripe(
@@ -20,7 +19,6 @@ const CheckoutPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [user, setUser] = useState<User>();
   const userRedux = useSelector(userSelector);
   const [cart, setCart] = useState<[CourseProps] | []>([]);
   const [dis, setDis] = useState<number>();
@@ -50,10 +48,6 @@ const CheckoutPage = () => {
   }, []);
 
   useEffect(() => {
-    setUser(userRedux);
-  }, [userRedux]);
-
-  useEffect(() => {
     calculateFull();
   }, [cart]);
 
@@ -74,12 +68,12 @@ const CheckoutPage = () => {
 
   useEffect(() => {
     getCoursesFromDB();
-  }, [user,cart]);
+  }, [userRedux,cart]);
 
 
   const getCoursesFromDB = async () => {
     try {
-      const courses = await getCartCourses(user!.uid); // Use optional chaining to prevent errors if user is null
+      const courses = await getCartCourses(userRedux!.uid); // Use optional chaining to prevent errors if user is null
       setCart(courses.courses);
     } catch (error) {
       console.error(error);

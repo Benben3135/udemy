@@ -5,13 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { getAllPurchasedCourses } from "../../../api/carts/carts";
 import { getBestSellerCourses } from "../../../api/coursesApi";
 import { userSelector } from "../../features/user/userSlice";
-import { User } from "../../util/interfaces";
 import { CourseProps } from "../Courses/Course";
 
 
 const Learning = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<User>();
   const userRedux = useSelector(userSelector);
   const [purchased, setpurchased] = useState<CourseProps[]>([]);
   const [ratingRounded, setRatingRounded] = useState<number[]>();
@@ -19,16 +17,13 @@ const Learning = () => {
   const [search, setSearch] = useState<string>("");
   const [resultCourses, setResultCourses] = useState<CourseProps[]>([]);
 
-  useEffect(() => {
-    setUser(userRedux);
-  }, [userRedux]);
-
+ 
 
   useEffect(() => {
-    if (user && user.uid) {
+    if (userRedux && userRedux.uid) {
       getPurchasedCourses();
     }
-  }, [user]);
+  }, [userRedux]);
 
   useEffect(() => {
     if (purchased.length > 0) {
@@ -49,7 +44,7 @@ const Learning = () => {
   }, [search]);
 
   const getPurchasedCourses = async () => {
-    const courses = await getAllPurchasedCourses(user!.uid);
+    const courses = await getAllPurchasedCourses(userRedux!.uid);
     if (courses.ok) {
       const purchasedCourses: CourseProps[] = courses.courses;
       setpurchased(purchasedCourses);

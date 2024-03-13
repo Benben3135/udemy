@@ -4,25 +4,19 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getAllCoursesByInstructor } from "../../../api/coursesApi";
 import { userSelector } from "../../features/user/userSlice";
-import { User } from "../../util/interfaces";
 import { CourseProps } from "../Courses/Course";
 
 const Courses = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<User>();
   const userRedux = useSelector(userSelector);
   const [created, setCreated] = useState<CourseProps[]>([]);
   const [ratingRounded, setRatingRounded] = useState<number[]>();
 
   useEffect(() => {
-    setUser(userRedux);
-  }, [userRedux]);
-
-  useEffect(() => {
-    if (user && user.uid) {
+    if (userRedux && userRedux.uid) {
       getPurchasedCourses();
     }
-  }, [user]);
+  }, [userRedux]);
 
   useEffect(() => {
   }, [created]);
@@ -34,7 +28,7 @@ const Courses = () => {
   }, [created]);
 
   const getPurchasedCourses = async () => {
-    const courses = await getAllCoursesByInstructor(user!.displayName);
+    const courses = await getAllCoursesByInstructor(userRedux!.displayName);
     const createdCourses: CourseProps[] = courses;
     setCreated(createdCourses);
   };
@@ -55,7 +49,7 @@ const Courses = () => {
       {created && created.length > 0 && (
         <div className=" w-full h-fit mt-8 min-h-[30rem] flex flex-col justify-start items-start">
           <div className=" w-full h-fit flex justify-center items-center text-center text-[2rem] font-bold text-slate-800 mt-8">
-            Courses by {user!.displayName}
+            Courses by {userRedux!.displayName}
           </div>
           <div className=" w-[50%] min-w-[50rem] h-fit min-h-20 mx-auto mt-10 grid grid-cols-4 gap-2">
             {created.map((course, index) => (
