@@ -1,14 +1,12 @@
-import express from "express";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import "dotenv/config";
+import express from "express";
 import mongoose from "mongoose";
-import { generateAndCreateTeachers } from "../db/dbStart"
-import Stripe from "stripe";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 const MONGO_URI = process.env.MONGO_URI;
-import cors from "cors";
 
 app.use(express.json());
 //when/if we will use CORS
@@ -109,12 +107,11 @@ app.use("/API/users", UsersRouter);
 import PurchasedRouter from "./api/purchased/purchasedRouter";
 app.use("/API/purchased", PurchasedRouter)
 
+import cartRouter from "./api/cart/cartRouter";
+import TeachersRouter from "./api/teachers/teachersRouter";
 import WishlistRouter from "./api/wishlist/wishlistRoutes";
 app.use("/API/wishlist", WishlistRouter);
-import TeachersRouter from "./api/teachers/teachersRouter";
 app.use("/API/teachers", TeachersRouter);
-import cartRouter from "./api/cart/cartRouter";
-import { Course } from "./api/courses/coursesModel";
 app.use("/API/cart", cartRouter);
 // Connect to MongoDB
 mongoose.connect(MONGO_URI!);
