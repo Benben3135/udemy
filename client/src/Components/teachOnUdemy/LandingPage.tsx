@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { userSelector } from "../../features/user/userSlice";
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import { User } from "../../util/interfaces";
 import { useNavigate } from "react-router-dom";
-import {addNewTeacher} from "../../../api/teachersAPI"
+import { addNewTeacher } from "../../../api/teachersAPI";
+import { userSelector } from "../../features/user/userSlice";
+import { User } from "../../util/interfaces";
 
 
 const LandingPage = () => {
@@ -11,14 +11,10 @@ const LandingPage = () => {
 
   const navigate = useNavigate();
   const userRedux: User = useSelector(userSelector);
-  const [user, setUser] = useState<User>();
-  useEffect(() => {
-    setUser(userRedux);
-  }, [userRedux]);
-
+ 
   const joinTeach = async () => {
-    if(user){
-      const result = await addNewTeacher(user.uid)
+    if(userRedux){
+      const result = await addNewTeacher(userRedux.uid)
       if (result){
         navigate("/instructor-page")
       }

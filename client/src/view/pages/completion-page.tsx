@@ -1,29 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import Course, { CourseProps } from "../../Components/Courses/Course";
-import { User } from "../../util/interfaces";
-import { userSelector } from "../../features/user/userSlice";
-import { addPurchasedCourse, getCartCourses } from "../../../api/carts/carts";
 import { Divider, Skeleton } from "@mui/material";
-import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import { Check, Dot, Star } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addPurchasedCourse, getCartCourses } from "../../../api/carts/carts";
 import { getBestSellerCourses } from "../../../api/coursesApi";
+import { CourseProps } from "../../Components/Courses/Course";
+import { userSelector } from "../../features/user/userSlice";
 
 const CompletionPage = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<User>();
   const userRedux = useSelector(userSelector);
   const [cart, setCart] = useState<[CourseProps] | []>([]);
-  const [dis, setDis] = useState<number>();
-  const [full, setFull] = useState<number>();
-  const [error, setError] = useState<boolean>(false);
+ 
   const [bestIds, setBestIds] = useState<number[]>([]);
   const [updatedRecently, setUpdatedRecently] = useState<number[] | null>();
 
-  useEffect(() => {
-    setUser(userRedux);
-  }, [userRedux]);
 
   useEffect(() => {
     calculateFull();
@@ -36,24 +28,18 @@ const CompletionPage = () => {
       price += item.discountPrice;
       fullPrice += item.fullPrice;
     });
-    setDis(price);
-    setFull(fullPrice);
   };
 
   useEffect(() => {
     for (let course of cart) {
-      console.log("adding another one")
       addCourseToPurchasedDB(course.courseId);
     }
   }, [cart]);
 
   useEffect(() => {
     getCoursesFromDB();
-  }, [user]);
+  }, [userRedux]);
 
-  useEffect(() => {
-    console.log(cart);
-  }, [cart]);
 
   useEffect(() => {
     getBestSeller();
@@ -66,7 +52,7 @@ const CompletionPage = () => {
   };
 
   const addCourseToPurchasedDB = async (courseId:number) => {
-    const response = await addPurchasedCourse(courseId, user!.uid)
+    const response = await addPurchasedCourse(courseId, userRedux!.uid)
     console.log(response)
   }
 
@@ -74,7 +60,7 @@ const CompletionPage = () => {
     const updatedItems: number[] = []; // Define an array to hold updated items
     cart.forEach((item) => {
       if (hasMonthPassed(item.lastUpdated)) {
-        console.log("no!");
+        
       } else {
         updatedItems.push(item.courseId); // Add the item to the updatedItems array
       }
@@ -99,7 +85,7 @@ const CompletionPage = () => {
 
   const getCoursesFromDB = async () => {
     try {
-      const courses = await getCartCourses(user!.uid);
+      const courses = await getCartCourses(userRedux!.uid);
       setCart(courses.courses);
     } catch (error) {
       console.error(error);

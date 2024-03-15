@@ -1,14 +1,6 @@
 import { useEffect, useState } from "react";
-import { isUserSelector } from "../features/user/isUserSlice";
 import { useSelector } from "react-redux";
-import { userSelector } from "../features/user/userSlice";
-import LogosComponent from "../Components/LogosCompany";
-import TabsComponent from "./TabsComponent";
-import { categoriesTab } from "../util/categories";
-import TestimonialsSlider from "./TestimonialsSlider";
-import CategoryImages from "./CategoriesImges";
 import { useNavigate } from "react-router-dom";
-import FeaturedCourse from "../Components/featuredCourse"
 import {
   getCoursesByMostRated,
   getCoursesByMostViewing,
@@ -16,7 +8,15 @@ import {
 } from "../../api/coursesApi";
 import { CourseProps } from "../Components/Courses/Course";
 import Courses from "../Components/Courses/Courses";
+import LogosComponent from "../Components/LogosCompany";
+import FeaturedCourse from "../Components/featuredCourse";
+import { isUserSelector } from "../features/user/isUserSlice";
+import { userSelector } from "../features/user/userSlice";
+import { categoriesTab } from "../util/categories";
 import BannerUdemy from "./BannerUdemy";
+import CategoryImages from "./CategoriesImges";
+import TabsComponent from "./TabsComponent";
+import TestimonialsSlider from "./TestimonialsSlider";
 const coursesByMostViewing: CourseProps[] = await getCoursesByMostViewing();
 const coursesByRecentlySearched: CourseProps[] =
   await getCoursesByRecentlySearched();
@@ -28,25 +28,21 @@ const MainPage = () => {
   const isUserRedux = useSelector(isUserSelector);
   const userRedux = useSelector(userSelector);
   const [isUser, setIsUser] = useState<boolean>();
-  const [userName, setUserName] = useState<string>();
+
 
   useEffect(() => {
     setIsUser(isUserRedux);
   }, [isUserRedux]);
 
-  useEffect(() => {
-    const firstName = getFirstName(userRedux.name);
-    setUserName(firstName!);
-  }, [userRedux]);
 
-  const getFirstName = (userName: string) => {
-    const firstName = userName!.split(" ")[0];
+  const getFirstName = () => {
+    const firstName = userRedux.displayName!.split(" ")[0];
     return firstName;
   };
 
   return (
     <>
-      {isUser && userName ? (
+      {isUser && userRedux.displayName ? (
         <div>
           <>
             <div className=" h-100vh">
@@ -61,7 +57,7 @@ const MainPage = () => {
                   <div className="h-[13.5rem] w-[26rem] bg-white shadow-md p-6 flex flex-col items-start justify-start gap-3">
                     <h1 className=" font-bold text-2xl leading-[1.7rem] tracking-normal text-Udemygray-500">
                       Welcome back, <br />
-                      {userName}{" "}
+                      {getFirstName()}{" "}
                     </h1>
                     <p>
                       Expand your horizons with learning that’s worldwide. Save
@@ -103,7 +99,7 @@ const MainPage = () => {
                 <div className="h-[16.5rem] w-[26rem] bg-white shadow-md p-6 flex flex-col items-start justify-start gap-3">
                   <h1 className=" font-bold text-3xl leading-[2.4rem] tracking-normal text-Udemygray-500">
                     Subscribe to the best of <br /> Udemy
-                    {userName}{" "}
+                    {userRedux.displayName}{" "}
                   </h1>
                   <p>
                     With Personal Plan, you get access to 8,000 of our top-rated

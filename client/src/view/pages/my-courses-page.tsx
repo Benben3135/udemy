@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Learning from "../../Components/My-Courses/Learning";
 import MyCoursesNavBar from "../../Components/My-Courses/MyCoursesNavBar";
 import Wishlist from "../../Components/My-Courses/Wishlist";
-import { useParams } from "react-router-dom";
 
-interface CoursesPageProps {
-  page: string;
-}
 
 const MyCoursesPage = () => {
   const [page, setPage] = useState<string>();
@@ -32,7 +29,6 @@ const MyCoursesPage = () => {
       if (currentPage === "tools") {
         setIndex(3);
       }
-      console.log("Your current page:", currentPage);
     }
   }, [currentPage]);
 
@@ -52,7 +48,6 @@ const MyCoursesPage = () => {
       if (currentPage === "tools") {
         setIndex(3);
       }
-      console.log("Your current page:", currentPage);
     }
   }, []);
 

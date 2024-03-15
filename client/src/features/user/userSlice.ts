@@ -3,24 +3,38 @@ import { RootState } from "../../app/store";
 
 export interface UserState{
     uid: string;
-    name:string;
-    email:string;
-    img:string;
-    acronyms:string;
+    email: string;
+    displayName: string;
+    photoURL: string;
+    isTeacher: boolean;
+    acronyms: string;
     logIn: boolean;
-    isTeacher: Boolean;
-    wishlist: []
+    headline?: string;
+    bio?: string;
+    website?: string;
+    twitter?: string;
+    facebook?: string;
+    linkedin?: string;
+    youtube?: string;
+    wishlist: [];
 }
 
 const initialState:UserState = {
     uid: "",
-    name:"",
+    displayName:"",
     email:"",
-    img:"",
+    photoURL:"",
     acronyms:"",
     logIn: false ,
     isTeacher: false,
-    wishlist: []
+    headline: "",
+    bio: "",
+    website: "",
+    twitter: "",
+    facebook: "",
+    linkedin: "",
+    youtube: "",
+    wishlist: [],
 };
 
 export const userSlice = createSlice({
@@ -31,14 +45,14 @@ export const userSlice = createSlice({
             state.uid = action.payload
         },
         setName: (state, action) => {
-            state.name = action.payload
+            state.displayName = action.payload
             
         },
         setEmail: (state, action) => {
             state.email = action.payload
         },
         setImg: (state, action) => {
-            state.img = action.payload
+            state.photoURL = action.payload
         },
         setAcronyms: (state, action) => {
             state.acronyms = action.payload

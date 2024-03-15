@@ -9,16 +9,15 @@ import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Divider } from "@mui/material";
 import Badge from "@mui/material/Badge";
-import { categories } from "../../util/categories";
 import { useSelector } from "react-redux";
-import { isUserSelector } from "../../features/user/isUserSlice";
-import { userSelector } from "../../features/user/userSlice";
+import { getSearchedCoursesByName } from "../../../api/coursesApi";
 import { logOut } from "../../../api/userApi/logInApi";
 import { getUserWishlistCourses } from "../../../api/userApi/usersAPI";
-import NavMenu from "../NavMenu";
-import { User } from "../../util/interfaces";
+import { isUserSelector } from "../../features/user/isUserSlice";
+import { userSelector } from "../../features/user/userSlice";
+import { categories } from "../../util/categories";
 import { CourseProps } from "../Courses/Course";
-import { getSearchedCoursesByName } from "../../../api/coursesApi";
+import NavMenu from "../NavMenu";
 
 const NavBar = () => {
   //initials
@@ -28,9 +27,6 @@ const NavBar = () => {
   const [glassColor, setGlassColor] = useState<Boolean>(false);
   const [search, setSearch] = useState<string>("");
   const [searched, setSearched] = useState<CourseProps[] | []>([]);
-  const [user, setUser] = useState<User>();
-  const [isUser, setIsUser] = useState<boolean>(false);
-  const [isInstructor, setIsInstructor] = useState<boolean>(false);
   const [wishlist, setWishlist] = useState<number[]>([]);
   const [wishlistCourses, setWishlistCourses] = useState<CourseProps[]>([]);
   const isUserRedux = useSelector(isUserSelector);
@@ -41,16 +37,13 @@ const NavBar = () => {
   //useEffects
 
   //by redux, we check if there is a user and save it to state:
-  useEffect(() => {
-    setIsUser(isUserRedux);
-  }, [isUserRedux]);
+ 
 
-  useEffect(() => {
-    console.log(searched);
-  }, [searched]);
+
 
   useEffect(() => {
     const handleClickOutside = (event: any) => {
+      //@ts-ignore
       if (searchRef.current && !searchRef.current.contains(event.target)) {
         setShowSearch(false);
       }
@@ -89,21 +82,17 @@ const NavBar = () => {
   };
 
   useEffect(() => {
-    setUser(userRedux);
-  }, [userRedux]);
-
-  useEffect(() => {
     setShowSearch(true);
   }, [searched]);
 
   useEffect(() => {
-    if (user && user.wishlist) {
-      setWishlist(user.wishlist);
+    if (userRedux && userRedux.wishlist) {
+      setWishlist(userRedux.wishlist);
       setTimeout(() => {
         getWishlistCourses();
       }, 2000);
     }
-  }, [user?.wishlist]);
+  }, [userRedux?.wishlist]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -138,14 +127,14 @@ const NavBar = () => {
   };
 
   const getWishlistCourses = async () => {
-    const courses = await getUserWishlistCourses(user!.uid);
-    const newWishlistCourses = [...courses.wishlistCourses]; // Create a new array
+    const courses = await getUserWishlistCourses(userRedux.uid);
+    const newWishlistCourses = [...courses.wishlistCourses];
     setWishlistCourses(newWishlistCourses);
   };
 
   return (
     <div>
-      {isUser ? (
+      {isUserRedux ? (
         <>
           <div>
             <div className=" w-screen h-[72px] flex flex-row justify-between items-center bg-white px-[1.8rem] shadow-2xl shadow-gray-400">
@@ -161,7 +150,7 @@ const NavBar = () => {
                 <button className="text-[0.9rem] h-[54px] pb-10  leading-normal font-normal text-gray-700 font-sans hover:text-Udemyblue-300 pr-3 flex-shrink-0 group-hover:text-Udemyblue-300">
                   Categories
                   <div className="absolute z-50 w-72 top-20 h-[38rem] bg-white border-Udemygray-200 border-[1.4px] shadow-lg scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all ease-in hover:scale-100">
-                    <div className="h-5/6 w-full flex flex-col items-center justify-senter">
+                    <div className="h-5/6 w-full flex flex-col items-center justify-center">
                       {categories.map((selectedCategory) => (
                         <div
                           key={selectedCategory}
@@ -236,7 +225,7 @@ const NavBar = () => {
                 </form>
               </div>
               <div className=" h-full w-32 flex flex-col justify-center items-center">
-                {user?.isTeacher ? (
+                {userRedux?.isTeacher ? (
                   <a
                     className=" text-Udemygray-500 hover:text-Udemyblue-300  text-[0.9rem] tracking-tight ml-12"
                     href="/instructor-page"
@@ -359,18 +348,18 @@ const NavBar = () => {
               </div>
               <div className="w-12 group  h-[70px] mt-10">
                 <Badge variant="dot" badgeContent="" color="secondary">
-                  {user?.photoURL ? (
+                  {userRedux?.photoURL ? (
                     <div className="rounded-full w-8 h-8 flex flex-col items-center justify-center cursor-pointer ">
                       <img
                         className="rounded-full w-8 h-8 flex"
-                        src={user.photoURL}
+                        src={userRedux.photoURL}
                         alt=""
                       />
                     </div>
                   ) : (
                     <div className=" bg-Udemygray-500 rounded-full w-8 h-8 flex flex-col items-center justify-center cursor-pointer ">
                       <h1 className="font-[700] text-Udemywhite font-sans text-sm text-center">
-                        {user!.acronyms}
+                        {userRedux!.acronyms}
                       </h1>
                     </div>
                   )}
@@ -380,18 +369,18 @@ const NavBar = () => {
                         onClick={() => navigate("/user/edit-profile")}
                         className="flex flex-row items-start justify-center h-24 w-full gap-2 p-3 border-b cursor-pointer"
                       >
-                        {user?.photoURL ? (
+                        {userRedux?.photoURL ? (
                           <div className="rounded-full w-16 h-16 flex flex-col items-center justify-center">
                             <img
                               className="rounded-full w-16 h-16"
-                              src={user.photoURL}
+                              src={userRedux.photoURL}
                               alt=""
                             />
                           </div>
                         ) : (
                           <div className=" bg-Udemygray-500 rounded-full w-16 h-16 flex flex-col items-center justify-center ">
                             <h1 className="font-[700] text-2xl text-Udemywhite font-sans text-center">
-                              {user!.acronyms}
+                              {userRedux!.acronyms}
                             </h1>
                           </div>
                         )}
@@ -401,11 +390,11 @@ const NavBar = () => {
                         >
                           {" "}
                           <h1 className=" font-bold text-slate-800 leading-[1.3rem] hover:text-Udemyblue-300">
-                            {user?.name.split(" ")[0]} <br />{" "}
-                            {user?.name.split(" ")[1]}
+                            {userRedux?.displayName.split(" ")[0]} <br />{" "}
+                            {userRedux?.displayName.split(" ")[1]}
                           </h1>
                           <h2 className=" font-extralight text-xs">
-                            {user?.email}
+                            {userRedux?.email}
                           </h2>
                         </div>
                       </div>

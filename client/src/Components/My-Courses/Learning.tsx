@@ -1,40 +1,29 @@
-import React, { useState, useEffect } from "react";
+import { Dot, Search, Star } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { userSelector } from "../../features/user/userSlice";
-import { User } from "../../util/interfaces";
-import { CourseProps } from "../Courses/Course";
-import { getUserWishlistCourses } from "../../../api/userApi/usersAPI";
 import { useNavigate } from "react-router-dom";
-import { Dot, Heart, Search, Star } from "lucide-react";
+import { getAllPurchasedCourses } from "../../../api/carts/carts";
 import { getBestSellerCourses } from "../../../api/coursesApi";
-import { addCourseWishlist } from "../../../api/coursesApi";
-import {getAllPurchasedCourses} from "../../../api/carts/carts"
+import { userSelector } from "../../features/user/userSlice";
+import { CourseProps } from "../Courses/Course";
 
 
 const Learning = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<User>();
   const userRedux = useSelector(userSelector);
   const [purchased, setpurchased] = useState<CourseProps[]>([]);
-  const [coursesRatings, setCoursesRatings] = useState<[]>([]);
   const [ratingRounded, setRatingRounded] = useState<number[]>();
   const [bestIds, setBestIds] = useState<number[]>([]);
   const [search, setSearch] = useState<string>("");
   const [resultCourses, setResultCourses] = useState<CourseProps[]>([]);
 
-  useEffect(() => {
-    setUser(userRedux);
-  }, [userRedux]);
+ 
 
   useEffect(() => {
-    console.log("purchased are!" , purchased)
-  },[purchased])
-
-  useEffect(() => {
-    if (user && user.uid) {
+    if (userRedux && userRedux.uid) {
       getPurchasedCourses();
     }
-  }, [user]);
+  }, [userRedux]);
 
   useEffect(() => {
     if (purchased.length > 0) {
@@ -55,7 +44,7 @@ const Learning = () => {
   }, [search]);
 
   const getPurchasedCourses = async () => {
-    const courses = await getAllPurchasedCourses(user!.uid);
+    const courses = await getAllPurchasedCourses(userRedux!.uid);
     if (courses.ok) {
       const purchasedCourses: CourseProps[] = courses.courses;
       setpurchased(purchasedCourses);
@@ -73,9 +62,7 @@ const Learning = () => {
     setRatingRounded(ratings);
   };
 
-  useEffect(() => {
-    console.log("your result courses are:", resultCourses);
-  }, [resultCourses]);
+
 
   const getBestSeller = async () => {
     const bestID: [] = await getBestSellerCourses();

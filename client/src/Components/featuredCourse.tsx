@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { Dot, Star } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getMostPopularCourse } from "../../api/coursesApi";
 import { CourseProps } from "./Courses/Course";
-import { Dot, Star } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 
 const FeaturedCourse = () => {
   const [course, setCourse] = useState<CourseProps>();
@@ -32,7 +32,6 @@ const FeaturedCourse = () => {
   const lastUpdatedSTR = () => {
     debugger;
     const lastUpdatedDate = new Date(course!.lastUpdated);
-    const options = { month: "long", year: "numeric" };
     const formattedDate = lastUpdatedDate.toLocaleDateString("en-US", { month: "long", year: "numeric" });
 
     setLastUpdatedString(formattedDate);

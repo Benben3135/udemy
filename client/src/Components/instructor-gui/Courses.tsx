@@ -1,6 +1,5 @@
-import React from "react";
-import {} from "../../../public/images/teachOnUdemy/video-creation.jpg";
 import { useNavigate } from "react-router-dom";
+import { } from "../../../public/images/teachOnUdemy/video-creation.jpg";
 
 const Courses = () => {
   const navigate = useNavigate()

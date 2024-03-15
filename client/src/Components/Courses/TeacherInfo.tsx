@@ -24,7 +24,7 @@ const TeacherInfo: React.FC<TeacherInfoProps> = ({
   // Render the teacher information
   return (
     <div className='bg-white'>
-      <h2>{teacher.name}</h2>
+      <h2>{teacher.displayName}</h2>
       {/* Other teacher information rendering */}
     
 

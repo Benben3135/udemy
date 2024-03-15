@@ -4,16 +4,15 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Check } from "lucide-react";
 interface TeamsTabContentProps {
-  handleLearnMoreClick: () => void;
   course: {
     fullPrice: number;
     discountPrice: number;
-    secondDescriptions: string[]
+    secondDescriptions: string[];
   };
+  handleLearnMoreClick: () => void;
 }
 
 const TeamsTabContent: React.FC<TeamsTabContentProps> = ({
-  handleLearnMoreClick,
   course,
 }) => {
 
@@ -27,7 +26,6 @@ const TeamsTabContent: React.FC<TeamsTabContentProps> = ({
   };
 
   const renderSecondDescriptions = (secondDescriptions: string[]) => {
-    console.log(course);
     return secondDescriptions.slice(0, 4).map((description, index) => (
       <div key={index} className="flex flex-row justify-start items-start w-full text-sm font-normal text-slate-700 gap-4">
         <Check className="min-w-4" size="16px" color="gray" />

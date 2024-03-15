@@ -1,24 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { noNavbar } from "../../features/user/navbarSlice";
-import { noFooter } from "../../features/user/footerSlice";
-import {} from "../../../public/images/Udemy-Logo.png";
-import { useNavigate } from "react-router-dom";
-import { categories } from "../../util/categories";
 import { Check } from "lucide-react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { addCourse } from "../../../api/coursesApi";
+import { } from "../../../public/images/Udemy-Logo.png";
+import { noFooter } from "../../features/user/footerSlice";
+import { noNavbar } from "../../features/user/navbarSlice";
 import { userSelector } from "../../features/user/userSlice";
-import { useSelector } from "react-redux";
+import { categories } from "../../util/categories";
 import { User } from "../../util/interfaces";
 
 const CreateCoursePage = () => {
-  const [user, setUser] = useState<User>();
   const userRedux: User = useSelector(userSelector);
-  useEffect(() => {
-    setUser(userRedux);
-    console.log(userRedux);
-  }, [userRedux]);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -40,7 +33,7 @@ const CreateCoursePage = () => {
 
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  const handleCategoryChange = (event) => {
+  const handleCategoryChange = (event:any) => {
     setSelectedCategory(event.target.value);
   };
   const hanleSetDes = () => {
@@ -63,8 +56,8 @@ const CreateCoursePage = () => {
       setAlert(false);
       setIndex(4);
       const data = await addCourse(
-        user!.uid,
-        user!.name,
+        userRedux!.uid,
+        userRedux!.displayName,
         name,
         mainDes,
         secondDescriptions,
@@ -89,9 +82,7 @@ const CreateCoursePage = () => {
     }
   }, [secondDescriptions]);
 
-  useEffect(() => {
-    console.log(secondDescriptions);
-  }, [secondDescriptions]);
+
 
   useEffect(() => {
     if (name.length > 4) {
@@ -100,10 +91,6 @@ const CreateCoursePage = () => {
       setContinue(false);
     }
   }, [name]);
-
-  useEffect(() => {
-    console.log(selectedCategory);
-  }, [selectedCategory]);
 
   useEffect(() => {
     setCharNum(60 - name.length);

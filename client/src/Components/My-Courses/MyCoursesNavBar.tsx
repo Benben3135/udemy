@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { MyCoursesCategories } from "../My-Courses/MyCoursesCategories";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { MyCoursesCategories } from "../My-Courses/MyCoursesCategories";
 
 interface MyCoursesNavBarProps{
   index: number
@@ -24,9 +24,6 @@ const MyCoursesNavBar = ({index}:MyCoursesNavBarProps) => {
     }
   }, [activeIndex]);
 
-  useEffect(() => {
-    console.log("index is:" , index)
-  },[])
 
   return (
     <div className=" w-full h-[10.5rem] bg-Udemygray-500 flex flex-row items-end justify-center">

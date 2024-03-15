@@ -1,20 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { User } from "../../util/interfaces";
-import { useSelector } from "react-redux";
-import { userSelector } from "../../features/user/userSlice";
-import { getCartCourses } from "../../../api/carts/carts";
-import Course, { CourseProps } from "../../Components/Courses/Course";
-import { Divider, Skeleton } from "@mui/material";
-import { getBestSellerCourses } from "../../../api/coursesApi";
-import { Dot, Star } from "lucide-react";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import { addCourseWishlist } from "../../../api/coursesApi";
-import { removeCourseFromCart } from "../../../api/carts/carts";
+import { Divider, Skeleton } from "@mui/material";
+import { Dot, Star } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getCartCourses, removeCourseFromCart } from "../../../api/carts/carts";
+import { addCourseWishlist, getBestSellerCourses } from "../../../api/coursesApi";
+import { CourseProps } from "../../Components/Courses/Course";
+import { userSelector } from "../../features/user/userSlice";
 
 const CartPage = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<User>();
   const userRedux = useSelector(userSelector);
   const [cart, setCart] = useState<[CourseProps] | []>([]);
   const [bestIds, setBestIds] = useState<number[]>([]);
@@ -24,10 +20,6 @@ const CartPage = () => {
   const [error, setError] = useState<boolean>(false);
   const [wishlist, setWishlist] = useState<number[]>([]);
 
-
-  useEffect(() => {
-    setUser(userRedux);
-  }, [userRedux]);
 
   useEffect(() => {
     calculateFull();
@@ -51,19 +43,12 @@ const CartPage = () => {
 
   useEffect(() => {
     getCoursesFromDB();
-  }, [user,cart]);
+  }, [userRedux,cart]);
 
-  useEffect(() => {
-    console.log(cart);
-  }, [cart]);
-
-  useEffect(() => {
-    console.log("updatedRecently is:", updatedRecently);
-  }, [updatedRecently]);
 
   const getCoursesFromDB = async () => {
     try {
-      const courses = await getCartCourses(user!.uid);
+      const courses = await getCartCourses(userRedux!.uid);
       setCart(courses.courses);
     } catch (error) {
       console.error(error);
@@ -72,14 +57,15 @@ const CartPage = () => {
 
   
   useEffect(() => {
-    if (user && user.wishlist) {
-      setWishlist(user.wishlist);
+    if (userRedux && userRedux.wishlist) {
+      setWishlist(userRedux.wishlist);
     }
-  }, [user?.wishlist]);
+  }, [userRedux?.wishlist]);
 
   const addToWishlist = async (courseID : number) => {
     const remove = await removeFromCart(courseID)
-    const result = await addCourseWishlist(courseID, user!.uid);
+    console.log(remove)
+    const result = await addCourseWishlist(courseID, userRedux!.uid);
     if (result.ok) {
       if (wishlist.includes(courseID)) {
         setWishlist((prevWishlist) =>
@@ -94,7 +80,7 @@ const CartPage = () => {
 
   const removeFromCart = async (courseID: number) => {
     try {
-      const result: any = await removeCourseFromCart(courseID, user!.uid);
+      const result: any = await removeCourseFromCart(courseID, userRedux!.uid);
       if (result) {
         setCart(prevCart => prevCart.filter(item => item.courseId !== courseID) as [CourseProps] | []);
         getCoursesFromDB();
@@ -115,7 +101,6 @@ const CartPage = () => {
     const updatedItems: number[] = []; // Define an array to hold updated items
     cart.forEach((item) => {
       if (hasMonthPassed(item.lastUpdated)) {
-        console.log("no!");
       } else {
         updatedItems.push(item.courseId); // Add the item to the updatedItems array
       }

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import TermsNavBar from "../../Components/termsNavBar/TermsNavBar";
+import AffiliatePart from "../../Components/termsParts/AffiliatePart";
+import InstructorPart from "../../Components/termsParts/InstructorPart";
+import IntellectualPart from "../../Components/termsParts/IntellectualPart";
+import LunchServicesPart from "../../Components/termsParts/LunchServicesPart";
+import PrivacyPart from "../../Components/termsParts/PrivacyPart";
 import TermsPart from "../../Components/termsParts/TermsPart";
-import PrivacyPart from "../../Components/termsParts/PrivacyPart"
-import IntellectualPart from "../../Components/termsParts/IntellectualPart"
-import InstructorPart from "../../Components/termsParts/InstructorPart"
-import AffiliatePart from "../../Components/termsParts/AffiliatePart"
-import LunchServicesPart from "../../Components/termsParts/LunchServicesPart"
 
 const termsPage = () => {
     const [href,setHref] = useState<string>("terms")
@@ -13,13 +13,6 @@ const termsPage = () => {
     const getHref = (href:string) => {
         setHref(href)
     }
-    useEffect(() => {
-        console.log(href)
-    },[href])
-
-    useEffect(() => {
-      console.log("the initial href baby is!" , href)
-    },[])
 
   return (
     <div className=" h-fit w-screen flex flex-row items-start justify-start mb-8">

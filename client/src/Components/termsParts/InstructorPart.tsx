@@ -1,5 +1,3 @@
-import { DotIcon } from "lucide-react";
-import React from "react";
 
 const InstructorPart = () => {
   return (

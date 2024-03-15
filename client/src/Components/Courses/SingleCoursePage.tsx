@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Course, { CourseProps } from "../Courses/Course";
 import { getCourseById } from "../../../api/coursesApi";
+import { CourseProps } from "../Courses/Course";
 import CourseComponent from "./CourseComponent";
 
 const SingleCoursePage = () => {
@@ -9,12 +9,10 @@ const SingleCoursePage = () => {
   const [course, setCourse] = useState<CourseProps | null>(null);
 
   useEffect(() => {
-    console.log("courseId:", courseId);
     const fetchCourse = async () => {
       try {
         if (courseId) {
           const courseData = await getCourseById(Number(courseId));
-          console.log("courseData:", courseData);
           setCourse(courseData);
         }
       } catch (error) {

@@ -1,24 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { isUserSelector } from "../../features/user/isUserSlice";
-import { userSelector } from "../../features/user/userSlice";
-import { useNavigate } from "react-router-dom";
-import { User } from "../../util/interfaces";
-import { userPageCategories } from "./userPageCategories";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import QuillDeltaToHtmlConverter from "quill-delta-to-html";
-import Quill from "quill";
-import { Divider } from "@mui/material";
-import { sendNewImg } from "../../../api/userApi/usersAPI";
-import Alert from "@mui/material/Alert";
 import CheckIcon from "@mui/icons-material/Check";
+import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
+import { useState } from "react";
+import "react-quill/dist/quill.snow.css";
+import { useSelector } from "react-redux";
+import { sendNewImg } from "../../../api/userApi/usersAPI";
+import { userSelector } from "../../features/user/userSlice";
 
 const UserPhotoTab = () => {
-  const navigate = useNavigate();
   const userRedux = useSelector(userSelector);
-  const [user, setUser] = useState<User>();
   const [img, setImg] = useState<string>("");
   const [sucsess, setSucsess] = useState<Boolean>(false);
   const [warning, setWarning] = useState<Boolean>(false);
@@ -28,7 +18,7 @@ const UserPhotoTab = () => {
   );
 
   const sendImgToDB = async () => {
-    const result = await sendNewImg(img, user!.uid);
+    const result = await sendNewImg(img, userRedux!.uid);
     if (result.ok) {
       imgChanged();
     } else {
@@ -36,13 +26,7 @@ const UserPhotoTab = () => {
     }
   };
 
-  useEffect(() => {
-    setUser(userRedux);
-  }, [userRedux]);
 
-  useEffect(() => {
-    console.log(img);
-  }, [img]);
 
   const imgChanged = () => {
     setWarning(false);

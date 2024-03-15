@@ -1,36 +1,30 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { userSelector } from "../../features/user/userSlice";
-import { User } from "../../util/interfaces";
-import { CourseProps } from "../Courses/Course";
-import { getUserWishlistCourses } from "../../../api/userApi/usersAPI";
-import { useNavigate } from "react-router-dom";
 import { Dot, Heart, Search, Star } from "lucide-react";
-import { getBestSellerCourses } from "../../../api/coursesApi";
-import { addCourseWishlist } from "../../../api/coursesApi";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addCourseWishlist, getBestSellerCourses } from "../../../api/coursesApi";
+import { getUserWishlistCourses } from "../../../api/userApi/usersAPI";
+import { userSelector } from "../../features/user/userSlice";
+import { CourseProps } from "../Courses/Course";
 
 const Wishlist = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<User>();
   const userRedux = useSelector(userSelector);
   const [wishlist, setWishlist] = useState<number[]>([]);
   const [wishlistCourses, setWishlistCourses] = useState<CourseProps[]>([]);
-  const [coursesRatings, setCoursesRatings] = useState<[]>([]);
   const [ratingRounded, setRatingRounded] = useState<number[]>();
   const [bestIds, setBestIds] = useState<number[]>([]);
   const [search, setSearch] = useState<string>("");
   const [resultCourses, setResultCourses] = useState<CourseProps[]>([]);
 
-  useEffect(() => {
-    setUser(userRedux);
-  }, [userRedux]);
+
 
   useEffect(() => {
-    if (user && user.wishlist) {
-      setWishlist(user.wishlist);
+    if (userRedux && userRedux.wishlist) {
+      setWishlist(userRedux.wishlist);
       getWishlistCourses();
     }
-  }, [user?.wishlist]);
+  }, [userRedux?.wishlist]);
 
   useEffect(() => {
     if (wishlistCourses.length > 0) {
@@ -51,7 +45,7 @@ const Wishlist = () => {
   }, [search]);
 
   const getWishlistCourses = async () => {
-    const courses = await getUserWishlistCourses(user!.uid);
+    const courses = await getUserWishlistCourses(userRedux!.uid);
     if (courses && courses.wishlistCourses) {
       const wishlistCourses: CourseProps[] = courses.wishlistCourses;
       setWishlistCourses(wishlistCourses);
@@ -69,9 +63,6 @@ const Wishlist = () => {
     setRatingRounded(ratings);
   };
 
-  useEffect(() => {
-    console.log("your result courses are:", resultCourses);
-  }, [resultCourses]);
 
   const getBestSeller = async () => {
     const bestID: [] = await getBestSellerCourses();
@@ -169,7 +160,7 @@ const Wishlist = () => {
                   }}
                 >
                   <Heart
-                    onClick={() => addToWishlist(course.courseId, user!.uid)}
+                    onClick={() => addToWishlist(course.courseId, userRedux!.uid)}
                     className="fill-white stroke-none"
                   />
                 </div>

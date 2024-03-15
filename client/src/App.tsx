@@ -1,65 +1,53 @@
-import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import MainPage from "./view/pages/main-page";
-import NotFound from "./view/pages/not-found";
-import NavBar from "./Components/NavBar/NavBar";
-import UserPage from "./view/pages/user-page";
-import PublicProfilePage from "./view/pages/public-profile-page";
-import MyCoursesPage from "./view/pages/my-courses-page";
-import TeachOnUdemyLandingPage from "./view/pages/teachOnLandingPage";
-import CreateCoursePage from "./view/pages/create-course";
-import InstructorPage from "./view/pages/instructor-page";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import NavBar from "./Components/NavBar/NavBar";
+import { isFooterSelector } from "./features/user/footerSlice";
 import { thereUser } from "./features/user/isUserSlice";
 import { isNavbarSelector } from "./features/user/navbarSlice";
-import { isFooterSelector } from "./features/user/footerSlice";
 import { auth } from "./firebase";
-import { loadStripe, Stripe } from "@stripe/stripe-js";
+import CreateCoursePage from "./view/pages/create-course";
+import InstructorPage from "./view/pages/instructor-page";
+import MainPage from "./view/pages/main-page";
+import MyCoursesPage from "./view/pages/my-courses-page";
+import NotFound from "./view/pages/not-found";
+import PublicProfilePage from "./view/pages/public-profile-page";
+import TeachOnUdemyLandingPage from "./view/pages/teachOnLandingPage";
+import UserPage from "./view/pages/user-page";
 
+import { checkImgDB, getUser, getUserWishlist } from "../api/userApi/usersAPI";
+import Login from "./Components/Login";
+import Register from "./Components/Register";
 import {
   setAcronyms,
   setEmail,
   setImg,
+  setIsTeacherFalse,
+  setIsTeacherTrue,
   setLogInFalse,
   setLogInTrue,
   setName,
   setUid,
-  setIsTeacherFalse,
-  setIsTeacherTrue,
-  userSelector,
   setWishlist,
 } from "./features/user/userSlice";
-import Register from "./Components/Register";
-import Login from "./Components/Login";
 import Terms from "./view/pages/terms-page";
-import { getUser } from "../api/userApi/usersAPI";
-import { checkImgDB } from "../api/userApi/usersAPI";
-import { getUserWishlist } from "../api/userApi/usersAPI";
 
-import Footer from "./Components/Footer/Footer";
-import TeacherPage from "./view/teacher-page";
-import { Archive } from "lucide-react";
 import ArchiveCategoreyCourse from "./Components/Courses/ArchiveCategoreyCourse";
-import { User } from "./util/interfaces";
 import SingleCoursePage from "./Components/Courses/SingleCoursePage";
-import CheckoutPage from "./view/pages/Checkout-page";
+import Footer from "./Components/Footer/Footer";
 import CartPage from "./view/pages/Cart-page";
-import { Elements } from "@stripe/react-stripe-js";
+import CheckoutPage from "./view/pages/Checkout-page";
 import CompletionPage from "./view/pages/completion-page";
+import TeacherPage from "./view/teacher-page";
 
 function App() {
   const dispatch = useDispatch();
-  const stripePromise = loadStripe(
-    'pk_test_51Ob07vGPw5IknvcVtIUwKmD9eGipq3c6RvsO5jjDuWkUWVtBeTCEfYosk42VsZka5bZpvNZ0O9FKJ63CO8R5qTh900nqsKvmNq'
-  );
+
 
 
   const navbarRedux = useSelector(isNavbarSelector);
   const footerRedux = useSelector(isFooterSelector);
-  const userRedux = useSelector(userSelector);
-  const [teachers, setTeachers] = useState<User[]>();
-  const [dataFetched, setDataFetched] = useState(false);
   const [isNavbar, setIsNavbar] = useState<boolean>(true);
   const [isFooter, setIsfooter] = useState<boolean>(true);
   
@@ -103,6 +91,7 @@ function App() {
         }
       }
     });
+    console.log(unsubscribe)
   }, []);
 
   const dispatchUser = async (uid: string) => {
@@ -121,8 +110,6 @@ function App() {
     if (result) {
       const newImage = result.image;
       dispatch(setImg(newImage));
-    } else {
-      console.log("now testing false", result);
     }
   };
 

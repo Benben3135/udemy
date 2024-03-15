@@ -4,17 +4,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getCartCourses } from "../../../api/carts/carts";
-import CheckoutForm from "../../Components/CheckoutForm";
 import { CourseProps } from "../../Components/Courses/Course";
 import Loader from "../../Components/animations/Loader";
 import { noFooter } from "../../features/user/footerSlice";
 import { noNavbar } from "../../features/user/navbarSlice";
 import { userSelector } from "../../features/user/userSlice";
-import { User } from "../../util/interfaces";
 
-import {
-  Elements
-} from "@stripe/react-stripe-js";
 
 const stripePromise = loadStripe(
   "pk_test_51Ob07vGPw5IknvcVtIUwKmD9eGipq3c6RvsO5jjDuWkUWVtBeTCEfYosk42VsZka5bZpvNZ0O9FKJ63CO8R5qTh900nqsKvmNq"
@@ -24,17 +19,10 @@ const CheckoutPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [user, setUser] = useState<User>();
   const userRedux = useSelector(userSelector);
   const [cart, setCart] = useState<[CourseProps] | []>([]);
   const [dis, setDis] = useState<number>();
   const [full, setFull] = useState<number>();
-  const [error, setError] = useState<boolean>(false);
-
-  const [message, setMessage] = useState<string | null | undefined>(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [clientSecret, setClientSecret] = useState("");
 
 
 
@@ -48,31 +36,16 @@ const CheckoutPage = () => {
       body: JSON.stringify({ items: cart }),
     })
       .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret));
+      .then((data) => console.log(data));
   }, [cart]);
 
-  const appearance = {
-    theme: 'stripe',
-    variables: {
-      colorPrimary: '#c33ff3',
-      colorBackground: '#ebe0ff',
-      
-    },
-  };
 
-  const options = {
-    clientSecret,
-    appearance,
-  };
+
 
   useEffect(() => {
     dispatch(noNavbar());
     dispatch(noFooter());
   }, []);
-
-  useEffect(() => {
-    setUser(userRedux);
-  }, [userRedux]);
 
   useEffect(() => {
     calculateFull();
@@ -95,15 +68,12 @@ const CheckoutPage = () => {
 
   useEffect(() => {
     getCoursesFromDB();
-  }, [user,cart]);
+  }, [userRedux,cart]);
 
-  useEffect(() => {
-    console.log(cart);
-  }, [cart]);
 
   const getCoursesFromDB = async () => {
     try {
-      const courses = await getCartCourses(user!.uid); // Use optional chaining to prevent errors if user is null
+      const courses = await getCartCourses(userRedux!.uid); // Use optional chaining to prevent errors if user is null
       setCart(courses.courses);
     } catch (error) {
       console.error(error);
@@ -115,7 +85,6 @@ const CheckoutPage = () => {
     const stripe = await stripePromise;
 
     try {
-      console.log("current cart" , cart)
 
       const response = await fetch('http://localhost:4000/create-checkout-session', {
 
@@ -139,23 +108,16 @@ const CheckoutPage = () => {
 
       // When the customer clicks on the button, redirect them to Checkout.
 
-      const result = await stripe.redirectToCheckout({
+      const result = await stripe!.redirectToCheckout({
 
         sessionId: session.id,
 
       });
-
- 
-
-      if (result.error) {
-
-        setError(result.error.message);
-
-      }
+      console.log(result)
 
     } catch (error) {
 
-      setError('An error occurred, please try again.');
+      console.error(error)
 
     }
 

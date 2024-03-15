@@ -23,7 +23,6 @@ export const loginUserWithEmail = async (email: string, password: string) => {
     }
   } catch (error) {
     return { ok: false };
-    console.error("Error creating user:", (error as Error).message);
     throw error;
   }
 };

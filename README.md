@@ -12,9 +12,13 @@ features: student, instructor, buying courses, courses CRUD, studen CRUD, instru
 -Express.js
 -MongoDB
 -Firebase Auth
+-Stripe
 -Redux
+-TailwindCSS
 -MUI
 -Framer-Motion
 -Axios
+-Quill
+-Postman
 -Faker/js
 </p>

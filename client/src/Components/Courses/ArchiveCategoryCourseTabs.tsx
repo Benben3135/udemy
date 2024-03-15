@@ -27,8 +27,8 @@ const ArchiveCategoryCourseTabs: React.FC<ArchiveCategoryCourseTabsProps> = ({
   };
 
   return (
-    <div>
-      <div className="tabs-container mb-4 bg-white items-center w-[50vw] pt-5 flex justify-center  flex-shrink-0 border-b-Udemygray-500 mb-1">
+    <div className=" flex flex-col items-start w-[82vw] justify-between px-6">
+      <div className="tabs-container mb-4 bg-white items-center w-[50vw] pt-5 flex justify-center  flex-shrink-0 border-b-Udemygray-500">
         <button
           className={`tab-btn ${
             activeTab === "MostViewed"

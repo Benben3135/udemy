@@ -4,29 +4,20 @@ import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { addUserInfo } from "../../../api/userApi/usersAPI";
 import { userSelector } from "../../features/user/userSlice";
-import { User } from "../../util/interfaces";
 
 const UserProfileTab = () => {
-  const navigate = useNavigate();
   const userRedux = useSelector(userSelector);
-  const [user, setUser] = useState<User>();
   const [headline, setHeadline] = useState<string>("");
   const [headlineLen, setHeadlineLen] = useState<number>(0);
   const [bio, setBio] = useState<any>("");
-  const [bioCon, setBioCon] = useState<any>();
   const [website, setWebsite] = useState<string>("");
   const [twitter, setTwitter] = useState<string>("");
   const [facebook, setFacebook] = useState<string>("");
   const [linkedin, setLinkedin] = useState<string>("");
   const [youtube, setYoutube] = useState<string>("");
 
-
-  useEffect(() => {
-    setUser(userRedux);
-  }, [userRedux]);
 
   useEffect(() => {
     setHeadlineLen(headline.length);
@@ -37,7 +28,6 @@ const UserProfileTab = () => {
     function quillGetHTML() {
       const tempCont = document.createElement("div");
       new Quill(tempCont).setContents(bio);
-      setBioCon(tempCont);
     }
 
     // Call the conversion function when bio changes
@@ -45,10 +35,6 @@ const UserProfileTab = () => {
       quillGetHTML();
     }
   }, [bio]);
-
-  useEffect(() => {
-    console.log("bioCon is:", bioCon);
-  }, [bioCon]);
 
   return (
     <div className=" border h-full w-[56.2rem]">
@@ -60,10 +46,10 @@ const UserProfileTab = () => {
         <div className="h-full w-full flex flex-col items-start justify-start max-w-[40rem] gap-4 ">
           <h1 className=" font-bold text-slate-800">Basics</h1>
           <div className=" w-full h-12 border border-black pl-4 pt-2">
-            {user?.name?.split(" ")[0]}
+            {userRedux?.displayName?.split(" ")[0]}
           </div>
           <div className=" w-full h-12 border border-black pl-4 pt-2">
-            {user?.name?.split(" ")[1]}
+            {userRedux?.displayName?.split(" ")[1]}
           </div>
           <div className=" w-full h-12 border border-black pl-4 pt-2 flex flex-row items-start justify-start">
             <input
@@ -84,6 +70,7 @@ const UserProfileTab = () => {
           </p>
           <div className=" w-full h-fit flex flex-col justify-start items-start mb-14">
             <ReactQuill
+              //@ts-ignore
               onChange={(content, delta, source, editor) =>
                 setBio(editor.getContents())
               }
@@ -169,7 +156,23 @@ const UserProfileTab = () => {
           <p className=" text-xs text-slate-700">
             Input your Youtube username (e.g. johnsmith).
           </p>
-          <div onClick={() => addUserInfo(user!.uid, headline, bio.ops[0].insert, website, twitter, facebook, linkedin, youtube)} className=" bg-Udemygray-500 w-[5.4rem] h-12 flex flex-row justify-center items-center font-bold text-white mt-8 cursor-pointer">Save</div>
+          <div
+            onClick={() =>
+              addUserInfo(
+                userRedux!.uid,
+                headline,
+                bio.ops[0].insert,
+                website,
+                twitter,
+                facebook,
+                linkedin,
+                youtube
+              )
+            }
+            className=" bg-Udemygray-500 w-[5.4rem] h-12 flex flex-row justify-center items-center font-bold text-white mt-8 cursor-pointer"
+          >
+            Save
+          </div>
         </div>
       </div>
     </div>

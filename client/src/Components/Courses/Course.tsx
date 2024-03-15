@@ -1,14 +1,12 @@
 import { Check, Dot, Heart, Star } from "lucide-react";
 import { useEffect, useState } from "react";
-import { getBestSellerCourses } from "../../../api/coursesApi";
-import { addCourseWishlist } from "../../../api/coursesApi";
+import { addCourseWishlist, getBestSellerCourses } from "../../../api/coursesApi";
 
 import { useSelector } from "react-redux";
-import { setUid, userSelector } from "../../features/user/userSlice";
 import { useNavigate } from "react-router-dom";
-import AddToCart from "../carts/AddToCart";
 import { addCourseToCart } from "../../../api/carts/carts";
-import { User } from "../../util/interfaces";
+import { setUid, userSelector } from "../../features/user/userSlice";
+import AddToCart from "../carts/AddToCart";
 
 export interface CourseProps {
   courseId: number,
@@ -37,84 +35,66 @@ export interface CourseProps {
 
 export const Course = ({
   courseId,
-  teacherId,
   courseName,
   teacherName,
   mainDescription,
   rating,
   numberOfRatings,
-  numberOfStudents,
   lastUpdated,
-  language,
-  subtitlesLanguage,
-  fullPrice,
-  discountPrice,
   secondDescriptions,
   courseDuration,
-  articlesNumber,
-  downloadableResourcesNumber,
-  courseContent,
-  requirements,
-  fullDescription,
   course_img,
-  category,
+  fullPrice,
 
 }: CourseProps) => {
   const [bestIds, setBestIds] = useState<number[]>([]);
   const [lastUpdatedString, setLastUpdatedString] = useState<string>("");
   const userRedux = useSelector(userSelector);
-const [user, setUser] = useState<User>();
   const [wishlist, setWishlist] = useState<number[]>([]);
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setUser(userRedux)
-  },[userRedux])
 
   useEffect(() => {
-    if (user && user.uid) {
-      setUid(user.uid);
+    if (userRedux && userRedux.uid) {
+      setUid(userRedux.uid);
     }
-  }, [user?.uid]);
+  }, [userRedux?.uid]);
 
   useEffect(() => {
-    if (user && user.wishlist) {
-      setWishlist(user.wishlist);
+    if (userRedux && userRedux.wishlist) {
+      setWishlist(userRedux.wishlist);
     }
-  }, [user?.wishlist]);
+  }, [userRedux?.wishlist]);
 
   const getBestSeller = async () => {
     const bestID: [] = await getBestSellerCourses();
     setBestIds(bestID);
   };
   useEffect(() => {
-    if (user && user.uid) {
-      setUid(user.uid);
+    if (userRedux && userRedux.uid) {
+      setUid(userRedux.uid);
     }
-  }, [user?.uid]);
+  }, [userRedux?.uid]);
 
   const lastUpdatedSTR = () => {
     const lastUpdatedDate = new Date(lastUpdated);
-    const options = { month: "long", year: "numeric" };
     const formattedDate = lastUpdatedDate.toLocaleDateString("en-US", { month: "long", year: "numeric" });
 
     setLastUpdatedString(formattedDate);
   };
 
   const handleAddToCartInternal = async () => {
-    console.log("Adding to cart...");
     try {
       debugger
-      await addCourseToCart(courseId, user!.uid);
-      console.log("Course added to cart successfully!");
+      await addCourseToCart(courseId, userRedux!.uid);
     } catch (error) {
       console.error("Failed to add course to cart", error);
     }
   };
 
   const addToWishlist = async () => {
-    const result = await addCourseWishlist(courseId, user!.uid);
+    const result = await addCourseWishlist(courseId, userRedux!.uid);
     if (result.ok) {
       if (wishlist.includes(courseId)) {
         setWishlist((prevWishlist) =>

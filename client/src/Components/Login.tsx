@@ -1,26 +1,21 @@
-import React from "react";
 import { Divider } from "@mui/material";
-import Checkbox from "@mui/material/Checkbox";
+import { AlertOctagon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../../api/userApi/registerApi";
-import { UseSelector, useDispatch, useSelector } from "react-redux";
-import { userSelector } from "../features/user/userSlice";
 import {
-  loginUserWithPopUp,
   loginUserWithEmail,
+  loginUserWithPopUp,
 } from "../../api/userApi/logInApi";
 import { loginLogos } from "../../public/images/loginLogos/loginLogos";
-import { UseDispatch } from "react-redux";
 import { thereUser } from "../features/user/isUserSlice";
-import { AlertOctagon } from "lucide-react";
+import { userSelector } from "../features/user/userSlice";
 
 const Login = () => {
   const [token, setToken] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
-  const [loading, setLoading] = useState<boolean>(false);
   const tokenRedux = useSelector(userSelector);
   const dispatch = useDispatch();
   const [userName, setUserName] = useState<string>("");
@@ -34,9 +29,7 @@ const Login = () => {
     }
   }, [tokenRedux]);
 
-  useEffect(() => {
-    console.log(token);
-  }, [token]);
+
 
   const loginUserWithEmailAndPassword = async () => {
     const result = await loginUserWithEmail(email, password);
@@ -45,7 +38,6 @@ const Login = () => {
       navigate("/");
     }
     else{
-      console.log("something went wrong darling!")
       setError(true)
     }
   };

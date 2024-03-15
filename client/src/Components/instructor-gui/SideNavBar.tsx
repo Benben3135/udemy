@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import {} from "../../../public/images/Untitled_design__24_-removebg-preview.png";
 import { GraduationCap, HelpCircle, MonitorPlay } from "lucide-react";
+import { } from "../../../public/images/Untitled_design__24_-removebg-preview.png";
 
 interface SideNavBarProps {
     active: number;
@@ -8,9 +7,6 @@ interface SideNavBarProps {
 }
 
 const SideNavBar = ({active,onTabChange}: SideNavBarProps) => {
-
-
-    const [activeTab,setActiveTab] = useState<number>(active)
 
   return (
     <div className=" absolute h-full w-[3.5rem] left-0 bg-Udemygray-500 group hover:w-[18rem] transition-all ease-in-out duration-[0.4s] pt-4">
